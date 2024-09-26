@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Daftar Mitra Pengelola</h5>
                         <div class="mb-3 d-flex justify-content-between align-items-center">
-                            <button class="btn btn-primary btn-sm border-0" style="cursor: pointer;" onclick="window.location.href='edit-link.php';"><b>Ambil Stok</b></button>
+                            <a class="btn btn-primary btn-sm border-0" style="cursor: pointer;" href="<?= base_url('pengelola/add_view')?>" ><b>Ambil Stok</b></a>
                         </div>
 
                         <!-- Table with stripped rows -->
@@ -34,28 +34,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <?php if (!empty($daftar_ambil)) : ?>
+                                    <?php $no = 1;
+                                    foreach ($daftar_ambil as $ambil) : ?>
+                                        <tr>
+                                            <td><?= $no++?></td>
+                                            <td><?= $ambil->nama?></td>
+                                            <td><?= $ambil->nama_usaha?></td>
+                                            <td><?= $ambil->no_hp?></td>
+                                            <td><?= $ambil->jumlah_stok?></td>
+                                            <td>
+                                                <button class="btn btn-success btn-sm border-0" type="button" style="cursor: pointer;" onclick="window.location.href='edit-link.php';">Edit</button>
+                                                <button class="btn btn-danger btn-sm border-0" style="cursor: pointer;" onclick="window.location.href='delete-link.php';">Hapus</button>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else : ?>
                                     <tr>
-                                        <td>34</td>
-                                        <td>Unity Pugh</td>
-                                        <td>Curicó</td>
-                                        <td>08126337443</td>
-                                        <td>42 kg</td>
-                                        <td>
-                                            <button class="btn btn-success btn-sm border-0" type="button" style="cursor: pointer;" onclick="window.location.href='edit-link.php';">Edit</button>
-                                            <button class="btn btn-danger btn-sm border-0" style="cursor: pointer;" onclick="window.location.href='delete-link.php';">Hapus</button>
-                                        </td>
+                                        <td colspan="6" align="center">Tidak ada data ambil.</td>
                                     </tr>
-                                    <tr>
-                                        <td>21</td>
-                                        <td>Theodore Duran</td>
-                                        <td>Dhanbad</td>
-                                        <td>08126337443</td>
-                                        <td>76 kg</td>
-                                        <td>
-                                            <button class="btn btn-success btn-sm border-0" style="cursor: pointer;" onclick="window.location.href='edit-link.php';">Edit</button>
-                                            <button class="btn btn-danger btn-sm border-0" style="cursor: pointer;" onclick="window.location.href='delete-link.php';">Hapus</button>
-                                        </td>
-                                    </tr>
+                                <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>

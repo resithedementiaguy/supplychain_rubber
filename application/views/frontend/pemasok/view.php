@@ -18,7 +18,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Daftar Pemasok</h5>
                         <div class="mb-3 d-flex justify-content-between align-items-center">
-                            <button class="btn btn-primary btn-sm border-0" style="cursor: pointer;" onclick="window.location.href='edit-link.php';"><b>Tambah Stok</b></button>
+                            <a class="btn btn-primary btn-sm border-0" style="cursor: pointer;" href="<?= base_url('pemasok/add_view')?>"><b>Tambah Stok</b></a>
                         </div>
 
                         <!-- Table with stripped rows -->
