@@ -14,4 +14,11 @@ class Pengelola extends CI_Controller
         $this->load->view('frontend/pengelola/view');
         $this->load->view('partials/footer');
     }
+
+    public function add()
+    {
+        $this->load->view('partials/header');
+        $this->load->view('frontend/pengelola/add');
+        $this->load->view('partials/footer');
+    }
 }
