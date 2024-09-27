@@ -14,22 +14,20 @@ class Pemasok extends CI_Controller
     {
         $id_pemasok = $this->session->userdata('mitra_id');
 
-        if ($id_pemasok) {
-            $data['daftar_stok'] = $this->Mod_pemasok->get_all_stok($id_pemasok);
-        } else {
-            $data['daftar_stok'] = [];
-        }
+        $data['daftar_stok'] = $this->Mod_pemasok->get_all_stok($id_pemasok);
+
+        $data['pemasok_baru'] = empty($data['daftar_stok']);
 
         $this->load->view('partials/header');
-        $this->load->view('frontend/pemasok/view',$data);
+        $this->load->view('frontend/pemasok/view', $data);
         $this->load->view('partials/footer');
     }
 
     public function add_view()
     {
-        $data['nama_usaha']=$this->Mod_pengelola->get_mitra();
+        $data['nama_usaha'] = $this->Mod_pengelola->get_mitra();
         $this->load->view('partials/header');
-        $this->load->view('frontend/pemasok/add',$data);
+        $this->load->view('frontend/pemasok/add', $data);
         $this->load->view('partials/footer');
     }
 
@@ -39,9 +37,9 @@ class Pemasok extends CI_Controller
         $tgl = date('Y-m-d H:i:s', time());
 
         $data = array(
-            'id_pemasok'=> $this->input->post('id_pemasok'),
-            'tanggal'=> $tgl,
-            'jumlah_stok'=> $this->input->post('jumlah_stok')
+            'id_pemasok' => $this->input->post('id_pemasok'),
+            'tanggal' => $tgl,
+            'jumlah_stok' => $this->input->post('jumlah_stok')
         );
 
         // Add the new resident to the database

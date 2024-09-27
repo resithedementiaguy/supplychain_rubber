@@ -61,7 +61,7 @@
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-between align-items-center">
-                            <button type="reset" class="btn btn-sm btn-secondary">Kembali</button>
+                            <a class="btn btn-sm btn-secondary" href="<?= base_url('pengelola'); ?>">Kembali</a>
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="formDiolah" method="POST" action="<?= base_url('pengelola/insert_olah')?>">
+                <form id="formDiolah" method="POST" action="<?= base_url('pengelola/insert_olah') ?>">
                     <div class="mb-3">
                         <?php
                         date_default_timezone_set('Asia/Jakarta');
@@ -100,11 +100,11 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                 <button type="submit" class="btn btn-primary" form="formDiolah">Simpan</button>
             </div>
-            <?php if($this->session->flashdata('success')): ?>
+            <?php if ($this->session->flashdata('success')): ?>
                 <div class="alert alert-success">
                     <?= $this->session->flashdata('success'); ?>
                 </div>
-            <?php elseif($this->session->flashdata('error')): ?>
+            <?php elseif ($this->session->flashdata('error')): ?>
                 <div class="alert alert-danger">
                     <?= $this->session->flashdata('error'); ?>
                 </div>
