@@ -49,7 +49,7 @@ class Mod_pengelola extends CI_Model
             'ambil.id, ambil.jumlah_stok, ambil.tanggal, ambil.keterangan, 
             pemasok.nama as nama_pemasok, pemasok.nama_usaha as nama_usaha_pemasok, pemasok.no_hp as no_hp_pemasok,
             mitra_pengelola.nama as nama_pengelola, mitra_pengelola.nama_usaha as nama_usaha_pengelola, mitra_pengelola.no_hp as no_hp_pengelola,
-            olah.jumlah_produk as jumlah_produk_diolah, olah.jumlah_mentah as jumlah_mentah, olah.tanggal as tanggal_diolah'
+            olah.jumlah_stok as jumlah_produk_diolah, olah.jumlah_mentah as jumlah_mentah, olah.tanggal as tanggal_diolah'
         );
         $this->db->from('ambil');
         $this->db->join('pemasok', 'ambil.id_pemasok = pemasok.id', 'left');

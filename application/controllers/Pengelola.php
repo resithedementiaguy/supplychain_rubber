@@ -39,10 +39,13 @@ class Pengelola extends CI_Controller
 
     public function insert_olah()
     {
-        // Ambil data dari request AJAX
+        date_default_timezone_set('Asia/Jakarta');
+        $tgl = date('Y-m-d H:i:s', time());
+        // Ambil data dari POST
         $data = [
             'id_pengelola' => $this->input->post('id_pengelola'),
-            'tanggal' => $this->input->post('tanggal'),
+            'tanggal' => $tgl,
+            'jumlah_stok' => $this->input->post('jumlah_stok'),
             'jumlah_mentah' => $this->input->post('jumlah_mentah')
         ];
 
@@ -51,11 +54,17 @@ class Pengelola extends CI_Controller
 
         // Cek apakah data berhasil disimpan
         if ($this->db->affected_rows() > 0) {
-            echo json_encode(['status' => 'success']);
+            // Redirect atau berikan response sukses
+            $this->session->set_flashdata('success', 'Data berhasil disimpan');
         } else {
-            echo json_encode(['status' => 'error']);
+            // Berikan response error
+            $this->session->set_flashdata('error', 'Gagal menyimpan data');
         }
+
+        // Redirect kembali ke halaman detail produk
+        redirect('pengelola/detail/' . $data['id_pengelola']);
     }
+
 
     public function get_stok_by_id()
     {

@@ -79,28 +79,41 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="formDiolah">
+                <form id="formDiolah" method="POST" action="<?= base_url('pengelola/insert_olah')?>">
                     <div class="mb-3">
                         <?php
                         date_default_timezone_set('Asia/Jakarta');
                         $tgl = date('Y-m-d H:i:s', time());
                         ?>
                         <label for="tanggalDiolah" class="form-label">Tanggal Diolah</label>
-                        <input type="text" class="form-control" id="tanggalDiolah" value="<?= $tgl ?>" readonly required>
+                        <input type="text" class="form-control" id="tanggalDiolah" name="tanggal" value="<?= $tgl ?>" readonly required>
                     </div>
                     <div class="mb-3">
                         <label for="beratMentah" class="form-label">Berat Mentah</label>
-                        <input type="number" class="form-control" id="beratMentah" placeholder="Masukkan berat mentah (kg)" required>
+                        <input type="hidden" name="id_pengelola" value="<?php echo $detail_produk['id']; ?>">
+                        <input type="hidden" name="jumlah_stok" id="jumlah_stok" value="<?php echo $detail_produk['jumlah_stok']; ?>">
+                        <input type="number" class="form-control" name="jumlah_mentah" id="beratMentah" placeholder="Masukkan berat mentah (kg)" required>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary" onclick="submitForm()">Simpan</button>
+                <button type="submit" class="btn btn-primary" form="formDiolah">Simpan</button>
             </div>
+            <?php if($this->session->flashdata('success')): ?>
+                <div class="alert alert-success">
+                    <?= $this->session->flashdata('success'); ?>
+                </div>
+            <?php elseif($this->session->flashdata('error')): ?>
+                <div class="alert alert-danger">
+                    <?= $this->session->flashdata('error'); ?>
+                </div>
+            <?php endif; ?>
+
         </div>
     </div>
 </div>
+
 
 <script>
     function submitForm() {
