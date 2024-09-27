@@ -12,7 +12,7 @@
                 <div class="row">
 
                     <!-- Customers Card -->
-                    <div class="col-xxl-6 col-xl-12">
+                    <div class="col-xxl-6 col-md-6">
 
                         <div class="card info-card customers-card">
 
