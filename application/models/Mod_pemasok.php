@@ -52,6 +52,7 @@ class Mod_pemasok extends CI_Model
         $this->db->from('status_stok');
         $this->db->join('pemasok', 'status_stok.id_pemasok = pemasok.id', 'left');
         $this->db->where('status_stok.id_pemasok', $id_pemasok);
+        $this->db->order_by('status_stok.tanggal', 'DESC');
         return $this->db->get()->result();
     }
 

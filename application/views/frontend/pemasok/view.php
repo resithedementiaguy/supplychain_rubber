@@ -18,7 +18,17 @@
                     <div class="card-body">
                         <h5 class="card-title">Daftar Pemasok</h5>
                         <div class="mb-3 d-flex justify-content-between align-items-center">
-                            <a class="btn btn-primary btn-sm border-0" style="cursor: pointer;" href="<?= base_url('pemasok/add_view')?>"><b>Tambah Stok</b></a>
+                            <?php if (!empty($daftar_stok)) : ?>
+                                <?php 
+                                // Ambil status terbaru pemasok yang sedang login
+                                $status_terbaru = $daftar_stok[0]->status;
+                                ?>
+                                <?php if ($status_terbaru == 'Sudah diambil'): ?>
+                                    <a class="btn btn-primary btn-sm border-0" style="cursor: pointer;" href="<?= base_url('pemasok/add_view')?>"><b>Tambah Stok</b></a>
+                                <?php else: ?>
+                                    <span class="text-danger">Tunggu sampai stok diambil</span>
+                                <?php endif; ?>
+                            <?php endif; ?>
                         </div>
 
                         <!-- Table with stripped rows -->

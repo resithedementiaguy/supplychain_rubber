@@ -79,7 +79,7 @@ class Auth extends CI_Controller
             $user_id = $this->db->insert_id(); // Get the ID of the last inserted user
 
             // Check the level and insert accordingly
-            if ($level == 'Pemasok') {
+            if ($level == 'pemasok') {
                 $data_pemasok = [
                     'id_user'       => $user_id, // Assign user_id to id_user
                     'nama'          => $this->input->post('nama'),
@@ -90,7 +90,7 @@ class Auth extends CI_Controller
 
                 // Insert into pemasok table
                 $this->Mod_auth->pemasok($data_pemasok);
-            } elseif ($level == 'Pengelola') {
+            } elseif ($level == 'pengelola') {
                 $data_pengelola = [
                     'id_user'       => $user_id, // Assign user_id to id_user
                     'nama'          => $this->input->post('nama'),

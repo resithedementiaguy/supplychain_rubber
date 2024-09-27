@@ -73,8 +73,12 @@
             <div class="modal-body">
                 <form id="formDiolah">
                     <div class="mb-3">
+                        <?php 
+                        date_default_timezone_set('Asia/Jakarta');
+                        $tgl = date('Y-m-d H:i:s', time());
+                        ?>
                         <label for="tanggalDiolah" class="form-label">Tanggal Diolah</label>
-                        <input type="date" class="form-control" id="tanggalDiolah" required>
+                        <input type="text" class="form-control" id="tanggalDiolah" value="<?= $tgl?>" readonly required>
                     </div>
                     <div class="mb-3">
                         <label for="beratMentah" class="form-label">Berat Mentah</label>

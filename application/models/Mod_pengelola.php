@@ -38,6 +38,7 @@ class Mod_pengelola extends CI_Model
         $this->db->from('ambil');
         $this->db->join('pemasok', 'ambil.id_pemasok = pemasok.id', 'left');
         $this->db->where('ambil.id_pengelola', $id_pengelola);
+        $this->db->order_by('ambil.tanggal', 'DESC');
         return $this->db->get()->result();
     }
 }
