@@ -19,6 +19,9 @@
                         <div class="mb-3 d-flex justify-content-between align-items-center">
                             <a class="btn btn-primary btn-sm border-0" style="cursor: pointer;" href="<?= base_url('pengelola/add_view')?>" ><b>Ambil Stok</b></a>
                         </div>
+                        <form action="<?= base_url('pengelola')?>" method="POST">
+                            <input type="hidden" value="<?php echo $this->session->userdata('mitra_id'); ?>" name="session_mitra_id" id="session_mitra_id">
+                        </form>
 
                         <!-- Table with stripped rows -->
                         <div class="table-responsive">
@@ -42,7 +45,7 @@
                                             <td><?= $ambil->nama?></td>
                                             <td><?= $ambil->nama_usaha?></td>
                                             <td><?= $ambil->no_hp?></td>
-                                            <td><?= $ambil->jumlah_stok?></td>
+                                            <td><?= $ambil->jumlah_stok?> kg</td>
                                             <td>
                                                 <button class="btn btn-success btn-sm border-0" type="button" style="cursor: pointer;" onclick="window.location.href='edit-link.php';">Edit</button>
                                                 <button class="btn btn-danger btn-sm border-0" style="cursor: pointer;" onclick="window.location.href='delete-link.php';">Hapus</button>

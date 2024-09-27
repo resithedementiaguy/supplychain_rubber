@@ -1,10 +1,6 @@
 <main id="main" class="main">
     <div class="pagetitle">
-<<<<<<< HEAD
-        <h1>Ambil Stok Pengelola</h1>
-=======
         <h1>Ambil Stok Pemasok</h1>
->>>>>>> 5be764d73fd12721ccc5f01aa0f8931cef48061e
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -52,9 +48,6 @@
             </form>
         </div>
     </div>
-<<<<<<< HEAD
-</main>
-=======
 </main>
 
 <script>
@@ -80,4 +73,3 @@
         });
     });
 </script>
->>>>>>> 5be764d73fd12721ccc5f01aa0f8931cef48061e
