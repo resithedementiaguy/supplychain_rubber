@@ -13,12 +13,7 @@ class Pengelola extends CI_Controller
     public function index()
     {
         $id_pengelola = $this->session->userdata('mitra_id');
-
-        if ($id_pengelola) {
-            $data['daftar_ambil'] = $this->Mod_pengelola->get_all_ambil($id_pengelola);
-        } else {
-            $data['daftar_ambil'] = [];
-        }
+        $data['daftar_ambil'] = $this->Mod_pengelola->get_all_ambil($id_pengelola);
 
         $this->load->view('partials/header');
         $this->load->view('frontend/pengelola/view', $data);
@@ -33,11 +28,33 @@ class Pengelola extends CI_Controller
         $this->load->view('partials/footer');
     }
 
-    public function detail()
+    public function detail($id)
     {
+        $data['detail_produk'] = $this->Mod_pengelola->get_detail($id);
+
         $this->load->view('partials/header');
-        $this->load->view('frontend/pengelola/detail');
+        $this->load->view('frontend/pengelola/detail', $data);
         $this->load->view('partials/footer');
+    }
+
+    public function insert_olah()
+    {
+        // Ambil data dari request AJAX
+        $data = [
+            'id_pengelola' => $this->input->post('id_pengelola'),
+            'tanggal' => $this->input->post('tanggal'),
+            'jumlah_mentah' => $this->input->post('jumlah_mentah')
+        ];
+
+        // Insert ke tabel olah
+        $this->db->insert('olah', $data);
+
+        // Cek apakah data berhasil disimpan
+        if ($this->db->affected_rows() > 0) {
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error']);
+        }
     }
 
     public function get_stok_by_id()

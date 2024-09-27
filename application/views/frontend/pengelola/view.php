@@ -17,9 +17,9 @@
                     <div class="card-body">
                         <h5 class="card-title">Daftar Mitra Pengelola</h5>
                         <div class="mb-3 d-flex justify-content-between align-items-center">
-                            <a class="btn btn-primary btn-sm border-0" style="cursor: pointer;" href="<?= base_url('pengelola/add_view')?>" ><b>Ambil Stok</b></a>
+                            <a class="btn btn-primary btn-sm border-0" style="cursor: pointer;" href="<?= base_url('pengelola/add_view') ?>"><b>Ambil Stok</b></a>
                         </div>
-                        <form action="<?= base_url('pengelola')?>" method="POST">
+                        <form action="<?= base_url('pengelola') ?>" method="POST">
                             <input type="hidden" value="<?php echo $this->session->userdata('mitra_id'); ?>" name="session_mitra_id" id="session_mitra_id">
                         </form>
 
@@ -37,26 +37,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php if (!empty($daftar_ambil)) : ?>
-                                    <?php $no = 1;
-                                    foreach ($daftar_ambil as $ambil) : ?>
+                                    <?php if (!empty($daftar_ambil)) : ?>
+                                        <?php $no = 1;
+                                        foreach ($daftar_ambil as $ambil) : ?>
+                                            <tr>
+                                                <td><?= $no++ ?></td>
+                                                <td><?= $ambil->nama ?></td>
+                                                <td><?= $ambil->nama_usaha ?></td>
+                                                <td><?= $ambil->no_hp ?></td>
+                                                <td><?= $ambil->jumlah_stok ?> kg</td>
+                                                <td>
+                                                    <a class="btn btn-success btn-sm border-0" href="<?php echo site_url('pengelola/detail/' . $ambil->id); ?>">Detail</a>
+                                                    <button class="btn btn-danger btn-sm border-0" style="cursor: pointer;" onclick="window.location.href='delete-link.php';">Hapus</button>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else : ?>
                                         <tr>
-                                            <td><?= $no++?></td>
-                                            <td><?= $ambil->nama?></td>
-                                            <td><?= $ambil->nama_usaha?></td>
-                                            <td><?= $ambil->no_hp?></td>
-                                            <td><?= $ambil->jumlah_stok?> kg</td>
-                                            <td>
-                                                <button class="btn btn-success btn-sm border-0" type="button" style="cursor: pointer;" onclick="window.location.href='pengelola/detail';">Detail</button>
-                                                <button class="btn btn-danger btn-sm border-0" style="cursor: pointer;" onclick="window.location.href='delete-link.php';">Hapus</button>
-                                            </td>
+                                            <td colspan="6" align="center">Tidak ada data ambil.</td>
                                         </tr>
-                                    <?php endforeach; ?>
-                                <?php else : ?>
-                                    <tr>
-                                        <td colspan="6" align="center">Tidak ada data ambil.</td>
-                                    </tr>
-                                <?php endif; ?>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>

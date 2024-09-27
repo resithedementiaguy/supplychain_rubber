@@ -24,31 +24,39 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">Nama Pemilik</th>
-                                    <td>Sentosa</td>
+                                    <td><?php echo $detail_produk['nama_pengelola']; ?></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Nama Usaha</th>
-                                    <td>Sentosa Gaming</td>
+                                    <td><?php echo $detail_produk['nama_usaha_pengelola']; ?></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Diambil Dari</th>
-                                    <td>Makmur Abadi</td>
+                                    <td><?php echo $detail_produk['nama_usaha_pemasok']; ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Nomor HP Pengelola</th>
+                                    <td><?php echo $detail_produk['no_hp_pengelola']; ?></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Tanggal Diambil</th>
-                                    <td>20 Juni 2024</td>
+                                    <td><?php echo date('d F Y', strtotime($detail_produk['tanggal'])); ?></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Berat Produk</th>
-                                    <td>83 kg</td>
+                                    <th scope="row">Jumlah Stok</th>
+                                    <td><?php echo $detail_produk['jumlah_stok']; ?> kg</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Tanggal Diolah</th>
-                                    <td>-</td>
+                                    <td>
+                                        <?php echo !empty($detail_produk['tanggal_diolah']) ? date('d F Y', strtotime($detail_produk['tanggal_diolah'])) : '-'; ?>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Berat Mentah</th>
-                                    <td>-</td>
+                                    <th scope="row">Jumlah Mentah</th>
+                                    <td>
+                                        <?php echo !empty($detail_produk['jumlah_mentah']) ? $detail_produk['jumlah_mentah'] . ' kg' : '-'; ?>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -73,12 +81,12 @@
             <div class="modal-body">
                 <form id="formDiolah">
                     <div class="mb-3">
-                        <?php 
+                        <?php
                         date_default_timezone_set('Asia/Jakarta');
                         $tgl = date('Y-m-d H:i:s', time());
                         ?>
                         <label for="tanggalDiolah" class="form-label">Tanggal Diolah</label>
-                        <input type="text" class="form-control" id="tanggalDiolah" value="<?= $tgl?>" readonly required>
+                        <input type="text" class="form-control" id="tanggalDiolah" value="<?= $tgl ?>" readonly required>
                     </div>
                     <div class="mb-3">
                         <label for="beratMentah" class="form-label">Berat Mentah</label>
@@ -99,12 +107,30 @@
         // Ambil nilai dari form
         const tanggalDiolah = document.getElementById('tanggalDiolah').value;
         const beratMentah = document.getElementById('beratMentah').value;
+        const idPengelola = '<?= $id_pengelola; ?>'; // Tambahkan variabel id_pengelola
 
-        // Lakukan sesuatu dengan data ini, misalnya mengirim ke server
         console.log("Tanggal Diolah: ", tanggalDiolah);
         console.log("Berat Mentah: ", beratMentah);
+        console.log("ID Pengelola: ", idPengelola);
 
-        // Setelah menyimpan data, tutup modal
-        $('#modalDiolah').modal('hide');
+        // Kirim data ke server menggunakan AJAX
+        $.ajax({
+            url: '<?= site_url('pengelola/insert_olah'); ?>', // URL ke controller untuk menyimpan data
+            type: 'POST',
+            data: {
+                id_pengelola: idPengelola, // Gunakan variabel yang didefinisikan
+                tanggal: tanggalDiolah,
+                jumlah_mentah: beratMentah
+            },
+            success: function(response) {
+                // Lakukan sesuatu jika berhasil, misalnya refresh data atau tampilkan pesan
+                alert('Data berhasil disimpan!');
+                $('#modalDiolah').modal('hide'); // Tutup modal
+            },
+            error: function() {
+                // Lakukan sesuatu jika gagal
+                alert('Gagal menyimpan data!');
+            }
+        });
     }
 </script>
