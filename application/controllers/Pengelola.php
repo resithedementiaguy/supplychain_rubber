@@ -33,6 +33,13 @@ class Pengelola extends CI_Controller
         $this->load->view('partials/footer');
     }
 
+    public function detail()
+    {
+        $this->load->view('partials/header');
+        $this->load->view('frontend/pengelola/detail');
+        $this->load->view('partials/footer');
+    }
+
     public function get_stok_by_id()
     {
         $id_pemasok = $this->input->post('id_pemasok');

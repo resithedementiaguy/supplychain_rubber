@@ -47,7 +47,7 @@
                                             <td><?= $ambil->no_hp?></td>
                                             <td><?= $ambil->jumlah_stok?> kg</td>
                                             <td>
-                                                <button class="btn btn-success btn-sm border-0" type="button" style="cursor: pointer;" onclick="window.location.href='edit-link.php';">Edit</button>
+                                                <button class="btn btn-success btn-sm border-0" type="button" style="cursor: pointer;" onclick="window.location.href='pengelola/detail';">Detail</button>
                                                 <button class="btn btn-danger btn-sm border-0" style="cursor: pointer;" onclick="window.location.href='delete-link.php';">Hapus</button>
                                             </td>
                                         </tr>
