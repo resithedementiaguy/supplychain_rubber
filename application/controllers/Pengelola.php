@@ -6,25 +6,24 @@ class Pengelola extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-
         $this->load->model('Mod_pengelola');
-        $this->load->model('Mod_pemasok');        
+        $this->load->model('Mod_pemasok');
     }
 
     public function index()
     {
-        $data['daftar_ambil']=$this->Mod_pengelola->get_all_ambil();
+        $id_pengelola = $this->input->post('session_mitra_id'); 
+        $data['daftar_ambil'] = $this->Mod_pengelola->get_all_ambil($id_pengelola);
         $this->load->view('partials/header');
-        $this->load->view('frontend/pengelola/view');
+        $this->load->view('frontend/pengelola/view', $data); // Pass $data to view
         $this->load->view('partials/footer');
     }
-    
 
     public function add_view()
     {
-        $data['nama_usaha']=$this->Mod_pemasok->get_pemasok();
+        $data['nama_usaha'] = $this->Mod_pemasok->get_pemasok();
         $this->load->view('partials/header');
-        $this->load->view('frontend/pengelola/add',$data);
+        $this->load->view('frontend/pengelola/add', $data);
         $this->load->view('partials/footer');
     }
 
@@ -34,7 +33,6 @@ class Pengelola extends CI_Controller
         $stok = $this->Mod_pemasok->get_stok_by_id($id_pemasok);
         echo json_encode($stok);
     }
-
 
     public function add()
     {
@@ -49,9 +47,7 @@ class Pengelola extends CI_Controller
             'keterangan' => $this->input->post('keterangan')
         );
 
-        // Add the new resident to the database
         $this->Mod_pengelola->add_ambil($data);
-
         redirect('pengelola/add_view');
     }
 }

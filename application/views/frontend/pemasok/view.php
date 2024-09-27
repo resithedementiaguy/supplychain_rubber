@@ -36,30 +36,37 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <?php if (!empty($daftar_stok)) : ?>
+                                    <?php $no = 1;
+                                    foreach ($daftar_stok as $stok) : ?>
+                                        <tr>
+                                            <td><?= $no++?></td>
+                                            <td><?= $stok->nama?></td>
+                                            <td><?= $stok->nama_usaha?></td>
+                                            <td><?= $stok->no_hp?></td>
+                                            <td><?= $stok->jumlah_stok?> kg</td>
+                                            <td>
+                                                <?php 
+                                                // Cocokkan sesuai nilai ENUM di database
+                                                if ($stok->status == 'Belum diambil'): ?>
+                                                    <span class="badge bg-warning text-dark"><?= $stok->status?></span>
+                                                <?php elseif ($stok->status == 'Sudah diambil'): ?>
+                                                    <span class="badge bg-success"><?= $stok->status?></span>
+                                                <?php else: ?>
+                                                    <span class="badge bg-secondary"><?= $stok->status ?></span>
+                                                <?php endif;?>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-success btn-sm border-0" type="button" style="cursor: pointer;" onclick="window.location.href='edit-link.php';">Edit</button>
+                                                <button class="btn btn-danger btn-sm border-0" style="cursor: pointer;" onclick="window.location.href='delete-link.php';">Hapus</button>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else : ?>
                                     <tr>
-                                        <td>34</td>
-                                        <td>Unity Pugh</td>
-                                        <td>Curicó</td>
-                                        <td>08126337443</td>
-                                        <td>42 kg</td>
-                                        <td><span class="badge border-secondary border-1 text-secondary">Belum diambil</span></td>
-                                        <td>
-                                            <button class="btn btn-success btn-sm border-0" type="button" style="cursor: pointer;" onclick="window.location.href='edit-link.php';">Edit</button>
-                                            <button class="btn btn-danger btn-sm border-0" style="cursor: pointer;" onclick="window.location.href='delete-link.php';">Hapus</button>
-                                        </td>
+                                        <td colspan="7" align="center">Tidak ada data stok.</td>
                                     </tr>
-                                    <tr>
-                                        <td>21</td>
-                                        <td>Theodore Duran</td>
-                                        <td>Dhanbad</td>
-                                        <td>08126337443</td>
-                                        <td>76 kg</td>
-                                        <td><span class="badge border-primary border-1 text-primary">Sudah diambil</span></td>
-                                        <td>
-                                            <button class="btn btn-success btn-sm border-0" style="cursor: pointer;" onclick="window.location.href='edit-link.php';">Edit</button>
-                                            <button class="btn btn-danger btn-sm border-0" style="cursor: pointer;" onclick="window.location.href='delete-link.php';">Hapus</button>
-                                        </td>
-                                    </tr>
+                                <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>

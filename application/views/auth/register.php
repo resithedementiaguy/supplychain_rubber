@@ -70,8 +70,8 @@
                                             <label>Kategori Akun</label>
                                             <select class="form-control" name="level" id="level" required>
                                                 <option value="" selected hidden>Pilih kategori akun yang akan dibuat</option>
-                                                <option value="Pemasok">Pemasok</option>
-                                                <option value="Pengelola">Pengelola Mitra</option>
+                                                <option value="pemasok">Pemasok</option>
+                                                <option value="pengelola">Pengelola Mitra</option>
                                             </select>
                                         </div>
                                         
