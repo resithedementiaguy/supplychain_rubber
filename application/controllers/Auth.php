@@ -38,7 +38,16 @@ class Auth extends CI_Controller
                     'logged_in' => TRUE
                 ));
 
-                redirect('dashboard');
+                // Redirect based on user level
+                if ($user['level_name'] == 'Pemasok') {
+                    redirect('pemasok/dashboard');
+                } elseif ($user['level_name'] == 'Pengelola') {
+                    redirect('pengelola/dashboard');
+                } elseif ($user['level_name'] == 'Admin') {
+                    redirect('backend/dashboard');
+                } else {
+                    redirect('dashboard'); // Fallback if no specific level matches
+                }
 
                 echo json_encode(['status' => 'success', 'email' => $email]);
             } else {
@@ -48,6 +57,7 @@ class Auth extends CI_Controller
             echo json_encode(['status' => 'error', 'message' => 'No data provided.']);
         }
     }
+
 
     public function register()
     {

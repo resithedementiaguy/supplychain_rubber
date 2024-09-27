@@ -58,7 +58,7 @@
                                         <p class="text-center small">Masukkan email & password untuk login</p>
                                     </div>
 
-                                    <form class="row g-3 needs-validation" novalidate>
+                                    <form class="row g-3 needs-validation" method="POST" action="<?= base_url('auth/login')?>">
 
                                         <div class="col-12">
                                             <label for="yourUsername" class="form-label">Email</label>
