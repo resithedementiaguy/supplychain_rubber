@@ -16,8 +16,7 @@
 
             <form class="row g-3" method="post" action="<?= base_url('pemasok/add')?>">
                 <div class="col-12">
-                    <?= $this->session->set_userdata('id')?>
-                    <input type="hidden" name="id_pemasok" id="id_pemasok" value="1">
+                    <input type="hidden" name="id_pemasok" id="id_pemasok" value="<?= $this->session->userdata('mitra_id')?>">
                 </div>
                 <div class="col-12">
                     <label for="inputEmail4" class="form-label">Tanggal</label>

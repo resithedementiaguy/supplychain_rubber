@@ -17,7 +17,7 @@
             <form class="row g-3" method="post" action="<?= base_url('pengelola/add')?>">
                 <div class="col-12">
                     <label for="inputEmail4" class="form-label">Nama Usaha Pemasok</label>
-                    <input type="hidden" name="id_pengelola" value="1">
+                    <input type="hidden" name="id_pengelola" value="<?= $this->session->userdata('mitra_id')?>">
                     <select class="form-control" name="id_pemasok" id="id_pemasok" data-live-search="true">
                         <option value="" selected hidden>Pilih Usaha Pemasok</option>
                         <?php foreach($nama_usaha as $pemasok): ?>

@@ -12,8 +12,14 @@ class Pemasok extends CI_Controller
 
     public function index()
     {
-        $id_pemasok = $this->session->userdata('mitra_id'); // Here, replace with dynamic value if needed
-        $data['daftar_stok'] = $this->Mod_pemasok->get_all_stok($id_pemasok);
+        $id_pemasok = $this->session->userdata('mitra_id');
+
+        if ($id_pemasok) {
+            $data['daftar_stok'] = $this->Mod_pemasok->get_all_stok($id_pemasok);
+        } else {
+            $data['daftar_stok'] = [];
+        }
+
         $this->load->view('partials/header');
         $this->load->view('frontend/pemasok/view',$data);
         $this->load->view('partials/footer');
