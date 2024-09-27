@@ -7,6 +7,7 @@ class Auth extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
+        $this->load->library('session');
         $this->load->model('Mod_auth');
     }
 
@@ -18,6 +19,7 @@ class Auth extends CI_Controller
             $this->load->view('auth/login');
         }
     }
+
 
     public function login()
     {
@@ -33,14 +35,15 @@ class Auth extends CI_Controller
             if ($user) {
                 $this->session->set_userdata(array(
                     'user_id' => $user['user_id'],
+                    'nama' => $user['nama'],
                     'email' => $user['email'],
                     'level_name' => $user['level_name'],
                     'logged_in' => TRUE
                 ));
 
+                // Redirect to dashboard
                 redirect('dashboard');
-
-                echo json_encode(['status' => 'success', 'email' => $email]);
+                exit; // Make sure no further code is executed
             } else {
                 echo json_encode(['status' => 'error', 'message' => 'Invalid username or password.']);
             }
@@ -48,6 +51,7 @@ class Auth extends CI_Controller
             echo json_encode(['status' => 'error', 'message' => 'No data provided.']);
         }
     }
+
 
     public function register()
     {
@@ -69,36 +73,38 @@ class Auth extends CI_Controller
                 'level'     => $level
             ];
 
-            // Insert into user table
+            // Insert into user table and get the last inserted ID
             $this->Mod_auth->register($data_user);
+            $user_id = $this->db->insert_id(); // Get the ID of the last inserted user
 
             // Check the level and insert accordingly
             if ($level == 'Pemasok') {
                 $data_pemasok = [
+                    'id_user'       => $user_id, // Assign user_id to id_user
                     'nama'          => $this->input->post('nama'),
                     'nama_usaha'    => $this->input->post('nama_usaha'),
                     'no_hp'         => $this->input->post('no_hp'),
                     'alamat'        => $this->input->post('alamat')
                 ];
 
-                // Insert into data_pemasok table
+                // Insert into pemasok table
                 $this->Mod_auth->pemasok($data_pemasok);
-
             } elseif ($level == 'Pengelola') {
                 $data_pengelola = [
+                    'id_user'       => $user_id, // Assign user_id to id_user
                     'nama'          => $this->input->post('nama'),
                     'nama_usaha'    => $this->input->post('nama_usaha'),
                     'no_hp'         => $this->input->post('no_hp'),
                     'alamat'        => $this->input->post('alamat')
                 ];
 
-                // Insert into data_pengelola table
+                // Insert into mitra_pengelola table
                 $this->Mod_auth->pengelola($data_pengelola);
             }
 
             // Set a success message and redirect
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            Well done! your account has been created. Please Login</div>');
+        Well done! your account has been created. Please Login</div>');
             redirect('auth');
         }
     }

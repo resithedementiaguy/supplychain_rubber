@@ -29,13 +29,6 @@
     <!-- Template Main CSS File -->
     <link href="<?= base_url('')?>assets/css/style.css" rel="stylesheet">
 
-    <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Updated: Apr 20 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -52,24 +45,24 @@
 
                                     <div class="pt-4 pb-2">
                                         <h5 class="card-title text-center pb-0 fs-4">Buat Akun</h5>
-                                        <p class="text-center small">Masukkan informasi data anda untuk membuat akun</p>
+                                        <p class="text-center small">Masukkan informasi data Anda untuk membuat akun</p>
                                     </div>
 
                                     <form class="row g-3 needs-validation" action="<?= base_url('auth/register') ?>" method="POST">
                                         <div class="col-12">
                                             <label for="yourEmail" class="form-label">Email</label>
-                                            <input type="email" name="email" class="form-control" id="email" required>
+                                            <input type="email" name="email" class="form-control" id="email" placeholder="Masukkan Email" required>
                                             <div class="invalid-feedback">Please enter a valid Email adddress!</div>
                                         </div>
                                         <div class="col-12">
-                                            <label for="yourName" class="form-label">Nama</label>
-                                            <input type="text" name="nama" class="form-control" id="nama" required>
+                                            <label for="yourName" class="form-label">Nama Pemilik</label>
+                                            <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama Pemilik" required>
                                             <div class="invalid-feedback">Please, enter your name!</div>
                                         </div>
 
                                         <div class="col-12">
                                             <label for="yourName" class="form-label">Nama Usaha</label>
-                                            <input type="text" name="nama_usaha" class="form-control" id="nama_usaha" required>
+                                            <input type="text" name="nama_usaha" class="form-control" id="nama_usaha" placeholder="Masukkan Nama Usaha" required>
                                             <div class="invalid-feedback">Please, enter your name!</div>
                                         </div>
 
@@ -84,20 +77,20 @@
                                         
                                         <div class="col-12">
                                             <label for="yourName" class="form-label">Nomor Telepon</label>
-                                            <input type="number" name="no_hp" class="form-control" id="no_hp" required>
+                                            <input type="number" name="no_hp" class="form-control" id="no_hp" placeholder="Masukkan Nomor Hp" required>
                                             <div class="invalid-feedback">Please, enter your name!</div>
                                         </div>
 
                                         <div class="col-12">
                                             <label for="yourName" class="form-label">Alamat</label>
-                                            <input type="text" name="alamat" class="form-control" id="alamat" required>
+                                            <input type="text" name="alamat" class="form-control" id="alamat" placeholder="Masukkan Alamat" required>
                                             <div class="invalid-feedback">Please, enter your name!</div>
                                         </div>
 
 
                                         <div class="col-12">
                                             <label for="yourPassword" class="form-label">Password</label>
-                                            <input type="password" name="password" class="form-control" id="yourPassword" required>
+                                            <input type="password" name="password" class="form-control" id="yourPassword" placeholder="Buat Password" required>
                                             <div class="invalid-feedback">Please enter your password!</div>
                                         </div>
 
@@ -106,7 +99,7 @@
                                             <button class="btn btn-primary w-100" type="submit">Buat Akun</button>
                                         </div>
                                         <div class="col-12">
-                                            <p class="small mb-0">Sudah punya akun? <a href="<?= base_url('auth')?>">Log in</a></p>
+                                            <p class="small mb-0">Sudah punya akun? <a href="<?= base_url('auth')?>">Login sekarang!</a></p>
                                         </div>
                                     </form>
 

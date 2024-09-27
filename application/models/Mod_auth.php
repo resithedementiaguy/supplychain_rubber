@@ -7,7 +7,7 @@ class Mod_auth extends CI_Model
     {
         parent::__construct();
         $this->load->database();
-        $this->load->library('session'); // Ensure session library is loaded
+        $this->load->library('session');
     }
 
     public function register($data)
@@ -22,7 +22,13 @@ class Mod_auth extends CI_Model
 
     public function pengelola($data)
     {
-        return $this->db->insert('pengelola', $data);
+        return $this->db->insert('mitra_pengelola', $data);
+    }
+
+    public function get_user_by_id($user_id)
+    {
+        $query = $this->db->get_where('user', array('id' => $user_id));
+        return $query->row_array(); // Mengembalikan satu baris sebagai array
     }
 
     // Function to validate login credentials
@@ -53,6 +59,8 @@ class Mod_auth extends CI_Model
 
                 return [
                     'user_id' => $user->id,
+                    'email' => $user->email,
+                    'nama' => $user->nama,
                     'username' => $user->username,
                     'level_name' => $user->level
                 ];
