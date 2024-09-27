@@ -149,4 +149,5 @@
                 </li>
             <?php endif; ?>
         </ul>
-    </aside><!-- End Sidebar -->
+    </aside>
+    <!-- End Sidebar -->

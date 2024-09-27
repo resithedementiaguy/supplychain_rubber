@@ -34,6 +34,7 @@ class Mod_auth extends CI_Model
     // Function to validate login credentials
     public function validate_login($email, $password)
     {
+        // Ambil data dari tabel user
         $this->db->select('*');
         $this->db->from('user');
         $this->db->where('email', $email);
@@ -45,11 +46,12 @@ class Mod_auth extends CI_Model
             // Log password hash comparison
             error_log("Password from database (MD5): " . $user->password);
 
+            // Hashing password dengan metode yang digunakan
             $enc_psw = sha1('jksdhf832746aiH{}{()&(*&(*' . MD5($password) . 'HdfevgyDDw{}{}{;;*766&*&*');
 
-            // Verify password using MD5
+            // Verifikasi password
             if ($enc_psw === $user->password) {
-                // Set session data
+                // Set session data dasar
                 $this->session->set_userdata([
                     'user_id' => $user->id,
                     'email' => $user->email,
@@ -57,12 +59,36 @@ class Mod_auth extends CI_Model
                     'logged_in' => TRUE
                 ]);
 
+                // Ambil informasi tambahan dari tabel pemasok dan mitra_pengelola berdasarkan level
+                $mitra_id = null;
+
+                if ($user->level == 'pemasok') {
+                    $this->db->select('*');
+                    $this->db->from('pemasok');
+                    $this->db->where('id_user', $user->id); // gunakan id_user untuk menghubungkan dengan user
+                    $mitra_id_query = $this->db->get();
+
+                    if ($mitra_id_query->num_rows() == 1) {
+                        $mitra_id = $mitra_id_query->row()->id; // Mengambil ID
+                    }
+                } elseif ($user->level == 'pengelola') {
+                    $this->db->select('*');
+                    $this->db->from('mitra_pengelola');
+                    $this->db->where('id_user', $user->id); // gunakan id_user untuk menghubungkan dengan user
+                    $mitra_id_query = $this->db->get();
+
+                    if ($mitra_id_query->num_rows() == 1) {
+                        $mitra_id = $mitra_id_query->row()->id; // Mengambil ID
+                    }
+                }
+
+                // Return data user dan informasi tambahan
                 return [
                     'user_id' => $user->id,
                     'email' => $user->email,
                     'nama' => $user->nama,
-                    'username' => $user->username,
-                    'level_name' => $user->level
+                    'level_name' => $user->level,
+                    'mitra_id' => $mitra_id // Data tambahan dari pemasok atau pengelola
                 ];
             }
         }
