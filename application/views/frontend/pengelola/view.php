@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Daftar Mitra Pengelola</h5>
                         <div class="mb-3 d-flex justify-content-between align-items-center">
-                            <button class="btn btn-primary btn-sm border-0" style="cursor: pointer;" onclick="window.location.href='edit-link.php';"><b>Ambil Stok</b></button>
+                            <button class="btn btn-primary btn-sm border-0" style="cursor: pointer;" onclick="window.location.href='pengelola/add';"><b>Ambil Stok</b></button>
                         </div>
 
                         <!-- Table with stripped rows -->
