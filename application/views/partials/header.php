@@ -123,7 +123,7 @@
                 </a>
             </li>
 
-            <li class="nav-heading">Mitra</li>
+            
 
             <?php
             // Ambil level_name dari session
@@ -131,6 +131,7 @@
 
             // Jika level_name adalah "pemasok", hanya tampilkan item menu Pemasok
             if ($level_name == 'pemasok') : ?>
+            <li class="nav-heading">Mitra</li>
                 <li class="nav-item">
                     <a class="nav-link <?php echo ($this->uri->segment(1) == 'pemasok') ? '' : 'collapsed'; ?>" href="<?php echo site_url('pemasok'); ?>">
                         <i class="bi bi-person"></i>
@@ -140,6 +141,18 @@
             <?php
             // Jika level_name adalah "pengelola", hanya tampilkan item menu Pengelola
             elseif ($level_name == 'pengelola') : ?>
+            <li class="nav-heading">Mitra</li>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo ($this->uri->segment(1) == 'pengelola') ? '' : 'collapsed'; ?>" href="<?php echo site_url('pengelola'); ?>">
+                        <i class="bi bi-person"></i>
+                        <span>Mitra Pengelola</span>
+                    </a>
+                </li>
+
+                <?php
+            // Jika level_name adalah "pengelola", hanya tampilkan item menu Pengelola
+            elseif ($level_name == 'admin') : ?>
+            <li class="nav-heading">Kelola Data</li>
                 <li class="nav-item">
                     <a class="nav-link <?php echo ($this->uri->segment(1) == 'pengelola') ? '' : 'collapsed'; ?>" href="<?php echo site_url('pengelola'); ?>">
                         <i class="bi bi-person"></i>

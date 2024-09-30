@@ -8,6 +8,16 @@ class Pengelola extends CI_Controller
         parent::__construct();
         $this->load->model('Mod_pengelola');
         $this->load->model('Mod_pemasok');
+        $this->check_login(); // Ensure user is logged in
+    }
+
+    private function check_login()
+    {
+        // Check if user is logged in
+        if (!$this->session->userdata('logged_in')) {
+            // Redirect to login page if not logged in
+            redirect('auth');
+        }
     }
 
     public function index()
@@ -22,7 +32,8 @@ class Pengelola extends CI_Controller
 
     public function add_view()
     {
-        $data['nama_usaha'] = $this->Mod_pemasok->get_pemasok();
+        // Mengambil hanya pemasok yang status stoknya belum diambil
+        $data['nama_usaha'] = $this->Mod_pemasok->get_pemasok_belum_diambil();
         $this->load->view('partials/header');
         $this->load->view('frontend/pengelola/add', $data);
         $this->load->view('partials/footer');

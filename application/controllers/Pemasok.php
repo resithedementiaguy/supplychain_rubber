@@ -8,6 +8,16 @@ class Pemasok extends CI_Controller
         parent::__construct();
         $this->load->model('Mod_pemasok');
         $this->load->model('Mod_pengelola');
+        $this->check_login(); // Ensure user is logged in
+    }
+
+    private function check_login()
+    {
+        // Check if user is logged in
+        if (!$this->session->userdata('logged_in')) {
+            // Redirect to login page if not logged in
+            redirect('auth');
+        }
     }
 
     public function index()
@@ -47,12 +57,9 @@ class Pemasok extends CI_Controller
         redirect('pemasok/add_view');
     }
 
-    public function delete($id)
+    public function delete_stok($id)
     {
-        if ($this->Mod_pemasok->delete_pemasok($id)) {
-            redirect('pemasok', 'refresh');
-        } else {
-            show_error('Gagal menghapus data pemasok.', 500, 'Kesalahan Penghapusan');
-        }
+        $this->Mod_pemasok->delete_stok($id);
+        redirect('pemasok');
     }
 }

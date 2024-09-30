@@ -39,6 +39,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Tanggal</th>
                                         <th>Nama</th>
                                         <th>Nama Usaha</th>
                                         <th>Nomor HP</th>
@@ -95,7 +96,27 @@
                                         <?php endforeach; ?>
                                     <?php else : ?>
                                         <tr>
-                                            <td colspan="7" align="center">Tidak ada data stok.</td>
+                                            <td><?= $no++?></td>
+                                            <td><?= date('d F Y H:i', strtotime($stok->tanggal));?></td>
+                                            <td><?= $stok->nama?></td>
+                                            <td><?= $stok->nama_usaha?></td>
+                                            <td><?= $stok->no_hp?></td>
+                                            <td><?= $stok->jumlah_stok?> kg</td>
+                                            <td>
+                                                <?php 
+                                                // Cocokkan sesuai nilai ENUM di database
+                                                if ($stok->status == 'Belum diambil'): ?>
+                                                    <span class="badge bg-warning text-dark"><?= $stok->status?></span>
+                                                <?php elseif ($stok->status == 'Sudah diambil'): ?>
+                                                    <span class="badge bg-success"><?= $stok->status?></span>
+                                                <?php else: ?>
+                                                    <span class="badge bg-secondary"><?= $stok->status ?></span>
+                                                <?php endif;?>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-success btn-sm border-0" type="button" style="cursor: pointer;" onclick="window.location.href='edit-link.php';">Edit</button>
+                                                <a class="btn btn-danger btn-sm border-0" style="cursor: pointer;" href="<?= site_url('pemasok/delete_stok/' . $stok->id) ?>">Hapus</a>
+                                            </td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>
