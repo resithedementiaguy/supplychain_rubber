@@ -25,7 +25,7 @@ class Mod_pengelola extends CI_Model
     public function delete_mitra($id)
     {
         $this->db->where('id', $id);
-        return $this->db->delete('mitra_pengelola');
+        return $this->db->delete('ambil');
     }
 
     public function add_ambil($data)

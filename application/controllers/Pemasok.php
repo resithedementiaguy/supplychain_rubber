@@ -51,10 +51,8 @@ class Pemasok extends CI_Controller
     public function delete($id)
     {
         if ($this->Mod_pemasok->delete_pemasok($id)) {
-            // Mengarahkan setelah penghapusan berhasil
             redirect('pemasok', 'refresh');
         } else {
-            // Menangani kasus error dengan menampilkan pesan error atau halaman khusus
             show_error('Gagal menghapus data pemasok.', 500, 'Kesalahan Penghapusan');
         }
     }

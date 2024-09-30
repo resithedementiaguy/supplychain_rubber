@@ -89,4 +89,13 @@ class Pengelola extends CI_Controller
         $this->Mod_pengelola->add_ambil($data);
         redirect('pengelola/add_view');
     }
+
+    public function delete($id)
+    {
+        if ($this->Mod_pengelola->delete_mitra($id)) {
+            redirect('pemasok', 'refresh');
+        } else {
+            show_error('Gagal menghapus data pemasok.', 500, 'Kesalahan Penghapusan');
+        }
+    }
 }

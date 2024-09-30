@@ -70,7 +70,7 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                            <a class="dropdown-item d-flex align-items-center" href="profile">
                                 <i class="bi bi-person"></i>
                                 <span>My Profile</span>
                             </a>
@@ -86,13 +86,13 @@
                             </a>
                         </li>
 
-                    </ul><!-- End Profile Dropdown Items -->
-                </li><!-- End Profile Nav -->
+                    </ul>
+                </li>
 
             </ul>
-        </nav><!-- End Icons Navigation -->
+        </nav>
 
-    </header><!-- End Header -->
+    </header>
 
     <!-- Logout Confirmation Modal -->
     <div class="modal modal-borderless fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
@@ -121,7 +121,7 @@
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
-            </li><!-- End Dashboard Nav -->
+            </li>
 
             <li class="nav-heading">Mitra</li>
 
@@ -149,4 +149,3 @@
             <?php endif; ?>
         </ul>
     </aside>
-    <!-- End Sidebar -->
