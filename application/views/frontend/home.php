@@ -1,1108 +1,1237 @@
-<!DOCTYPE html>
-<html>
+<body class="index-page">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Dashboard</title>
+    <header id="header" class="header d-flex align-items-center fixed-top">
+        <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-  <style>
-    #loader {
-      transition: all 0.3s ease-in-out;
-      opacity: 1;
-      visibility: visible;
-      position: fixed;
-      height: 100vh;
-      width: 100%;
-      background: #fff;
-      z-index: 90000;
-    }
-
-    #loader.fadeOut {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .spinner {
-      width: 40px;
-      height: 40px;
-      position: absolute;
-      top: calc(50% - 20px);
-      left: calc(50% - 20px);
-      background-color: #333;
-      border-radius: 100%;
-      -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
-      animation: sk-scaleout 1.0s infinite ease-in-out;
-    }
-
-    @-webkit-keyframes sk-scaleout {
-      0% {
-        -webkit-transform: scale(0)
-      }
-
-      100% {
-        -webkit-transform: scale(1.0);
-        opacity: 0;
-      }
-    }
-
-    @keyframes sk-scaleout {
-      0% {
-        -webkit-transform: scale(0);
-        transform: scale(0);
-      }
-
-      100% {
-        -webkit-transform: scale(1.0);
-        transform: scale(1.0);
-        opacity: 0;
-      }
-    }
-  </style>
-</head>
-
-<body class="app">
-  <!-- @TOC -->
-  <!-- =================================================== -->
-  <!--
-      + @Page Loader
-      + @App Content
-          - #Left Sidebar
-              > $Sidebar Header
-              > $Sidebar Menu
-
-          - #Main
-              > $Topbar
-              > $App Screen Content
-    -->
-
-  <!-- @Page Loader -->
-  <!-- =================================================== -->
-  <div id='loader'>
-    <div class="spinner"></div>
-  </div>
-
-  <script>
-    window.addEventListener('load', function load() {
-      const loader = document.getElementById('loader');
-      setTimeout(function() {
-        loader.classList.add('fadeOut');
-      }, 300);
-    });
-  </script>
-
-  <!-- @App Content -->
-  <!-- =================================================== -->
-  <div>
-    <!-- #Left Sidebar ==================== -->
-    <div class="sidebar">
-      <div class="sidebar-inner">
-        <!-- ### $Sidebar Header ### -->
-        <div class="sidebar-logo">
-          <div class="peers ai-c fxw-nw">
-            <div class="peer peer-greed">
-              <a class="sidebar-link td-n" href="index.html">
-                <div class="peers ai-c fxw-nw">
-                  <div class="peer">
-                    <div class="logo">
-                      <img src="assets/static/images/logo.png" alt="">
-                    </div>
-                  </div>
-                  <div class="peer peer-greed">
-                    <h5 class="lh-1 mB-0 logo-text">Adminator</h5>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="peer">
-              <div class="mobile-toggle sidebar-toggle">
-                <a href="" class="td-n">
-                  <i class="ti-arrow-circle-left"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ### $Sidebar Menu ### -->
-        <ul class="sidebar-menu scrollable pos-r">
-          <li class="nav-item mT-30 actived">
-            <a class="sidebar-link" href="index.html">
-              <span class="icon-holder">
-                <i class="c-blue-500 ti-home"></i>
-              </span>
-              <span class="title">Dashboard</span>
+            <a href="index.html" class="logo d-flex align-items-center me-auto">
+                <!-- Uncomment the line below if you also wish to use an image logo -->
+                <img src="assets/img/logo.png" alt="">
+                <h1 class="sitename">FlexStart</h1>
             </a>
-          </li>
-          <li class="nav-item">
-            <a class='sidebar-link' href="email.html">
-              <span class="icon-holder">
-                <i class="c-brown-500 ti-email"></i>
-              </span>
-              <span class="title">Email</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class='sidebar-link' href="compose.html">
-              <span class="icon-holder">
-                <i class="c-blue-500 ti-share"></i>
-              </span>
-              <span class="title">Compose</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class='sidebar-link' href="calendar.html">
-              <span class="icon-holder">
-                <i class="c-deep-orange-500 ti-calendar"></i>
-              </span>
-              <span class="title">Calendar</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class='sidebar-link' href="chat.html">
-              <span class="icon-holder">
-                <i class="c-deep-purple-500 ti-comment-alt"></i>
-              </span>
-              <span class="title">Chat</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class='sidebar-link' href="charts.html">
-              <span class="icon-holder">
-                <i class="c-indigo-500 ti-bar-chart"></i>
-              </span>
-              <span class="title">Charts</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class='sidebar-link' href="forms.html">
-              <span class="icon-holder">
-                <i class="c-light-blue-500 ti-pencil"></i>
-              </span>
-              <span class="title">Forms</span>
-            </a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="sidebar-link" href="ui.html">
-              <span class="icon-holder">
-                <i class="c-pink-500 ti-palette"></i>
-              </span>
-              <span class="title">UI Elements</span>
-            </a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="dropdown-toggle" href="javascript:void(0);">
-              <span class="icon-holder">
-                <i class="c-orange-500 ti-layout-list-thumb"></i>
-              </span>
-              <span class="title">Tables</span>
-              <span class="arrow">
-                <i class="ti-angle-right"></i>
-              </span>
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <a class='sidebar-link' href="basic-table.html">Basic Table</a>
-              </li>
-              <li>
-                <a class='sidebar-link' href="datatable.html">Data Table</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="dropdown-toggle" href="javascript:void(0);">
-              <span class="icon-holder">
-                <i class="c-purple-500 ti-map"></i>
-              </span>
-              <span class="title">Maps</span>
-              <span class="arrow">
-                <i class="ti-angle-right"></i>
-              </span>
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <a href="google-maps.html">Google Map</a>
-              </li>
-              <li>
-                <a href="vector-maps.html">Vector Map</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="dropdown-toggle" href="javascript:void(0);">
-              <span class="icon-holder">
-                <i class="c-red-500 ti-files"></i>
-              </span>
-              <span class="title">Pages</span>
-              <span class="arrow">
-                <i class="ti-angle-right"></i>
-              </span>
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <a class='sidebar-link' href="blank.html">Blank</a>
-              </li>
-              <li>
-                <a class='sidebar-link' href="404.html">404</a>
-              </li>
-              <li>
-                <a class='sidebar-link' href="500.html">500</a>
-              </li>
-              <li>
-                <a class='sidebar-link' href="signin.html">Sign In</a>
-              </li>
-              <li>
-                <a class='sidebar-link' href="signup.html">Sign Up</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="dropdown-toggle" href="javascript:void(0);">
-              <span class="icon-holder">
-                <i class="c-teal-500 ti-view-list-alt"></i>
-              </span>
-              <span class="title">Multiple Levels</span>
-              <span class="arrow">
-                <i class="ti-angle-right"></i>
-              </span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="nav-item dropdown">
-                <a href="javascript:void(0);">
-                  <span>Menu Item</span>
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a href="javascript:void(0);">
-                  <span>Menu Item</span>
-                  <span class="arrow">
-                    <i class="ti-angle-right"></i>
-                  </span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a href="javascript:void(0);">Menu Item</a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);">Menu Item</a>
-                  </li>
+
+            <nav id="navmenu" class="navmenu">
+                <ul>
+                    <li><a href="#hero" class="active">Home<br></a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
+                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            </nav>
 
-    <!-- #Main ============================ -->
-    <div class="page-container">
-      <!-- ### $Topbar ### -->
-      <div class="header navbar">
-        <div class="header-container">
-          <ul class="nav-left">
-            <li>
-              <a id='sidebar-toggle' class="sidebar-toggle" href="javascript:void(0);">
-                <i class="ti-menu"></i>
-              </a>
-            </li>
-            <li class="search-box">
-              <a class="search-toggle no-pdd-right" href="javascript:void(0);">
-                <i class="search-icon ti-search pdd-right-10"></i>
-                <i class="search-icon-close ti-close pdd-right-10"></i>
-              </a>
-            </li>
-            <li class="search-input">
-              <input class="form-control" type="text" placeholder="Search...">
-            </li>
-          </ul>
-          <ul class="nav-right">
-            <li class="notifications dropdown">
-              <span class="counter bgc-red">3</span>
-              <a href="" class="dropdown-toggle no-after" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="ti-bell"></i>
-              </a>
+            <a class="btn-getstarted flex-md-shrink-0" href="auth">Login</a>
 
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li class="pX-20 pY-15 bdB">
-                  <i class="ti-bell pR-10"></i>
-                  <span class="fsz-sm fw-600 c-grey-900">Notifications</span>
-                </li>
-                <li>
-                  <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
-                    <li>
-                      <a href="" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
-                        <div class="peer mR-15">
-                          <img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/1.jpg" alt="">
-                        </div>
-                        <div class="peer peer-greed">
-                          <span>
-                            <span class="fw-500">John Doe</span>
-                            <span class="c-grey-600">liked your <span class="text-dark">post</span>
-                            </span>
-                          </span>
-                          <p class="m-0">
-                            <small class="fsz-xs">5 mins ago</small>
-                          </p>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
-                        <div class="peer mR-15">
-                          <img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/2.jpg" alt="">
-                        </div>
-                        <div class="peer peer-greed">
-                          <span>
-                            <span class="fw-500">Moo Doe</span>
-                            <span class="c-grey-600">liked your <span class="text-dark">cover image</span>
-                            </span>
-                          </span>
-                          <p class="m-0">
-                            <small class="fsz-xs">7 mins ago</small>
-                          </p>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
-                        <div class="peer mR-15">
-                          <img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/3.jpg" alt="">
-                        </div>
-                        <div class="peer peer-greed">
-                          <span>
-                            <span class="fw-500">Lee Doe</span>
-                            <span class="c-grey-600">commented on your <span class="text-dark">video</span>
-                            </span>
-                          </span>
-                          <p class="m-0">
-                            <small class="fsz-xs">10 mins ago</small>
-                          </p>
-                        </div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="pX-20 pY-15 ta-c bdT">
-                  <span>
-                    <a href="" class="c-grey-600 cH-blue fsz-sm td-n">View All Notifications <i class="ti-angle-right fsz-xs mL-10"></i></a>
-                  </span>
-                </li>
-              </ul>
-            </li>
-            <li class="notifications dropdown">
-              <span class="counter bgc-blue">3</span>
-              <a href="" class="dropdown-toggle no-after" data-bs-toggle="dropdown">
-                <i class="ti-email"></i>
-              </a>
-
-              <ul class="dropdown-menu">
-                <li class="pX-20 pY-15 bdB">
-                  <i class="ti-email pR-10"></i>
-                  <span class="fsz-sm fw-600 c-grey-900">Emails</span>
-                </li>
-                <li>
-                  <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
-                    <li>
-                      <a href="" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
-                        <div class="peer mR-15">
-                          <img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/1.jpg" alt="">
-                        </div>
-                        <div class="peer peer-greed">
-                          <div>
-                            <div class="peers jc-sb fxw-nw mB-5">
-                              <div class="peer">
-                                <p class="fw-500 mB-0">John Doe</p>
-                              </div>
-                              <div class="peer">
-                                <small class="fsz-xs">5 mins ago</small>
-                              </div>
-                            </div>
-                            <span class="c-grey-600 fsz-sm">
-                              Want to create your own customized data generator for your app...
-                            </span>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
-                        <div class="peer mR-15">
-                          <img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/2.jpg" alt="">
-                        </div>
-                        <div class="peer peer-greed">
-                          <div>
-                            <div class="peers jc-sb fxw-nw mB-5">
-                              <div class="peer">
-                                <p class="fw-500 mB-0">Moo Doe</p>
-                              </div>
-                              <div class="peer">
-                                <small class="fsz-xs">15 mins ago</small>
-                              </div>
-                            </div>
-                            <span class="c-grey-600 fsz-sm">
-                              Want to create your own customized data generator for your app...
-                            </span>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
-                        <div class="peer mR-15">
-                          <img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/3.jpg" alt="">
-                        </div>
-                        <div class="peer peer-greed">
-                          <div>
-                            <div class="peers jc-sb fxw-nw mB-5">
-                              <div class="peer">
-                                <p class="fw-500 mB-0">Lee Doe</p>
-                              </div>
-                              <div class="peer">
-                                <small class="fsz-xs">25 mins ago</small>
-                              </div>
-                            </div>
-                            <span class="c-grey-600 fsz-sm">
-                              Want to create your own customized data generator for your app...
-                            </span>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="pX-20 pY-15 ta-c bdT">
-                  <span>
-                    <a href="email.html" class="c-grey-600 cH-blue fsz-sm td-n">View All Email <i class="fs-xs ti-angle-right mL-10"></i></a>
-                  </span>
-                </li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="" class="dropdown-toggle no-after peers fxw-nw ai-c lh-1" data-bs-toggle="dropdown">
-                <div class="peer mR-10">
-                  <img class="w-2r bdrs-50p" src="https://randomuser.me/api/portraits/men/10.jpg" alt="">
-                </div>
-                <div class="peer">
-                  <span class="fsz-sm c-grey-900">John Doe</span>
-                </div>
-              </a>
-              <ul class="dropdown-menu fsz-sm">
-                <li>
-                  <a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
-                    <i class="ti-settings mR-10"></i>
-                    <span>Setting</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
-                    <i class="ti-user mR-10"></i>
-                    <span>Profile</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="email.html" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
-                    <i class="ti-email mR-10"></i>
-                    <span>Messages</span>
-                  </a>
-                </li>
-                <li role="separator" class="divider"></li>
-                <li>
-                  <a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
-                    <i class="ti-power-off mR-10"></i>
-                    <span>Logout</span>
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
         </div>
-      </div>
+    </header>
 
-      <!-- ### $App Screen Content ### -->
-      <main class='main-content bgc-grey-100'>
-        <div id='mainContent'>
-          <div class="row gap-20 masonry pos-r">
-            <div class="masonry-sizer col-md-6"></div>
-            <div class="masonry-item  w-100">
-              <div class="row gap-20">
-                <!-- #Toatl Visits ==================== -->
-                <div class='col-md-3'>
-                  <div class="layers bd bgc-white p-20">
-                    <div class="layer w-100 mB-10">
-                      <h6 class="lh-1">Total Visits</h6>
-                    </div>
-                    <div class="layer w-100">
-                      <div class="peers ai-sb fxw-nw">
-                        <div class="peer peer-greed">
-                          <span id="sparklinedash"></span>
-                        </div>
-                        <div class="peer">
-                          <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500">+10%</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+    <main class="main">
 
-                <!-- #Total Page Views ==================== -->
-                <div class='col-md-3'>
-                  <div class="layers bd bgc-white p-20">
-                    <div class="layer w-100 mB-10">
-                      <h6 class="lh-1">Total Page Views</h6>
-                    </div>
-                    <div class="layer w-100">
-                      <div class="peers ai-sb fxw-nw">
-                        <div class="peer peer-greed">
-                          <span id="sparklinedash2"></span>
-                        </div>
-                        <div class="peer">
-                          <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-red-50 c-red-500">-7%</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+        <!-- Hero Section -->
+        <section id="hero" class="hero section">
 
-                <!-- #Unique Visitors ==================== -->
-                <div class='col-md-3'>
-                  <div class="layers bd bgc-white p-20">
-                    <div class="layer w-100 mB-10">
-                      <h6 class="lh-1">Unique Visitor</h6>
-                    </div>
-                    <div class="layer w-100">
-                      <div class="peers ai-sb fxw-nw">
-                        <div class="peer peer-greed">
-                          <span id="sparklinedash3"></span>
+            <div class="container">
+                <div class="row gy-4">
+                    <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                        <h1 data-aos="fade-up">We offer modern solutions for growing your business</h1>
+                        <p data-aos="fade-up" data-aos-delay="100">We are team of talented designers making websites with Bootstrap</p>
+                        <div class="d-flex flex-column flex-md-row" data-aos="fade-up" data-aos-delay="200">
+                            <a href="#about" class="btn-get-started">Get Started <i class="bi bi-arrow-right"></i></a>
+                            <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center justify-content-center ms-0 ms-md-4 mt-4 mt-md-0"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
                         </div>
-                        <div class="peer">
-                          <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-purple-50 c-purple-500">~12%</span>
-                        </div>
-                      </div>
                     </div>
-                  </div>
+                    <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out">
+                        <img src="<?= base_url('assets/frontend') ?>/assets/img/hero-img.png" class="img-fluid animated" alt="">
+                    </div>
                 </div>
-
-                <!-- #Bounce Rate ==================== -->
-                <div class='col-md-3'>
-                  <div class="layers bd bgc-white p-20">
-                    <div class="layer w-100 mB-10">
-                      <h6 class="lh-1">Bounce Rate</h6>
-                    </div>
-                    <div class="layer w-100">
-                      <div class="peers ai-sb fxw-nw">
-                        <div class="peer peer-greed">
-                          <span id="sparklinedash4"></span>
-                        </div>
-                        <div class="peer">
-                          <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500">33%</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
-            <div class="masonry-item col-12">
-              <!-- #Site Visits ==================== -->
-              <div class="bd bgc-white">
-                <div class="peers fxw-nw@lg+ ai-s">
-                  <div class="peer peer-greed w-70p@lg+ w-100@lg- p-20">
-                    <div class="layers">
-                      <div class="layer w-100 mB-10">
-                        <h6 class="lh-1">Site Visits</h6>
-                      </div>
-                      <div class="layer w-100">
-                        <div id="world-map-marker"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="peer bdL p-20 w-30p@lg+ w-100p@lg-">
-                    <div class="layers">
-                      <div class="layer w-100">
-                        <!-- Progress Bars -->
-                        <div class="layers">
-                          <div class="layer w-100">
-                            <h5 class="mB-5">100k</h5>
-                            <small class="fw-600 c-grey-700">Visitors From USA</small>
-                            <span class="pull-right c-grey-600 fsz-sm">50%</span>
-                            <div class="progress mT-10">
-                              <div class="progress-bar bgc-deep-purple-500" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%;"> <span class="visually-hidden">50% Complete</span></div>
-                            </div>
-                          </div>
-                          <div class="layer w-100 mT-15">
-                            <h5 class="mB-5">1M</h5>
-                            <small class="fw-600 c-grey-700">Visitors From Europe</small>
-                            <span class="pull-right c-grey-600 fsz-sm">80%</span>
-                            <div class="progress mT-10">
-                              <div class="progress-bar bgc-green-500" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:80%;"> <span class="visually-hidden">80% Complete</span></div>
-                            </div>
-                          </div>
-                          <div class="layer w-100 mT-15">
-                            <h5 class="mB-5">450k</h5>
-                            <small class="fw-600 c-grey-700">Visitors From Australia</small>
-                            <span class="pull-right c-grey-600 fsz-sm">40%</span>
-                            <div class="progress mT-10">
-                              <div class="progress-bar bgc-light-blue-500" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:40%;"> <span class="visually-hidden">40% Complete</span></div>
-                            </div>
-                          </div>
-                          <div class="layer w-100 mT-15">
-                            <h5 class="mB-5">1B</h5>
-                            <small class="fw-600 c-grey-700">Visitors From India</small>
-                            <span class="pull-right c-grey-600 fsz-sm">90%</span>
-                            <div class="progress mT-10">
-                              <div class="progress-bar bgc-blue-grey-500" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:90%;"> <span class="visually-hidden">90% Complete</span></div>
-                            </div>
-                          </div>
-                        </div>
 
-                        <!-- Pie Charts -->
-                        <div class="peers pT-20 mT-20 bdT fxw-nw@lg+ jc-sb ta-c gap-10">
-                          <div class="peer">
-                            <div class="easy-pie-chart" data-size='80' data-percent="75" data-bar-color='#f44336'>
-                              <span></span>
+        </section><!-- /Hero Section -->
+
+        <!-- About Section -->
+        <section id="about" class="about section">
+
+            <div class="container" data-aos="fade-up">
+                <div class="row gx-0">
+
+                    <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
+                        <div class="content">
+                            <h3>Who We Are</h3>
+                            <h2>Expedita voluptas omnis cupiditate totam eveniet nobis sint iste. Dolores est repellat corrupti reprehenderit.</h2>
+                            <p>
+                                Quisquam vel ut sint cum eos hic dolores aperiam. Sed deserunt et. Inventore et et dolor consequatur itaque ut voluptate sed et. Magnam nam ipsum tenetur suscipit voluptatum nam et est corrupti.
+                            </p>
+                            <div class="text-center text-lg-start">
+                                <a href="#" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">
+                                    <span>Read More</span>
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
                             </div>
-                            <h6 class="fsz-sm">New Users</h6>
-                          </div>
-                          <div class="peer">
-                            <div class="easy-pie-chart" data-size='80' data-percent="50" data-bar-color='#2196f3'>
-                              <span></span>
-                            </div>
-                            <h6 class="fsz-sm">New Purchases</h6>
-                          </div>
-                          <div class="peer">
-                            <div class="easy-pie-chart" data-size='80' data-percent="90" data-bar-color='#ff9800'>
-                              <span></span>
-                            </div>
-                            <h6 class="fsz-sm">Bounce Rate</h6>
-                          </div>
                         </div>
-                      </div>
                     </div>
-                  </div>
+
+                    <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+                        <img src="assets/img/about.jpg" class="img-fluid" alt="">
+                    </div>
+
                 </div>
-              </div>
             </div>
-            <div class="masonry-item col-md-6">
-              <!-- #Monthly Stats ==================== -->
-              <div class="bd bgc-white">
-                <div class="layers">
-                  <div class="layer w-100 pX-20 pT-20">
-                    <h6 class="lh-1">Monthly Stats</h6>
-                  </div>
-                  <div class="layer w-100 p-20">
-                    <canvas id="line-chart" height="220"></canvas>
-                  </div>
-                  <div class="layer bdT p-20 w-100">
-                    <div class="peers ai-c jc-c gapX-20">
-                      <div class="peer">
-                        <span class="fsz-def fw-600 mR-10 c-grey-800">10% <i class="fa fa-level-up c-green-500"></i></span>
-                        <small class="c-grey-500 fw-600">APPL</small>
-                      </div>
-                      <div class="peer fw-600">
-                        <span class="fsz-def fw-600 mR-10 c-grey-800">2% <i class="fa fa-level-down c-red-500"></i></span>
-                        <small class="c-grey-500 fw-600">Average</small>
-                      </div>
-                      <div class="peer fw-600">
-                        <span class="fsz-def fw-600 mR-10 c-grey-800">15% <i class="fa fa-level-up c-green-500"></i></span>
-                        <small class="c-grey-500 fw-600">Sales</small>
-                      </div>
-                      <div class="peer fw-600">
-                        <span class="fsz-def fw-600 mR-10 c-grey-800">8% <i class="fa fa-level-down c-red-500"></i></span>
-                        <small class="c-grey-500 fw-600">Profit</small>
-                      </div>
-                    </div>
-                  </div>
+
+        </section><!-- /About Section -->
+
+        <!-- Values Section -->
+        <section id="values" class="values section">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Our Values</h2>
+                <p>What we value most<br></p>
+            </div><!-- End Section Title -->
+
+            <div class="container">
+
+                <div class="row gy-4">
+
+                    <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card">
+                            <img src="assets/img/values-1.png" class="img-fluid" alt="">
+                            <h3>Ad cupiditate sed est odio</h3>
+                            <p>Eum ad dolor et. Autem aut fugiat debitis voluptatem consequuntur sit. Et veritatis id.</p>
+                        </div>
+                    </div><!-- End Card Item -->
+
+                    <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card">
+                            <img src="assets/img/values-2.png" class="img-fluid" alt="">
+                            <h3>Voluptatem voluptatum alias</h3>
+                            <p>Repudiandae amet nihil natus in distinctio suscipit id. Doloremque ducimus ea sit non.</p>
+                        </div>
+                    </div><!-- End Card Item -->
+
+                    <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card">
+                            <img src="assets/img/values-3.png" class="img-fluid" alt="">
+                            <h3>Fugit cupiditate alias nobis.</h3>
+                            <p>Quam rem vitae est autem molestias explicabo debitis sint. Vero aliquid quidem commodi.</p>
+                        </div>
+                    </div><!-- End Card Item -->
+
                 </div>
-              </div>
+
             </div>
-            <div class="masonry-item col-md-6">
-              <!-- #Todo ==================== -->
-              <div class="bd bgc-white p-20">
-                <div class="layers">
-                  <div class="layer w-100 mB-10">
-                    <h6 class="lh-1">Todo List</h6>
-                  </div>
-                  <div class="layer w-100">
-                    <ul class="list-task list-group" data-role="tasklist">
-                      <li class="list-group-item bdw-0" data-role="task">
-                        <div class="checkbox checkbox-circle checkbox-info peers ai-c">
-                          <input type="checkbox" id="inputCall1" name="inputCheckboxesCall" class="peer">
-                          <label for="inputCall1" class="form-label peers peer-greed js-sb ai-c">
-                            <span class="peer peer-greed">Call John for Dinner</span>
-                          </label>
+
+        </section><!-- /Values Section -->
+
+        <!-- Stats Section -->
+        <section id="stats" class="stats section">
+
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="row gy-4">
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stats-item d-flex align-items-center w-100 h-100">
+                            <i class="bi bi-emoji-smile color-blue flex-shrink-0"></i>
+                            <div>
+                                <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+                                <p>Happy Clients</p>
+                            </div>
                         </div>
-                      </li>
-                      <li class="list-group-item bdw-0" data-role="task">
-                        <div class="checkbox checkbox-circle checkbox-info peers ai-c">
-                          <input type="checkbox" id="inputCall2" name="inputCheckboxesCall" class="peer">
-                          <label for="inputCall2" class="form-label peers peer-greed js-sb ai-c">
-                            <span class="peer peer-greed">Book Boss Flight</span>
-                            <span class="peer">
-                              <span class="badge rounded-pill fl-r bg-success lh-0 p-10">2 Days</span>
-                            </span>
-                          </label>
+                    </div><!-- End Stats Item -->
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stats-item d-flex align-items-center w-100 h-100">
+                            <i class="bi bi-journal-richtext color-orange flex-shrink-0" style="color: #ee6c20;"></i>
+                            <div>
+                                <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
+                                <p>Projects</p>
+                            </div>
                         </div>
-                      </li>
-                      <li class="list-group-item bdw-0" data-role="task">
-                        <div class="checkbox checkbox-circle checkbox-info peers ai-c">
-                          <input type="checkbox" id="inputCall3" name="inputCheckboxesCall" class="peer">
-                          <label for="inputCall3" class="form-label peers peer-greed js-sb ai-c">
-                            <span class="peer peer-greed">Hit the Gym</span>
-                            <span class="peer">
-                              <span class="badge rounded-pill fl-r bg-danger lh-0 p-10">3 Minutes</span>
-                            </span>
-                          </label>
+                    </div><!-- End Stats Item -->
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stats-item d-flex align-items-center w-100 h-100">
+                            <i class="bi bi-headset color-green flex-shrink-0" style="color: #15be56;"></i>
+                            <div>
+                                <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span>
+                                <p>Hours Of Support</p>
+                            </div>
                         </div>
-                      </li>
-                      <li class="list-group-item bdw-0" data-role="task">
-                        <div class="checkbox checkbox-circle checkbox-info peers ai-c">
-                          <input type="checkbox" id="inputCall4" name="inputCheckboxesCall" class="peer">
-                          <label for="inputCall4" class="form-label peers peer-greed js-sb ai-c">
-                            <span class="peer peer-greed">Give Purchase Report</span>
-                            <span class="peer">
-                              <span class="badge rounded-pill fl-r bg-warning lh-0 p-10">not important</span>
-                            </span>
-                          </label>
+                    </div><!-- End Stats Item -->
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stats-item d-flex align-items-center w-100 h-100">
+                            <i class="bi bi-people color-pink flex-shrink-0" style="color: #bb0852;"></i>
+                            <div>
+                                <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
+                                <p>Hard Workers</p>
+                            </div>
                         </div>
-                      </li>
-                      <li class="list-group-item bdw-0" data-role="task">
-                        <div class="checkbox checkbox-circle checkbox-info peers ai-c">
-                          <input type="checkbox" id="inputCall5" name="inputCheckboxesCall" class="peer">
-                          <label for="inputCall5" class="form-label peers peer-greed js-sb ai-c">
-                            <span class="peer peer-greed">Watch Game of Thrones Episode</span>
-                            <span class="peer">
-                              <span class="badge rounded-pill fl-r bg-info lh-0 p-10">Tomorrow</span>
-                            </span>
-                          </label>
-                        </div>
-                      </li>
-                      <li class="list-group-item bdw-0" data-role="task">
-                        <div class="checkbox checkbox-circle checkbox-info peers ai-c">
-                          <input type="checkbox" id="inputCall6" name="inputCheckboxesCall" class="peer">
-                          <label for="inputCall6" class="form-label peers peer-greed js-sb ai-c">
-                            <span class="peer peer-greed">Give Purchase report</span>
-                            <span class="peer">
-                              <span class="badge rounded-pill fl-r bg-success lh-0 p-10">Done</span>
-                            </span>
-                          </label>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
+                    </div><!-- End Stats Item -->
+
                 </div>
-              </div>
+
             </div>
-            <div class="masonry-item col-md-6">
-              <!-- #Sales Report ==================== -->
-              <div class="bd bgc-white">
-                <div class="layers">
-                  <div class="layer w-100 p-20">
-                    <h6 class="lh-1">Sales Report</h6>
-                  </div>
-                  <div class="layer w-100">
-                    <div class="bgc-light-blue-500 c-white p-20">
-                      <div class="peers ai-c jc-sb gap-40">
-                        <div class="peer peer-greed">
-                          <h5>November 2017</h5>
-                          <p class="mB-0">Sales Report</p>
-                        </div>
-                        <div class="peer">
-                          <h3 class="text-end">$6,000</h3>
-                        </div>
-                      </div>
+
+        </section><!-- /Stats Section -->
+
+        <!-- Features Section -->
+        <section id="features" class="features section">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Features</h2>
+                <p>Our Advacedd Features<br></p>
+            </div><!-- End Section Title -->
+
+            <div class="container">
+
+                <div class="row gy-5">
+
+                    <div class="col-xl-6" data-aos="zoom-out" data-aos-delay="100">
+                        <img src="assets/img/features.png" class="img-fluid" alt="">
                     </div>
-                    <div class="table-responsive p-20">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th class=" bdwT-0">Name</th>
-                            <th class=" bdwT-0">Status</th>
-                            <th class=" bdwT-0">Date</th>
-                            <th class=" bdwT-0">Price</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td class="fw-600">Item #1 Name</td>
-                            <td><span class="badge bgc-red-50 c-red-700 p-10 lh-0 tt-c rounded-pill">Unavailable</span> </td>
-                            <td>Nov 18</td>
-                            <td><span class="text-success">$12</span></td>
-                          </tr>
-                          <tr>
-                            <td class="fw-600">Item #2 Name</td>
-                            <td><span class="badge bgc-deep-purple-50 c-deep-purple-700 p-10 lh-0 tt-c rounded-pill">New</span></td>
-                            <td>Nov 19</td>
-                            <td><span class="text-info">$34</span></td>
-                          </tr>
-                          <tr>
-                            <td class="fw-600">Item #3 Name</td>
-                            <td><span class="badge bgc-pink-50 c-pink-700 p-10 lh-0 tt-c rounded-pill">New</span></td>
-                            <td>Nov 20</td>
-                            <td><span class="text-danger">-$45</span></td>
-                          </tr>
-                          <tr>
-                            <td class="fw-600">Item #4 Name</td>
-                            <td><span class="badge bgc-green-50 c-green-700 p-10 lh-0 tt-c rounded-pill">Unavailable</span></td>
-                            <td>Nov 21</td>
-                            <td><span class="text-success">$65</span></td>
-                          </tr>
-                          <tr>
-                            <td class="fw-600">Item #5 Name</td>
-                            <td><span class="badge bgc-red-50 c-red-700 p-10 lh-0 tt-c rounded-pill">Used</span></td>
-                            <td>Nov 22</td>
-                            <td><span class="text-success">$78</span></td>
-                          </tr>
-                          <tr>
-                            <td class="fw-600">Item #6 Name</td>
-                            <td><span class="badge bgc-orange-50 c-orange-700 p-10 lh-0 tt-c rounded-pill">Used</span> </td>
-                            <td>Nov 23</td>
-                            <td><span class="text-danger">-$88</span></td>
-                          </tr>
-                          <tr>
-                            <td class="fw-600">Item #7 Name</td>
-                            <td><span class="badge bgc-yellow-50 c-yellow-700 p-10 lh-0 tt-c rounded-pill">Old</span></td>
-                            <td>Nov 22</td>
-                            <td><span class="text-success">$56</span></td>
-                          </tr>
-                        </tbody>
-                      </table>
+
+                    <div class="col-xl-6 d-flex">
+                        <div class="row align-self-center gy-4">
+
+                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                                <div class="feature-box d-flex align-items-center">
+                                    <i class="bi bi-check"></i>
+                                    <h3>Eos aspernatur rem</h3>
+                                </div>
+                            </div><!-- End Feature Item -->
+
+                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+                                <div class="feature-box d-flex align-items-center">
+                                    <i class="bi bi-check"></i>
+                                    <h3>Facilis neque ipsa</h3>
+                                </div>
+                            </div><!-- End Feature Item -->
+
+                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
+                                <div class="feature-box d-flex align-items-center">
+                                    <i class="bi bi-check"></i>
+                                    <h3>Volup amet volupt</h3>
+                                </div>
+                            </div><!-- End Feature Item -->
+
+                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="500">
+                                <div class="feature-box d-flex align-items-center">
+                                    <i class="bi bi-check"></i>
+                                    <h3>Rerum omnis sint</h3>
+                                </div>
+                            </div><!-- End Feature Item -->
+
+                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="600">
+                                <div class="feature-box d-flex align-items-center">
+                                    <i class="bi bi-check"></i>
+                                    <h3>Alias possimus</h3>
+                                </div>
+                            </div><!-- End Feature Item -->
+
+                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="700">
+                                <div class="feature-box d-flex align-items-center">
+                                    <i class="bi bi-check"></i>
+                                    <h3>Repellendus molli</h3>
+                                </div>
+                            </div><!-- End Feature Item -->
+
+                        </div>
                     </div>
-                  </div>
+
                 </div>
-                <div class="ta-c bdT w-100 p-20">
-                  <a href="#">Check all the sales</a>
-                </div>
-              </div>
+
             </div>
-            <div class="masonry-item col-md-6">
-              <!-- #Weather ==================== -->
-              <div class="bd bgc-white p-20">
-                <div class="layers">
-                  <!-- Widget Title -->
-                  <div class="layer w-100 mB-20">
-                    <h6 class="lh-1">Weather</h6>
-                  </div>
 
-                  <!-- Today Weather -->
-                  <div class="layer w-100">
-                    <div class="peers ai-c jc-sb fxw-nw">
-                      <div class="peer peer-greed">
-                        <div class="layers">
-                          <!-- Temprature -->
-                          <div class="layer w-100">
-                            <div class="peers fxw-nw ai-c">
-                              <div class="peer mR-20">
-                                <h3>32<sup>°F</sup></h3>
-                              </div>
-                              <div class="peer">
-                                <canvas class="sleet" width="44" height="44"></canvas>
-                              </div>
-                            </div>
-                          </div>
+        </section><!-- /Features Section -->
 
-                          <!-- Condition -->
-                          <div class="layer w-100">
-                            <span class="fw-600 c-grey-600">Partly Clouds</span>
-                          </div>
+        <!-- Alt Features Section -->
+        <section id="alt-features" class="alt-features section">
+
+            <div class="container">
+
+                <div class="row gy-5">
+
+                    <div class="col-xl-7 d-flex order-2 order-xl-1" data-aos="fade-up" data-aos-delay="200">
+
+                        <div class="row align-self-center gy-5">
+
+                            <div class="col-md-6 icon-box">
+                                <i class="bi bi-award"></i>
+                                <div>
+                                    <h4>Corporis voluptates sit</h4>
+                                    <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
+                                </div>
+                            </div><!-- End Feature Item -->
+
+                            <div class="col-md-6 icon-box">
+                                <i class="bi bi-card-checklist"></i>
+                                <div>
+                                    <h4>Ullamco laboris nisi</h4>
+                                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
+                                </div>
+                            </div><!-- End Feature Item -->
+
+                            <div class="col-md-6 icon-box">
+                                <i class="bi bi-dribbble"></i>
+                                <div>
+                                    <h4>Labore consequatur</h4>
+                                    <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
+                                </div>
+                            </div><!-- End Feature Item -->
+
+                            <div class="col-md-6 icon-box">
+                                <i class="bi bi-filter-circle"></i>
+                                <div>
+                                    <h4>Beatae veritatis</h4>
+                                    <p>Expedita veritatis consequuntur nihil tempore laudantium vitae denat pacta</p>
+                                </div>
+                            </div><!-- End Feature Item -->
+
+                            <div class="col-md-6 icon-box">
+                                <i class="bi bi-lightning-charge"></i>
+                                <div>
+                                    <h4>Molestiae dolor</h4>
+                                    <p>Et fuga et deserunt et enim. Dolorem architecto ratione tensa raptor marte</p>
+                                </div>
+                            </div><!-- End Feature Item -->
+
+                            <div class="col-md-6 icon-box">
+                                <i class="bi bi-patch-check"></i>
+                                <div>
+                                    <h4>Explicabo consectetur</h4>
+                                    <p>Est autem dicta beatae suscipit. Sint veritatis et sit quasi ab aut inventore</p>
+                                </div>
+                            </div><!-- End Feature Item -->
+
                         </div>
-                      </div>
-                      <div class="peer">
-                        <div class="layers ai-fe">
-                          <div class="layer">
-                            <h5 class="mB-5">Monday</h5>
-                          </div>
-                          <div class="layer">
-                            <span class="fw-600 c-grey-600">Nov, 01 2017</span>
-                          </div>
-                        </div>
-                      </div>
+
                     </div>
-                  </div>
 
-                  <!-- Today Weather Extended -->
-                  <div class="layer w-100 mY-30">
-                    <div class="layers bdB">
-                      <div class="layer w-100 bdT pY-5">
-                        <div class="peers ai-c jc-sb fxw-nw">
-                          <div class="peer">
-                            <span>Wind</span>
-                          </div>
-                          <div class="peer ta-r">
-                            <span class="fw-600 c-grey-800">10km/h</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="layer w-100 bdT pY-5">
-                        <div class="peers ai-c jc-sb fxw-nw">
-                          <div class="peer">
-                            <span>Sunrise</span>
-                          </div>
-                          <div class="peer ta-r">
-                            <span class="fw-600 c-grey-800">05:00 AM</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="layer w-100 bdT pY-5">
-                        <div class="peers ai-c jc-sb fxw-nw">
-                          <div class="peer">
-                            <span>Pressure</span>
-                          </div>
-                          <div class="peer ta-r">
-                            <span class="fw-600 c-grey-800">1B</span>
-                          </div>
-                        </div>
-                      </div>
+                    <div class="col-xl-5 d-flex align-items-center order-1 order-xl-2" data-aos="fade-up" data-aos-delay="100">
+                        <img src="assets/img/alt-features.png" class="img-fluid" alt="">
                     </div>
-                  </div>
 
-                  <!-- Week Forecast -->
-                  <div class="layer w-100">
-                    <div class="peers peers-greed ai-fs ta-c">
-                      <div class="peer">
-                        <h6 class="mB-10">MON</h6>
-                        <canvas class="sleet" width="30" height="30"></canvas>
-                        <span class="d-b fw-600">32<sup>°F</sup></span>
-                      </div>
-                      <div class="peer">
-                        <h6 class="mB-10">TUE</h6>
-                        <canvas class="clear-day" width="30" height="30"></canvas>
-                        <span class="d-b fw-600">30<sup>°F</sup></span>
-                      </div>
-                      <div class="peer">
-                        <h6 class="mB-10">WED</h6>
-                        <canvas class="partly-cloudy-day" width="30" height="30"></canvas>
-                        <span class="d-b fw-600">28<sup>°F</sup></span>
-                      </div>
-                      <div class="peer">
-                        <h6 class="mB-10">THR</h6>
-                        <canvas class="cloudy" width="30" height="30"></canvas>
-                        <span class="d-b fw-600">32<sup>°F</sup></span>
-                      </div>
-                      <div class="peer">
-                        <h6 class="mB-10">FRI</h6>
-                        <canvas class="snow" width="30" height="30"></canvas>
-                        <span class="d-b fw-600">24<sup>°F</sup></span>
-                      </div>
-                      <div class="peer">
-                        <h6 class="mB-10">SAT</h6>
-                        <canvas class="wind" width="30" height="30"></canvas>
-                        <span class="d-b fw-600">28<sup>°F</sup></span>
-                      </div>
-                      <div class="peer">
-                        <h6 class="mB-10">SUN</h6>
-                        <canvas class="sleet" width="30" height="30"></canvas>
-                        <span class="d-b fw-600">32<sup>°F</sup></span>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              </div>
-            </div>
-            <div class="masonry-item col-md-6">
-              <!-- #Chat ==================== -->
-              <div class="bd bgc-white">
-                <div class="layers">
-                  <div class="layer w-100 p-20">
-                    <h6 class="lh-1">Quick Chat</h6>
-                  </div>
-                  <div class="layer w-100">
-                    <!-- Chat Box -->
-                    <div class="bgc-grey-200 p-20 gapY-15">
-                      <!-- Chat Conversation -->
-                      <div class="peers fxw-nw">
-                        <div class="peer mR-20">
-                          <img class="w-2r bdrs-50p" src="https://randomuser.me/api/portraits/men/11.jpg" alt="">
-                        </div>
-                        <div class="peer peer-greed">
-                          <div class="layers ai-fs gapY-5">
-                            <div class="layer">
-                              <div class="peers fxw-nw ai-c pY-3 pX-10 bgc-white bdrs-2 lh-3/2">
-                                <div class="peer mR-10">
-                                  <small>10:00 AM</small>
-                                </div>
-                                <div class="peer-greed">
-                                  <span>Lorem Ipsum is simply dummy text of</span>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="layer">
-                              <div class="peers fxw-nw ai-c pY-3 pX-10 bgc-white bdrs-2 lh-3/2">
-                                <div class="peer mR-10">
-                                  <small>10:00 AM</small>
-                                </div>
-                                <div class="peer-greed">
-                                  <span>the printing and typesetting industry.</span>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="layer">
-                              <div class="peers fxw-nw ai-c pY-3 pX-10 bgc-white bdrs-2 lh-3/2">
-                                <div class="peer mR-10">
-                                  <small>10:00 AM</small>
-                                </div>
-                                <div class="peer-greed">
-                                  <span>Lorem Ipsum has been the industry's</span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
 
-                      <!-- Chat Conversation -->
-                      <div class="peers fxw-nw ai-fe">
-                        <div class="peer ord-1 mL-20">
-                          <img class="w-2r bdrs-50p" src="https://randomuser.me/api/portraits/men/12.jpg" alt="">
+            </div>
+
+        </section><!-- /Alt Features Section -->
+
+        <!-- Services Section -->
+        <section id="services" class="services section">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Services</h2>
+                <p>Check Our Services<br></p>
+            </div><!-- End Section Title -->
+
+            <div class="container">
+
+                <div class="row gy-4">
+
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="service-item item-cyan position-relative">
+                            <i class="bi bi-activity icon"></i>
+                            <h3>Nesciunt Mete</h3>
+                            <p>Provident nihil minus qui consequatur non omnis maiores. Eos accusantium minus dolores iure perferendis tempore et consequatur.</p>
+                            <a href="#" class="read-more stretched-link"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
                         </div>
-                        <div class="peer peer-greed ord-0">
-                          <div class="layers ai-fe gapY-10">
-                            <div class="layer">
-                              <div class="peers fxw-nw ai-c pY-3 pX-10 bgc-white bdrs-2 lh-3/2">
-                                <div class="peer mL-10 ord-1">
-                                  <small>10:00 AM</small>
-                                </div>
-                                <div class="peer-greed ord-0">
-                                  <span>Heloo</span>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="layer">
-                              <div class="peers fxw-nw ai-c pY-3 pX-10 bgc-white bdrs-2 lh-3/2">
-                                <div class="peer mL-10 ord-1">
-                                  <small>10:00 AM</small>
-                                </div>
-                                <div class="peer-greed ord-0">
-                                  <span>??</span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                    </div><!-- End Service Item -->
+
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                        <div class="service-item item-orange position-relative">
+                            <i class="bi bi-broadcast icon"></i>
+                            <h3>Eosle Commodi</h3>
+                            <p>Ut autem aut autem non a. Sint sint sit facilis nam iusto sint. Libero corrupti neque eum hic non ut nesciunt dolorem.</p>
+                            <a href="#" class="read-more stretched-link"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
                         </div>
-                      </div>
-                    </div>
-                    <!-- Chat Send -->
-                    <div class="p-20 bdT bgc-white">
-                      <div class="pos-r">
-                        <input type="text" class="form-control bdrs-10em m-0" placeholder="Say something...">
-                        <button type="button" class="btn btn-primary bdrs-50p w-2r p-0 h-2r pos-a r-1 t-1">
-                          <i class="fa fa-paper-plane-o"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                    </div><!-- End Service Item -->
+
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                        <div class="service-item item-teal position-relative">
+                            <i class="bi bi-easel icon"></i>
+                            <h3>Ledo Markt</h3>
+                            <p>Ut excepturi voluptatem nisi sed. Quidem fuga consequatur. Minus ea aut. Vel qui id voluptas adipisci eos earum corrupti.</p>
+                            <a href="#" class="read-more stretched-link"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div><!-- End Service Item -->
+
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                        <div class="service-item item-red position-relative">
+                            <i class="bi bi-bounding-box-circles icon"></i>
+                            <h3>Asperiores Commodi</h3>
+                            <p>Non et temporibus minus omnis sed dolor esse consequatur. Cupiditate sed error ea fuga sit provident adipisci neque.</p>
+                            <a href="#" class="read-more stretched-link"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div><!-- End Service Item -->
+
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                        <div class="service-item item-indigo position-relative">
+                            <i class="bi bi-calendar4-week icon"></i>
+                            <h3>Velit Doloremque.</h3>
+                            <p>Cumque et suscipit saepe. Est maiores autem enim facilis ut aut ipsam corporis aut. Sed animi at autem alias eius labore.</p>
+                            <a href="#" class="read-more stretched-link"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div><!-- End Service Item -->
+
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+                        <div class="service-item item-pink position-relative">
+                            <i class="bi bi-chat-square-text icon"></i>
+                            <h3>Dolori Architecto</h3>
+                            <p>Hic molestias ea quibusdam eos. Fugiat enim doloremque aut neque non et debitis iure. Corrupti recusandae ducimus enim.</p>
+                            <a href="#" class="read-more stretched-link"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div><!-- End Service Item -->
+
                 </div>
-              </div>
+
             </div>
-          </div>
-        </div>
-      </main>
 
-      <!-- ### $App Screen Footer ### -->
-      <footer class="bdT ta-c p-30 lh-0 fsz-sm c-grey-600">
-        <span>Copyright © 2024 Designed by <a href="https://colorlib.com" target="_blank" rel="nofollow noopener noreferrer" title="Colorlib">Colorlib</a>. All rights reserved.</span>
-      </footer>
-    </div>
-  </div>
-</body>
+        </section><!-- /Services Section -->
 
-</html>
+        <!-- Pricing Section -->
+        <section id="pricing" class="pricing section">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Pricing</h2>
+                <p>Check Our Affordable Pricing<br></p>
+            </div><!-- End Section Title -->
+
+            <div class="container">
+
+                <div class="row gy-4">
+
+                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="pricing-tem">
+                            <h3 style="color: #20c997;">Free Plan</h3>
+                            <div class="price"><sup>$</sup>0<span> / mo</span></div>
+                            <div class="icon">
+                                <i class="bi bi-box" style="color: #20c997;"></i>
+                            </div>
+                            <ul>
+                                <li>Aida dere</li>
+                                <li>Nec feugiat nisl</li>
+                                <li>Nulla at volutpat dola</li>
+                                <li class="na">Pharetra massa</li>
+                                <li class="na">Massa ultricies mi</li>
+                            </ul>
+                            <a href="#" class="btn-buy">Buy Now</a>
+                        </div>
+                    </div><!-- End Pricing Item -->
+
+                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="pricing-tem">
+                            <span class="featured">Featured</span>
+                            <h3 style="color: #0dcaf0;">Starter Plan</h3>
+                            <div class="price"><sup>$</sup>19<span> / mo</span></div>
+                            <div class="icon">
+                                <i class="bi bi-send" style="color: #0dcaf0;"></i>
+                            </div>
+                            <ul>
+                                <li>Aida dere</li>
+                                <li>Nec feugiat nisl</li>
+                                <li>Nulla at volutpat dola</li>
+                                <li>Pharetra massa</li>
+                                <li class="na">Massa ultricies mi</li>
+                            </ul>
+                            <a href="#" class="btn-buy">Buy Now</a>
+                        </div>
+                    </div><!-- End Pricing Item -->
+
+                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="pricing-tem">
+                            <h3 style="color: #fd7e14;">Business Plan</h3>
+                            <div class="price"><sup>$</sup>29<span> / mo</span></div>
+                            <div class="icon">
+                                <i class="bi bi-airplane" style="color: #fd7e14;"></i>
+                            </div>
+                            <ul>
+                                <li>Aida dere</li>
+                                <li>Nec feugiat nisl</li>
+                                <li>Nulla at volutpat dola</li>
+                                <li>Pharetra massa</li>
+                                <li>Massa ultricies mi</li>
+                            </ul>
+                            <a href="#" class="btn-buy">Buy Now</a>
+                        </div>
+                    </div><!-- End Pricing Item -->
+
+                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="400">
+                        <div class="pricing-tem">
+                            <h3 style="color: #0d6efd;">Ultimate Plan</h3>
+                            <div class="price"><sup>$</sup>49<span> / mo</span></div>
+                            <div class="icon">
+                                <i class="bi bi-rocket" style="color: #0d6efd;"></i>
+                            </div>
+                            <ul>
+                                <li>Aida dere</li>
+                                <li>Nec feugiat nisl</li>
+                                <li>Nulla at volutpat dola</li>
+                                <li>Pharetra massa</li>
+                                <li>Massa ultricies mi</li>
+                            </ul>
+                            <a href="#" class="btn-buy">Buy Now</a>
+                        </div>
+                    </div><!-- End Pricing Item -->
+
+                </div><!-- End pricing row -->
+
+            </div>
+
+        </section><!-- /Pricing Section -->
+
+        <!-- Faq Section -->
+        <section id="faq" class="faq section">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>F.A.Q</h2>
+                <p>Frequently Asked Questions</p>
+            </div><!-- End Section Title -->
+
+            <div class="container">
+
+                <div class="row">
+
+                    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+
+                        <div class="faq-container">
+
+                            <div class="faq-item faq-active">
+                                <h3>Non consectetur a erat nam at lectus urna duis?</h3>
+                                <div class="faq-content">
+                                    <p>Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.</p>
+                                </div>
+                                <i class="faq-toggle bi bi-chevron-right"></i>
+                            </div><!-- End Faq item-->
+
+                            <div class="faq-item">
+                                <h3>Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque?</h3>
+                                <div class="faq-content">
+                                    <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
+                                </div>
+                                <i class="faq-toggle bi bi-chevron-right"></i>
+                            </div><!-- End Faq item-->
+
+                            <div class="faq-item">
+                                <h3>Dolor sit amet consectetur adipiscing elit pellentesque?</h3>
+                                <div class="faq-content">
+                                    <p>Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis</p>
+                                </div>
+                                <i class="faq-toggle bi bi-chevron-right"></i>
+                            </div><!-- End Faq item-->
+
+                        </div>
+
+                    </div><!-- End Faq Column-->
+
+                    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+
+                        <div class="faq-container">
+
+                            <div class="faq-item">
+                                <h3>Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?</h3>
+                                <div class="faq-content">
+                                    <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
+                                </div>
+                                <i class="faq-toggle bi bi-chevron-right"></i>
+                            </div><!-- End Faq item-->
+
+                            <div class="faq-item">
+                                <h3>Tempus quam pellentesque nec nam aliquam sem et tortor consequat?</h3>
+                                <div class="faq-content">
+                                    <p>Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in</p>
+                                </div>
+                                <i class="faq-toggle bi bi-chevron-right"></i>
+                            </div><!-- End Faq item-->
+
+                            <div class="faq-item">
+                                <h3>Perspiciatis quod quo quos nulla quo illum ullam?</h3>
+                                <div class="faq-content">
+                                    <p>Enim ea facilis quaerat voluptas quidem et dolorem. Quis et consequatur non sed in suscipit sequi. Distinctio ipsam dolore et.</p>
+                                </div>
+                                <i class="faq-toggle bi bi-chevron-right"></i>
+                            </div><!-- End Faq item-->
+
+                        </div>
+
+                    </div><!-- End Faq Column-->
+
+                </div>
+
+            </div>
+
+        </section><!-- /Faq Section -->
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="portfolio section">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Portfolio</h2>
+                <p>Check our latest work</p>
+            </div><!-- End Section Title -->
+
+            <div class="container">
+
+                <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+                    <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+                        <li data-filter="*" class="filter-active">All</li>
+                        <li data-filter=".filter-app">App</li>
+                        <li data-filter=".filter-product">Product</li>
+                        <li data-filter=".filter-branding">Branding</li>
+                        <li data-filter=".filter-books">Books</li>
+                    </ul><!-- End Portfolio Filters -->
+
+                    <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/app-1.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>App 1</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/app-1.jpg" title="App 1" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div><!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/product-1.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>Product 1</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/product-1.jpg" title="Product 1" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div><!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/branding-1.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>Branding 1</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/branding-1.jpg" title="Branding 1" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div><!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/books-1.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>Books 1</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/books-1.jpg" title="Branding 1" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div><!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/app-2.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>App 2</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/app-2.jpg" title="App 2" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div><!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/product-2.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>Product 2</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/product-2.jpg" title="Product 2" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div><!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/branding-2.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>Branding 2</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/branding-2.jpg" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div><!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/books-2.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>Books 2</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/books-2.jpg" title="Branding 2" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div><!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/app-3.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>App 3</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/app-3.jpg" title="App 3" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div><!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/product-3.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>Product 3</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/product-3.jpg" title="Product 3" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div><!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/branding-3.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>Branding 3</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/branding-3.jpg" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div><!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/books-3.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>Books 3</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/books-3.jpg" title="Branding 3" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div><!-- End Portfolio Item -->
+
+                    </div><!-- End Portfolio Container -->
+
+                </div>
+
+            </div>
+
+        </section><!-- /Portfolio Section -->
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials section">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Testimonials</h2>
+                <p>What they are saying about us<br></p>
+            </div><!-- End Section Title -->
+
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="swiper init-swiper">
+                    <script type="application/json" class="swiper-config">
+                        {
+                            "loop": true,
+                            "speed": 600,
+                            "autoplay": {
+                                "delay": 5000
+                            },
+                            "slidesPerView": "auto",
+                            "pagination": {
+                                "el": ".swiper-pagination",
+                                "type": "bullets",
+                                "clickable": true
+                            },
+                            "breakpoints": {
+                                "320": {
+                                    "slidesPerView": 1,
+                                    "spaceBetween": 40
+                                },
+                                "1200": {
+                                    "slidesPerView": 3,
+                                    "spaceBetween": 1
+                                }
+                            }
+                        }
+                    </script>
+                    <div class="swiper-wrapper">
+
+                        <div class="swiper-slide">
+                            <div class="testimonial-item">
+                                <div class="stars">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                </div>
+                                <p>
+                                    Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
+                                </p>
+                                <div class="profile mt-auto">
+                                    <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+                                    <h3>Saul Goodman</h3>
+                                    <h4>Ceo &amp; Founder</h4>
+                                </div>
+                            </div>
+                        </div><!-- End testimonial item -->
+
+                        <div class="swiper-slide">
+                            <div class="testimonial-item">
+                                <div class="stars">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                </div>
+                                <p>
+                                    Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
+                                </p>
+                                <div class="profile mt-auto">
+                                    <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+                                    <h3>Sara Wilsson</h3>
+                                    <h4>Designer</h4>
+                                </div>
+                            </div>
+                        </div><!-- End testimonial item -->
+
+                        <div class="swiper-slide">
+                            <div class="testimonial-item">
+                                <div class="stars">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                </div>
+                                <p>
+                                    Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
+                                </p>
+                                <div class="profile mt-auto">
+                                    <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+                                    <h3>Jena Karlis</h3>
+                                    <h4>Store Owner</h4>
+                                </div>
+                            </div>
+                        </div><!-- End testimonial item -->
+
+                        <div class="swiper-slide">
+                            <div class="testimonial-item">
+                                <div class="stars">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                </div>
+                                <p>
+                                    Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
+                                </p>
+                                <div class="profile mt-auto">
+                                    <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+                                    <h3>Matt Brandon</h3>
+                                    <h4>Freelancer</h4>
+                                </div>
+                            </div>
+                        </div><!-- End testimonial item -->
+
+                        <div class="swiper-slide">
+                            <div class="testimonial-item">
+                                <div class="stars">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                </div>
+                                <p>
+                                    Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
+                                </p>
+                                <div class="profile mt-auto">
+                                    <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+                                    <h3>John Larson</h3>
+                                    <h4>Entrepreneur</h4>
+                                </div>
+                            </div>
+                        </div><!-- End testimonial item -->
+
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+
+            </div>
+
+        </section><!-- /Testimonials Section -->
+
+        <!-- Team Section -->
+        <section id="team" class="team section">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Team</h2>
+                <p>Our hard working team</p>
+            </div><!-- End Section Title -->
+
+            <div class="container">
+
+                <div class="row gy-4">
+
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                        <div class="team-member">
+                            <div class="member-img">
+                                <img src="assets/img/team/team-1.jpg" class="img-fluid" alt="">
+                                <div class="social">
+                                    <a href=""><i class="bi bi-twitter-x"></i></a>
+                                    <a href=""><i class="bi bi-facebook"></i></a>
+                                    <a href=""><i class="bi bi-instagram"></i></a>
+                                    <a href=""><i class="bi bi-linkedin"></i></a>
+                                </div>
+                            </div>
+                            <div class="member-info">
+                                <h4>Walter White</h4>
+                                <span>Chief Executive Officer</span>
+                                <p>Velit aut quia fugit et et. Dolorum ea voluptate vel tempore tenetur ipsa quae aut. Ipsum exercitationem iure minima enim corporis et voluptate.</p>
+                            </div>
+                        </div>
+                    </div><!-- End Team Member -->
+
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+                        <div class="team-member">
+                            <div class="member-img">
+                                <img src="assets/img/team/team-2.jpg" class="img-fluid" alt="">
+                                <div class="social">
+                                    <a href=""><i class="bi bi-twitter-x"></i></a>
+                                    <a href=""><i class="bi bi-facebook"></i></a>
+                                    <a href=""><i class="bi bi-instagram"></i></a>
+                                    <a href=""><i class="bi bi-linkedin"></i></a>
+                                </div>
+                            </div>
+                            <div class="member-info">
+                                <h4>Sarah Jhonson</h4>
+                                <span>Product Manager</span>
+                                <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit corporis. Voluptate sed quas reiciendis animi neque sapiente.</p>
+                            </div>
+                        </div>
+                    </div><!-- End Team Member -->
+
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+                        <div class="team-member">
+                            <div class="member-img">
+                                <img src="assets/img/team/team-3.jpg" class="img-fluid" alt="">
+                                <div class="social">
+                                    <a href=""><i class="bi bi-twitter-x"></i></a>
+                                    <a href=""><i class="bi bi-facebook"></i></a>
+                                    <a href=""><i class="bi bi-instagram"></i></a>
+                                    <a href=""><i class="bi bi-linkedin"></i></a>
+                                </div>
+                            </div>
+                            <div class="member-info">
+                                <h4>William Anderson</h4>
+                                <span>CTO</span>
+                                <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt. Voluptates enim aut architecto porro aspernatur molestiae modi.</p>
+                            </div>
+                        </div>
+                    </div><!-- End Team Member -->
+
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
+                        <div class="team-member">
+                            <div class="member-img">
+                                <img src="assets/img/team/team-4.jpg" class="img-fluid" alt="">
+                                <div class="social">
+                                    <a href=""><i class="bi bi-twitter-x"></i></a>
+                                    <a href=""><i class="bi bi-facebook"></i></a>
+                                    <a href=""><i class="bi bi-instagram"></i></a>
+                                    <a href=""><i class="bi bi-linkedin"></i></a>
+                                </div>
+                            </div>
+                            <div class="member-info">
+                                <h4>Amanda Jepson</h4>
+                                <span>Accountant</span>
+                                <p>Rerum voluptate non adipisci animi distinctio et deserunt amet voluptas. Quia aut aliquid doloremque ut possimus ipsum officia.</p>
+                            </div>
+                        </div>
+                    </div><!-- End Team Member -->
+
+                </div>
+
+            </div>
+
+        </section><!-- /Team Section -->
+
+        <!-- Clients Section -->
+        <section id="clients" class="clients section">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Clients</h2>
+                <p>We work with best clients<br></p>
+            </div><!-- End Section Title -->
+
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="swiper init-swiper">
+                    <script type="application/json" class="swiper-config">
+                        {
+                            "loop": true,
+                            "speed": 600,
+                            "autoplay": {
+                                "delay": 5000
+                            },
+                            "slidesPerView": "auto",
+                            "pagination": {
+                                "el": ".swiper-pagination",
+                                "type": "bullets",
+                                "clickable": true
+                            },
+                            "breakpoints": {
+                                "320": {
+                                    "slidesPerView": 2,
+                                    "spaceBetween": 40
+                                },
+                                "480": {
+                                    "slidesPerView": 3,
+                                    "spaceBetween": 60
+                                },
+                                "640": {
+                                    "slidesPerView": 4,
+                                    "spaceBetween": 80
+                                },
+                                "992": {
+                                    "slidesPerView": 6,
+                                    "spaceBetween": 120
+                                }
+                            }
+                        }
+                    </script>
+                    <div class="swiper-wrapper align-items-center">
+                        <div class="swiper-slide"><img src="assets/img/clients/client-1.png" class="img-fluid" alt=""></div>
+                        <div class="swiper-slide"><img src="assets/img/clients/client-2.png" class="img-fluid" alt=""></div>
+                        <div class="swiper-slide"><img src="assets/img/clients/client-3.png" class="img-fluid" alt=""></div>
+                        <div class="swiper-slide"><img src="assets/img/clients/client-4.png" class="img-fluid" alt=""></div>
+                        <div class="swiper-slide"><img src="assets/img/clients/client-5.png" class="img-fluid" alt=""></div>
+                        <div class="swiper-slide"><img src="assets/img/clients/client-6.png" class="img-fluid" alt=""></div>
+                        <div class="swiper-slide"><img src="assets/img/clients/client-7.png" class="img-fluid" alt=""></div>
+                        <div class="swiper-slide"><img src="assets/img/clients/client-8.png" class="img-fluid" alt=""></div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+
+            </div>
+
+        </section><!-- /Clients Section -->
+
+        <!-- Recent Posts Section -->
+        <section id="recent-posts" class="recent-posts section">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Recent Posts</h2>
+                <p>Recent posts form our Blog</p>
+            </div><!-- End Section Title -->
+
+            <div class="container">
+
+                <div class="row gy-5">
+
+                    <div class="col-xl-4 col-md-6">
+                        <div class="post-item position-relative h-100" data-aos="fade-up" data-aos-delay="100">
+
+                            <div class="post-img position-relative overflow-hidden">
+                                <img src="assets/img/blog/blog-1.jpg" class="img-fluid" alt="">
+                                <span class="post-date">December 12</span>
+                            </div>
+
+                            <div class="post-content d-flex flex-column">
+
+                                <h3 class="post-title">Eum ad dolor et. Autem aut fugiat debitis</h3>
+
+                                <div class="meta d-flex align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-person"></i> <span class="ps-2">Julia Parker</span>
+                                    </div>
+                                    <span class="px-3 text-black-50">/</span>
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-folder2"></i> <span class="ps-2">Politics</span>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+
+                            </div>
+
+                        </div>
+                    </div><!-- End post item -->
+
+                    <div class="col-xl-4 col-md-6">
+                        <div class="post-item position-relative h-100" data-aos="fade-up" data-aos-delay="200">
+
+                            <div class="post-img position-relative overflow-hidden">
+                                <img src="assets/img/blog/blog-2.jpg" class="img-fluid" alt="">
+                                <span class="post-date">July 17</span>
+                            </div>
+
+                            <div class="post-content d-flex flex-column">
+
+                                <h3 class="post-title">Et repellendus molestiae qui est sed omnis</h3>
+
+                                <div class="meta d-flex align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-person"></i> <span class="ps-2">Mario Douglas</span>
+                                    </div>
+                                    <span class="px-3 text-black-50">/</span>
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-folder2"></i> <span class="ps-2">Sports</span>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+
+                            </div>
+
+                        </div>
+                    </div><!-- End post item -->
+
+                    <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                        <div class="post-item position-relative h-100">
+
+                            <div class="post-img position-relative overflow-hidden">
+                                <img src="assets/img/blog/blog-3.jpg" class="img-fluid" alt="">
+                                <span class="post-date">September 05</span>
+                            </div>
+
+                            <div class="post-content d-flex flex-column">
+
+                                <h3 class="post-title">Quia assumenda est et veritati tirana ploder</h3>
+
+                                <div class="meta d-flex align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-person"></i> <span class="ps-2">Lisa Hunter</span>
+                                    </div>
+                                    <span class="px-3 text-black-50">/</span>
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-folder2"></i> <span class="ps-2">Economics</span>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+
+                            </div>
+
+                        </div>
+                    </div><!-- End post item -->
+
+                </div>
+
+            </div>
+
+        </section><!-- /Recent Posts Section -->
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact section">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Contact</h2>
+                <p>Contact Us</p>
+            </div><!-- End Section Title -->
+
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="row gy-4">
+
+                    <div class="col-lg-6">
+
+                        <div class="row gy-4">
+                            <div class="col-md-6">
+                                <div class="info-item" data-aos="fade" data-aos-delay="200">
+                                    <i class="bi bi-geo-alt"></i>
+                                    <h3>Address</h3>
+                                    <p>A108 Adam Street</p>
+                                    <p>New York, NY 535022</p>
+                                </div>
+                            </div><!-- End Info Item -->
+
+                            <div class="col-md-6">
+                                <div class="info-item" data-aos="fade" data-aos-delay="300">
+                                    <i class="bi bi-telephone"></i>
+                                    <h3>Call Us</h3>
+                                    <p>+1 5589 55488 55</p>
+                                    <p>+1 6678 254445 41</p>
+                                </div>
+                            </div><!-- End Info Item -->
+
+                            <div class="col-md-6">
+                                <div class="info-item" data-aos="fade" data-aos-delay="400">
+                                    <i class="bi bi-envelope"></i>
+                                    <h3>Email Us</h3>
+                                    <p>info@example.com</p>
+                                    <p>contact@example.com</p>
+                                </div>
+                            </div><!-- End Info Item -->
+
+                            <div class="col-md-6">
+                                <div class="info-item" data-aos="fade" data-aos-delay="500">
+                                    <i class="bi bi-clock"></i>
+                                    <h3>Open Hours</h3>
+                                    <p>Monday - Friday</p>
+                                    <p>9:00AM - 05:00PM</p>
+                                </div>
+                            </div><!-- End Info Item -->
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6">
+                        <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                            <div class="row gy-4">
+
+                                <div class="col-md-6">
+                                    <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                                </div>
+
+                                <div class="col-md-6 ">
+                                    <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                                </div>
+
+                                <div class="col-12">
+                                    <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+                                </div>
+
+                                <div class="col-12">
+                                    <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+                                </div>
+
+                                <div class="col-12 text-center">
+                                    <div class="loading">Loading</div>
+                                    <div class="error-message"></div>
+                                    <div class="sent-message">Your message has been sent. Thank you!</div>
+
+                                    <button type="submit">Send Message</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div><!-- End Contact Form -->
+
+                </div>
+
+            </div>
+
+        </section><!-- /Contact Section -->
+
+    </main>

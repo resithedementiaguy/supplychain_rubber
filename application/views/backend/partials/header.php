@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Dashboard - NiceAdmin Bootstrap Template</title>
+    <title>Crumb Rubber</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -44,11 +44,10 @@
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
-                <img src="assets/img/logo.png" alt="">
-                <span class="d-none d-lg-block">NiceAdmin</span>
+                <span class="d-none d-lg-block">Crumb Rubber</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
-        </div><!-- End Logo -->
+        </div>
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
@@ -56,21 +55,22 @@
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
-                    </a><!-- End Profile Iamge Icon -->
+                        <img src="<?= base_url('') ?>/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                        <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $this->session->userdata('nama'); ?></span>
+                    </a>
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>Kevin Anderson</h6>
-                            <span>Web Designer</span>
+                            <h6><?php echo $this->session->userdata('nama'); ?></h6>
+                            <span><?php echo $this->session->userdata('level_name'); ?></span>
                         </li>
+
                         <li>
                             <hr class="dropdown-divider">
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                            <a class="dropdown-item d-flex align-items-center" href="profile">
                                 <i class="bi bi-person"></i>
                                 <span>My Profile</span>
                             </a>
@@ -80,19 +80,38 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
+                            <a class="dropdown-item d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Logout</span>
                             </a>
                         </li>
 
-                    </ul><!-- End Profile Dropdown Items -->
-                </li><!-- End Profile Nav -->
+                    </ul>
+                </li>
 
             </ul>
-        </nav><!-- End Icons Navigation -->
+        </nav>
 
-    </header><!-- End Header -->
+    </header>
+
+    <!-- Logout Confirmation Modal -->
+    <div class="modal modal-borderless fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">Konfirmasi Logout</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah Anda yakin ingin keluar dari akun ini?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                    <a href="<?= base_url('auth/logout'); ?>" class="btn btn-danger">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- ======= Sidebar ======= -->
     <aside id="sidebar" class="sidebar">
@@ -102,22 +121,44 @@
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
-            </li><!-- End Dashboard Nav -->
+            </li>
 
+            
+
+            <?php
+            // Ambil level_name dari session
+            $level_name = $this->session->userdata('level_name');
+
+            // Jika level_name adalah "pemasok", hanya tampilkan item menu Pemasok
+            if ($level_name == 'pemasok') : ?>
             <li class="nav-heading">Mitra</li>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo ($this->uri->segment(1) == 'pemasok') ? '' : 'collapsed'; ?>" href="<?php echo site_url('pemasok'); ?>">
+                        <i class="bi bi-person"></i>
+                        <span>Pemasok</span>
+                    </a>
+                </li>
+            <?php
+            // Jika level_name adalah "pengelola", hanya tampilkan item menu Pengelola
+            elseif ($level_name == 'pengelola') : ?>
+            <li class="nav-heading">Mitra</li>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo ($this->uri->segment(1) == 'pengelola') ? '' : 'collapsed'; ?>" href="<?php echo site_url('pengelola'); ?>">
+                        <i class="bi bi-person"></i>
+                        <span>Mitra Pengelola</span>
+                    </a>
+                </li>
 
-            <li class="nav-item">
-                <a class="nav-link <?php echo ($this->uri->segment(1) == 'pemasok') ? '' : 'collapsed'; ?>" href="<?php echo site_url('pemasok'); ?>">
-                    <i class="bi bi-person"></i>
-                    <span>Pemasok</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link <?php echo ($this->uri->segment(1) == 'pengelola') ? '' : 'collapsed'; ?>" href="<?php echo site_url('pengelola'); ?>">
-                    <i class="bi bi-person"></i>
-                    <span>Mitra Pengelola</span>
-                </a>
-            </li>
+                <?php
+            // Jika level_name adalah "pengelola", hanya tampilkan item menu Pengelola
+            elseif ($level_name == 'admin') : ?>
+            <li class="nav-heading">Kelola Data</li>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo ($this->uri->segment(1) == 'pengelola') ? '' : 'collapsed'; ?>" href="<?php echo site_url('pengelola'); ?>">
+                        <i class="bi bi-person"></i>
+                        <span>Mitra Pengelola</span>
+                    </a>
+                </li>
+            <?php endif; ?>
         </ul>
-    </aside><!-- End Sidebar-->
+    </aside>

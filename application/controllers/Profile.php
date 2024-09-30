@@ -10,8 +10,8 @@ class Profile extends CI_Controller
 
     public function index()
     {
-        $this->load->view('partials/header');
-        $this->load->view('frontend/profile/view');
-        $this->load->view('partials/footer');
+        $this->load->view('backend/partials/header');
+        $this->load->view('backend/profile/view');
+        $this->load->view('backend/partials/footer');
     }
 }

@@ -25,27 +25,27 @@ class Pengelola extends CI_Controller
         $id_pengelola = $this->session->userdata('mitra_id');
         $data['daftar_ambil'] = $this->Mod_pengelola->get_all_ambil($id_pengelola);
 
-        $this->load->view('partials/header');
-        $this->load->view('frontend/pengelola/view', $data);
-        $this->load->view('partials/footer');
+        $this->load->view('backend/partials/header');
+        $this->load->view('backend/pengelola/view', $data);
+        $this->load->view('backend/partials/footer');
     }
 
     public function add_view()
     {
         // Mengambil hanya pemasok yang status stoknya belum diambil
         $data['nama_usaha'] = $this->Mod_pemasok->get_pemasok_belum_diambil();
-        $this->load->view('partials/header');
-        $this->load->view('frontend/pengelola/add', $data);
-        $this->load->view('partials/footer');
+        $this->load->view('backend/partials/header');
+        $this->load->view('backend/pengelola/add', $data);
+        $this->load->view('backend/partials/footer');
     }
 
     public function detail($id)
     {
         $data['detail_produk'] = $this->Mod_pengelola->get_detail($id);
 
-        $this->load->view('partials/header');
-        $this->load->view('frontend/pengelola/detail', $data);
-        $this->load->view('partials/footer');
+        $this->load->view('backend/partials/header');
+        $this->load->view('backend/pengelola/detail', $data);
+        $this->load->view('backend/partials/footer');
     }
 
     public function insert_olah()

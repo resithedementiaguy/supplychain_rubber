@@ -28,17 +28,17 @@ class Pemasok extends CI_Controller
 
         $data['pemasok_baru'] = empty($data['daftar_stok']);
 
-        $this->load->view('partials/header');
-        $this->load->view('frontend/pemasok/view', $data);
-        $this->load->view('partials/footer');
+        $this->load->view('backend/partials/header');
+        $this->load->view('backend/pemasok/view', $data);
+        $this->load->view('backend/partials/footer');
     }
 
     public function add_view()
     {
         $data['nama_usaha'] = $this->Mod_pengelola->get_mitra();
-        $this->load->view('partials/header');
-        $this->load->view('frontend/pemasok/add', $data);
-        $this->load->view('partials/footer');
+        $this->load->view('backend/partials/header');
+        $this->load->view('backend/pemasok/add', $data);
+        $this->load->view('backend/partials/footer');
     }
 
     public function add()
