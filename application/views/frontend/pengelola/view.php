@@ -79,7 +79,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <!-- End Table with stripped rows -->
                     </div>
                 </div>
             </div>

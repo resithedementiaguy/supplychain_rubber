@@ -42,7 +42,6 @@ class Pemasok extends CI_Controller
             'jumlah_stok' => $this->input->post('jumlah_stok')
         );
 
-        // Add the new resident to the database
         $this->Mod_pemasok->add_stok($data);
 
         redirect('pemasok/add_view');

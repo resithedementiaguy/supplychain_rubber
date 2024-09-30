@@ -49,15 +49,12 @@ class Pengelola extends CI_Controller
             'jumlah_mentah' => $this->input->post('jumlah_mentah')
         ];
 
-        // Insert ke tabel olah
         $this->db->insert('olah', $data);
 
         // Cek apakah data berhasil disimpan
         if ($this->db->affected_rows() > 0) {
-            // Redirect atau berikan response sukses
             $this->session->set_flashdata('success', 'Data berhasil disimpan');
         } else {
-            // Berikan response error
             $this->session->set_flashdata('error', 'Gagal menyimpan data');
         }
 

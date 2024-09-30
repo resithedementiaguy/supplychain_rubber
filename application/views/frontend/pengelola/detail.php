@@ -120,7 +120,7 @@
         // Ambil nilai dari form
         const tanggalDiolah = document.getElementById('tanggalDiolah').value;
         const beratMentah = document.getElementById('beratMentah').value;
-        const idPengelola = '<?= $id_pengelola; ?>'; // Tambahkan variabel id_pengelola
+        const idPengelola = '<?= $id_pengelola; ?>';
 
         console.log("Tanggal Diolah: ", tanggalDiolah);
         console.log("Berat Mentah: ", beratMentah);
@@ -128,17 +128,17 @@
 
         // Kirim data ke server menggunakan AJAX
         $.ajax({
-            url: '<?= site_url('pengelola/insert_olah'); ?>', // URL ke controller untuk menyimpan data
+            url: '<?= site_url('pengelola/insert_olah'); ?>',
             type: 'POST',
             data: {
-                id_pengelola: idPengelola, // Gunakan variabel yang didefinisikan
+                id_pengelola: idPengelola,
                 tanggal: tanggalDiolah,
                 jumlah_mentah: beratMentah
             },
             success: function(response) {
                 // Lakukan sesuatu jika berhasil, misalnya refresh data atau tampilkan pesan
                 alert('Data berhasil disimpan!');
-                $('#modalDiolah').modal('hide'); // Tutup modal
+                $('#modalDiolah').modal('hide');
             },
             error: function() {
                 // Lakukan sesuatu jika gagal
