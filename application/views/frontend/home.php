@@ -22,7 +22,7 @@
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
 
-            <a class="btn-getstarted flex-md-shrink-0" href="auth">Login</a>
+            <a class="btn-getstarted flex-md-shrink-0" href="<?= site_url('auth') ?>">Login</a>
 
         </div>
     </header>
