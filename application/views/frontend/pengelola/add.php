@@ -19,10 +19,14 @@
                     <label for="inputEmail4" class="form-label">Nama Usaha Pemasok</label>
                     <input type="hidden" name="id_pengelola" value="<?= $this->session->userdata('mitra_id')?>">
                     <select class="form-control" name="id_pemasok" id="id_pemasok" data-live-search="true">
-                        <option value="" selected hidden>Pilih Usaha Pemasok</option>
-                        <?php foreach($nama_usaha as $pemasok): ?>
-                            <option value="<?= $pemasok->id?>"><?= $pemasok->nama_usaha?> - <?= $pemasok->no_hp?></option>
-                        <?php endforeach;?>
+                        <?php if($nama_usaha): ?>
+                            <option value="" selected hidden>Pilih Usaha Pemasok</option>
+                            <?php foreach($nama_usaha as $pemasok): ?>
+                                <option value="<?= $pemasok->id?>"><?= $pemasok->nama_usaha?> - <?= $pemasok->no_hp?></option>
+                            <?php endforeach;?>
+                        <?php else: ?>
+                            <option value="" selected hidden>Belum ada stok dari usaha pemasok</option>
+                        <?php endif;?>
                     </select>
                 </div>
                 <div class="col-12">

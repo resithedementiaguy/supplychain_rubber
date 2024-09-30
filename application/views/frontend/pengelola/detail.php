@@ -40,7 +40,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Tanggal Diambil</th>
-                                    <td><?php echo date('d F Y', strtotime($detail_produk['tanggal'])); ?></td>
+                                    <td><?php echo date('d F Y H:i', strtotime($detail_produk['tanggal'])); ?></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Jumlah Stok</th>
@@ -49,7 +49,7 @@
                                 <tr>
                                     <th scope="row">Tanggal Diolah</th>
                                     <td>
-                                        <?php echo !empty($detail_produk['tanggal_diolah']) ? date('d F Y', strtotime($detail_produk['tanggal_diolah'])) : '-'; ?>
+                                        <?php echo !empty($detail_produk['tanggal_diolah']) ? date('d F Y H:i', strtotime($detail_produk['tanggal_diolah'])) : '-'; ?>
                                     </td>
                                 </tr>
                                 <tr>
