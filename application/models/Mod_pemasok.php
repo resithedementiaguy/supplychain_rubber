@@ -27,7 +27,7 @@ class Mod_pemasok extends CI_Model
     public function delete_pemasok($id)
     {
         $this->db->where('id', $id);
-        return $this->db->delete('pemasok');
+        return $this->db->delete('status_stok');
     }
 
     public function add_stok($data)
@@ -47,13 +47,13 @@ class Mod_pemasok extends CI_Model
         return null;
     }
 
-    public function get_all_stok($id_pemasok) {
-        $this->db->select('status_stok.jumlah_stok, pemasok.nama, pemasok.nama_usaha, pemasok.no_hp, status_stok.status');
+    public function get_all_stok($id_pemasok)
+    {
+        $this->db->select('status_stok.jumlah_stok, status_stok.id, pemasok.nama, pemasok.nama_usaha, pemasok.no_hp, status_stok.status');
         $this->db->from('status_stok');
         $this->db->join('pemasok', 'status_stok.id_pemasok = pemasok.id', 'left');
         $this->db->where('status_stok.id_pemasok', $id_pemasok);
         $this->db->order_by('status_stok.tanggal', 'DESC');
         return $this->db->get()->result();
     }
-
 }
