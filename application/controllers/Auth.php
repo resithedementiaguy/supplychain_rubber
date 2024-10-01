@@ -56,9 +56,11 @@ class Auth extends CI_Controller
 
     public function register()
     {
+        // Set validation rules
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
-        $this->form_validation->set_rules('email', 'Email', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'required|trim');
+        $this->form_validation->set_rules('location', 'Location', 'required|trim'); // Use 'location' instead of 'lokasi'
 
         if ($this->form_validation->run() == false) {
             $this->load->view('auth/register');
@@ -82,6 +84,9 @@ class Auth extends CI_Controller
             // Ambil tanggal dan waktu saat ini
             $current_datetime = date('Y-m-d H:i:s');
 
+            // Get the location from the form (now a single string)
+            $location = $this->input->post('location');
+
             // Check the level and insert accordingly
             if ($level == 'pemasok') {
                 $data_pemasok = [
@@ -90,6 +95,7 @@ class Auth extends CI_Controller
                     'nama_usaha'    => $this->input->post('nama_usaha'),
                     'no_hp'         => $this->input->post('no_hp'),
                     'alamat'        => $this->input->post('alamat'),
+                    'lokasi'        => $location,  // Store combined location
                     'ins_time'      => $current_datetime
                 ];
 
@@ -102,6 +108,7 @@ class Auth extends CI_Controller
                     'nama_usaha'    => $this->input->post('nama_usaha'),
                     'no_hp'         => $this->input->post('no_hp'),
                     'alamat'        => $this->input->post('alamat'),
+                    'lokasi'        => $location,  // Store combined location
                     'ins_time'      => $current_datetime
                 ];
 
@@ -111,7 +118,7 @@ class Auth extends CI_Controller
 
             // Set a success message and redirect
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        Well done! your account has been created. Please Login</div>');
+Well done! Your account has been created. Please Login</div>');
             redirect('auth');
         }
     }

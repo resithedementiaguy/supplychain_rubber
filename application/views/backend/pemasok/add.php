@@ -13,7 +13,6 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Tambah Stok</h5>
-
             <form class="row g-3" method="post" action="<?= base_url('pemasok/add') ?>">
                 <div class="col-12">
                     <input type="hidden" name="id_pemasok" id="id_pemasok" value="<?= $this->session->userdata('mitra_id') ?>">
@@ -30,8 +29,8 @@
                     <label for="inputAddress" class="form-label">Jumlah Stok (kg)</label>
                     <input type="number" class="form-control" id="jumlah_stok" name="jumlah_stok" placeholder="Jumlah Stok (kg)" required>
                 </div>
-                <div class="d-flex justify-content-between align-items-center">
-                    <a class="btn  btn-secondary" href="<?= base_url('pemasok'); ?>">Kembali</a>
+                <div class="col-12 mt-5 d-flex justify-content-between align-items-center">
+                    <a class="btn btn-secondary" href="<?= base_url('pemasok'); ?>">Kembali</a>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>

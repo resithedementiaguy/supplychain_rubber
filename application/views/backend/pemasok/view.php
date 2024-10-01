@@ -17,6 +17,21 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Daftar Pemasok</h5>
+                        <div class="mb-3 d-flex justify-content-between align-items-center">
+                            <?php if (!empty($daftar_stok)) : ?>
+                                <?php
+                                // Ambil status terbaru pemasok yang sedang login
+                                $status_terbaru = $daftar_stok[0]->status;
+                                ?>
+                                <?php if ($status_terbaru == 'Sudah diambil'): ?>
+                                    <a class="btn btn-primary btn-sm border-0" href="<?= base_url('pemasok/add_view') ?>"><b>Tambah Stok</b></a>
+                                <?php else: ?>
+                                    <span class="text-danger">Tunggu sampai stok diambil</span>
+                                <?php endif; ?>
+                            <?php else: ?>
+                                <a class="btn btn-primary btn-sm border-0" href="<?= base_url('pemasok/add_view') ?>"><b>Tambah Stok</b></a>
+                            <?php endif; ?>
+                        </div>
 
                         <!-- Table with stripped rows -->
                         <div class="table-responsive">
@@ -26,7 +41,7 @@
                                         <th>No</th>
                                         <th>Tanggal</th>
                                         <th>Nama</th>
-                                        <th>Nama Mitra</th>
+                                        <th>Nama Usaha</th>
                                         <th>Nomor HP</th>
                                         <th>Berat</th>
                                         <th>Status</th>
@@ -39,7 +54,7 @@
                                         foreach ($daftar_stok as $stok) : ?>
                                             <tr>
                                                 <td><?= $no++ ?></td>
-                                                <td><?= date('d F Y H:i', strtotime($stok->tanggal));?></td>
+                                                <td><?= date('d F Y H:i', strtotime($stok->tanggal)); ?></td>
                                                 <td><?= $stok->nama ?></td>
                                                 <td><?= $stok->nama_usaha ?></td>
                                                 <td><?= $stok->no_hp ?></td>
