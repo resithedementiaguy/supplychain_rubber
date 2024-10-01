@@ -32,7 +32,7 @@
                         <h1 data-aos="fade-up">Pengembangan Teknologi Crumb Rubber dari Limbah Ban Bekas UMKM Repro</h1>
                         <p data-aos="fade-up" data-aos-delay="100">Mendukung Ekonomi Sirkular Berkelanjutan di Kota Semarang</p>
                         <div class="d-flex flex-column flex-md-row" data-aos="fade-up" data-aos-delay="200">
-                            <a href="#about" class="btn-get-started">Tentang Kami</a>
+                            <a href="#proses" class="btn-get-started">Proses dan Teknologi</a>
                             <!-- <i class="bi bi-arrow-right"></i> -->
                             <!-- <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center justify-content-center ms-0 ms-md-4 mt-4 mt-md-0"><i class="bi bi-play-circle"></i><span>Watch Video</span></a> -->
                         </div>
