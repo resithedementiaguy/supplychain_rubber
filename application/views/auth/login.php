@@ -68,8 +68,11 @@
                                         <div class="col-12">
                                             <button class="btn btn-primary w-100" type="submit">Login</button>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12 mt-4 d-flex justify-content-center text-center">
                                             <p class="small mb-0">Belum punya akun? <a href="<?= base_url('auth/register') ?>">Buat akun disini!</a></p>
+                                        </div>
+                                        <div class="col-12 mt-2 d-flex justify-content-center text-center">
+                                            <p class="small mb-0"><a href="<?= base_url('') ?>">Kembali ke Beranda</a></p>
                                         </div>
                                     </form>
                                 </div>

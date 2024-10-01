@@ -43,7 +43,7 @@
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <div class="pt-4 pb-2">
-                                        <h5 class="card-title text-center pb-0 fs-4">Buat Akun</h5>
+                                        <h5 class="card-title text-center pb-0 fs-4">Buat Akun Baru</h5>
                                         <p class="text-center small">Masukkan informasi data Anda untuk membuat akun</p>
                                     </div>
 
@@ -98,8 +98,11 @@
                                         <div class="col-12">
                                             <button class="btn btn-primary w-100" type="submit">Buat Akun</button>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12 mt-4 d-flex justify-content-center text-center">
                                             <p class="small mb-0">Sudah punya akun? <a href="<?= base_url('auth') ?>">Login sekarang!</a></p>
+                                        </div>
+                                        <div class="col-12 mt-2 d-flex justify-content-center text-center">
+                                            <p class="small mb-0"><a href="<?= base_url('') ?>">Kembali ke Beranda</a></p>
                                         </div>
                                     </form>
 
