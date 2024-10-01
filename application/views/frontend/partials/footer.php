@@ -4,7 +4,7 @@
         <p>© <span>Copyright 2024</span> <strong class="px-1 sitename">Fakultas Teknik Universitas Dian Nuswantoro Semarang</strong></p>
         <div class="credits">
         </div>
-        <p>Telah dipakai selama 1 bulan 7 hari</p>
+        <p>Telah dipakai selama <?= $umur?></p>
         <div class="credits">
         </div>
     </div>

@@ -24,43 +24,29 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Tanggal</th>
                                         <th>Nama</th>
-                                        <th>Nama Mitra</th>
+                                        <th>Nama Usaha</th>
                                         <th>Nomor HP</th>
-                                        <th>Berat</th>
-                                        <th>Status</th>
+                                        <th>Alamat</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if (!empty($daftar_stok)) : ?>
+                                    <?php if (!empty($daftar_pemasok)) : ?>
                                         <?php $no = 1;
-                                        foreach ($daftar_stok as $stok) : ?>
+                                        foreach ($daftar_pemasok as $pemasok) : ?>
                                             <tr>
                                                 <td><?= $no++ ?></td>
-                                                <td><?= date('d F Y H:i', strtotime($stok->tanggal));?></td>
-                                                <td><?= $stok->nama ?></td>
-                                                <td><?= $stok->nama_usaha ?></td>
-                                                <td><?= $stok->no_hp ?></td>
-                                                <td><?= $stok->jumlah_stok ?> kg</td>
-                                                <td>
-                                                    <?php
-                                                    // Cocokkan sesuai nilai ENUM di database
-                                                    if ($stok->status == 'Belum diambil'): ?>
-                                                        <span class="badge bg-warning text-dark"><?= $stok->status ?></span>
-                                                    <?php elseif ($stok->status == 'Sudah diambil'): ?>
-                                                        <span class="badge bg-success"><?= $stok->status ?></span>
-                                                    <?php else: ?>
-                                                        <span class="badge bg-secondary"><?= $stok->status ?></span>
-                                                    <?php endif; ?>
-                                                </td>
+                                                <td><?= $pemasok->nama ?></td>
+                                                <td><?= $pemasok->nama_usaha ?></td>
+                                                <td><?= $pemasok->no_hp ?></td>
+                                                <td><?= $pemasok->alamat ?></td>
                                                 <td>
                                                     <!-- <button class="btn btn-success btn-sm border-0" type="button" style="cursor: pointer;" onclick="window.location.href='edit-link.php';">Edit</button> -->
-                                                    <button class="btn btn-danger btn-sm border-0" data-bs-toggle="modal" data-bs-target="#hapusModal-<?= $stok->id ?>" style="cursor: pointer;">Hapus</button>
+                                                    <button class="btn btn-danger btn-sm border-0" data-bs-toggle="modal" data-bs-target="#hapusModal-<?= $pemasok->id ?>" style="cursor: pointer;">Hapus</button>
 
                                                     <!-- Modal Hapus -->
-                                                    <div class="modal fade" id="hapusModal-<?= $stok->id ?>" tabindex="-1" aria-labelledby="hapusModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="hapusModal-<?= $pemasok->id ?>" tabindex="-1" aria-labelledby="hapusModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -68,11 +54,11 @@
                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    Apakah Anda yakin ingin menghapus stok dari pemasok <strong><?= $stok->nama ?></strong>?
+                                                                    Apakah Anda yakin ingin menghapus pemasok dari pemasok <strong><?= $pemasok->nama ?></strong>?
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
-                                                                    <a href="<?= base_url('pemasok/delete/' . $stok->id) ?>" class="btn btn-danger">Iya, Hapus</a>
+                                                                    <a href="<?= base_url('pemasok/delete/' . $pemasok->id) ?>" class="btn btn-danger">Iya, Hapus</a>
                                                                 </div>
                                                             </div>
                                                         </div>

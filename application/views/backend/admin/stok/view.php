@@ -26,7 +26,7 @@
                                         <th>No</th>
                                         <th>Tanggal</th>
                                         <th>Nama</th>
-                                        <th>Nama Mitra</th>
+                                        <th>Nama Usaha</th>
                                         <th>Nomor HP</th>
                                         <th>Berat</th>
                                         <th>Status</th>

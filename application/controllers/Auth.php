@@ -78,6 +78,10 @@ class Auth extends CI_Controller
             $this->Mod_auth->register($data_user);
             $user_id = $this->db->insert_id(); // Get the ID of the last inserted user
 
+            date_default_timezone_set('Asia/Jakarta');
+            // Ambil tanggal dan waktu saat ini
+            $current_datetime = date('Y-m-d H:i:s');
+
             // Check the level and insert accordingly
             if ($level == 'pemasok') {
                 $data_pemasok = [
@@ -85,7 +89,8 @@ class Auth extends CI_Controller
                     'nama'          => $this->input->post('nama'),
                     'nama_usaha'    => $this->input->post('nama_usaha'),
                     'no_hp'         => $this->input->post('no_hp'),
-                    'alamat'        => $this->input->post('alamat')
+                    'alamat'        => $this->input->post('alamat'),
+                    'ins_time'      => $current_datetime
                 ];
 
                 // Insert into pemasok table
@@ -96,7 +101,8 @@ class Auth extends CI_Controller
                     'nama'          => $this->input->post('nama'),
                     'nama_usaha'    => $this->input->post('nama_usaha'),
                     'no_hp'         => $this->input->post('no_hp'),
-                    'alamat'        => $this->input->post('alamat')
+                    'alamat'        => $this->input->post('alamat'),
+                    'ins_time'      => $current_datetime
                 ];
 
                 // Insert into mitra_pengelola table

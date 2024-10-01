@@ -1,13 +1,14 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Pemasok extends CI_Controller
+class Stok extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
         $this->load->model('Mod_pemasok');
         $this->load->model('Mod_pengelola');
+        $this->load->model('Mod_admin');
         $this->check_login(); // Ensure user is logged in
     }
 
@@ -22,14 +23,11 @@ class Pemasok extends CI_Controller
 
     public function index()
     {
-        $id_pemasok = $this->session->userdata('mitra_id');
 
-        $data['daftar_stok'] = $this->Mod_pemasok->get_all_stok($id_pemasok);
-
-        $data['pemasok_baru'] = empty($data['daftar_stok']);
+        $data['daftar_stok'] = $this->Mod_admin->get_stok();
 
         $this->load->view('backend/partials/header');
-        $this->load->view('backend/pemasok/view', $data);
+        $this->load->view('backend/admin/stok/view', $data);
         $this->load->view('backend/partials/footer');
     }
 

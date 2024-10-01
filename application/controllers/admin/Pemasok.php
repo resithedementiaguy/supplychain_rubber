@@ -8,6 +8,7 @@ class Pemasok extends CI_Controller
         parent::__construct();
         $this->load->model('Mod_pemasok');
         $this->load->model('Mod_pengelola');
+        $this->load->model('Mod_admin');
         $this->check_login(); // Ensure user is logged in
     }
 
@@ -22,14 +23,11 @@ class Pemasok extends CI_Controller
 
     public function index()
     {
-        $id_pemasok = $this->session->userdata('mitra_id');
 
-        $data['daftar_stok'] = $this->Mod_pemasok->get_all_stok($id_pemasok);
-
-        $data['pemasok_baru'] = empty($data['daftar_stok']);
+        $data['daftar_pemasok'] = $this->Mod_admin->get_pemasok();
 
         $this->load->view('backend/partials/header');
-        $this->load->view('backend/pemasok/view', $data);
+        $this->load->view('backend/admin/pemasok/view', $data);
         $this->load->view('backend/partials/footer');
     }
 
