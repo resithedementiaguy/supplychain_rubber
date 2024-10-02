@@ -70,7 +70,7 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="profile">
+                            <a class="dropdown-item d-flex align-items-center" href="<?php echo site_url('profile'); ?>">
                                 <i class="bi bi-person"></i>
                                 <span>My Profile</span>
                             </a>
@@ -122,8 +122,6 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-
-            
 
             <?php
             // Ambil level_name dari session

@@ -59,163 +59,189 @@
                             </li>
                         </ul>
                         <div class="tab-content pt-2">
-                            <div
-                                class="tab-pane fade show active profile-overview"
-                                id="profile-overview">
+                            <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
-                                <h5 class="card-title">Profile Details</h5>
+                                <!-- Jika data pemasok ada -->
+                                <?php if ($user['pemasok_nama']): ?>
+                                    <h5 class="card-title">Detail Profil Pemasok</h5>
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Full Name</div>
-                                    <div class="col-lg-9 col-md-8">Kevin Anderson</div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Company</div>
-                                    <div class="col-lg-9 col-md-8">
-                                        Lueilwitz, Wisoky and Leuschke
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Nama Pemasok</div>
+                                        <div class="col-lg-9 col-md-8"><?php echo $user['pemasok_nama']; ?></div>
                                     </div>
-                                </div>
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Job</div>
-                                    <div class="col-lg-9 col-md-8">Web Designer</div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Country</div>
-                                    <div class="col-lg-9 col-md-8">USA</div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Address</div>
-                                    <div class="col-lg-9 col-md-8">
-                                        A108 Adam Street, New York, NY 535022
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Nama Usaha</div>
+                                        <div class="col-lg-9 col-md-8"><?php echo $user['pemasok_usaha']; ?></div>
                                     </div>
-                                </div>
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Phone</div>
-                                    <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Email</div>
-                                    <div class="col-lg-9 col-md-8">
-                                        k.anderson@example.com
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Kategori</div>
+                                        <div class="col-lg-9 col-md-8"><?php echo ucfirst($user['level']); ?></div>
                                     </div>
-                                </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Email</div>
+                                        <div class="col-lg-9 col-md-8"><?php echo $user['email']; ?></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Nomor HP</div>
+                                        <div class="col-lg-9 col-md-8"><?php echo $user['pemasok_no_hp']; ?></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Alamat</div>
+                                        <div class="col-lg-9 col-md-8"><?php echo $user['pemasok_alamat']; ?></div>
+                                    </div>
+                                <?php endif; ?>
+
+                                <!-- Jika data mitra pengelola ada -->
+                                <?php if ($user['mitra_nama']): ?>
+                                    <h5 class="card-title">Detail Profil Mitra Pengelola</h5>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Nama Mitra</div>
+                                        <div class="col-lg-9 col-md-8"><?php echo $user['mitra_nama']; ?></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Nama Usaha</div>
+                                        <div class="col-lg-9 col-md-8"><?php echo $user['mitra_usaha']; ?></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Kategori</div>
+                                        <div class="col-lg-9 col-md-8"><?php echo ucfirst($user['level']); ?></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Email</div>
+                                        <div class="col-lg-9 col-md-8"><?php echo $user['email']; ?></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Nomor HP</div>
+                                        <div class="col-lg-9 col-md-8"><?php echo $user['mitra_no_hp']; ?></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Alamat</div>
+                                        <div class="col-lg-9 col-md-8"><?php echo $user['mitra_alamat']; ?></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Deskripsi Usaha</div>
+                                        <div class="col-lg-9 col-md-8"><?php echo $user['mitra_deskripsi']; ?></div>
+                                    </div>
+                                <?php endif; ?>
                             </div>
 
                             <div
                                 class="tab-pane fade profile-edit pt-3"
                                 id="profile-edit">
                                 <!-- Profile Edit Form -->
-                                <form>
-                                    <div class="row mb-3">
-                                        <label
-                                            for="fullName"
-                                            class="col-md-4 col-lg-3 col-form-label">Full Name</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input
-                                                name="fullName"
-                                                type="text"
-                                                class="form-control"
-                                                id="fullName"
-                                                value="Kevin Anderson" />
-                                        </div>
-                                    </div>
+                                <!-- Form untuk edit data pemasok -->
+                                <?php if ($user['pemasok_nama']): ?>
+                                    <h5 class="card-title">Edit Profil Pemasok</h5>
+                                    <form method="post" action="<?php echo base_url('profile/update_pemasok'); ?>">
 
-                                    <div class="row mb-3">
-                                        <label
-                                            for="company"
-                                            class="col-md-4 col-lg-3 col-form-label">Company</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input
-                                                name="company"
-                                                type="text"
-                                                class="form-control"
-                                                id="company"
-                                                value="Lueilwitz, Wisoky and Leuschke" />
+                                        <div class="row mb-3">
+                                            <label for="pemasok_nama" class="col-md-4 col-lg-3 col-form-label">Nama Pemasok</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="pemasok_nama" type="text" class="form-control" id="pemasok_nama" value="<?php echo $user['pemasok_nama']; ?>" />
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="row mb-3">
-                                        <label
-                                            for="Job"
-                                            class="col-md-4 col-lg-3 col-form-label">Job</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input
-                                                name="job"
-                                                type="text"
-                                                class="form-control"
-                                                id="Job"
-                                                value="Web Designer" />
+                                        <div class="row mb-3">
+                                            <label for="pemasok_usaha" class="col-md-4 col-lg-3 col-form-label">Nama Usaha</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="pemasok_usaha" type="text" class="form-control" id="pemasok_usaha" value="<?php echo $user['pemasok_usaha']; ?>" />
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="row mb-3">
-                                        <label
-                                            for="Country"
-                                            class="col-md-4 col-lg-3 col-form-label">Country</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input
-                                                name="country"
-                                                type="text"
-                                                class="form-control"
-                                                id="Country"
-                                                value="USA" />
+                                        <div class="row mb-3">
+                                            <label for="pemasok_alamat" class="col-md-4 col-lg-3 col-form-label">Alamat</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="pemasok_alamat" type="text" class="form-control" id="pemasok_alamat" value="<?php echo $user['pemasok_alamat']; ?>" />
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="row mb-3">
-                                        <label
-                                            for="Address"
-                                            class="col-md-4 col-lg-3 col-form-label">Address</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input
-                                                name="address"
-                                                type="text"
-                                                class="form-control"
-                                                id="Address"
-                                                value="A108 Adam Street, New York, NY 535022" />
+                                        <div class="row mb-3">
+                                            <label for="pemasok_no_hp" class="col-md-4 col-lg-3 col-form-label">Nomor HP</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="pemasok_no_hp" type="text" class="form-control" id="pemasok_no_hp" value="<?php echo $user['pemasok_no_hp']; ?>" />
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="row mb-3">
-                                        <label
-                                            for="Phone"
-                                            class="col-md-4 col-lg-3 col-form-label">Phone</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input
-                                                name="phone"
-                                                type="text"
-                                                class="form-control"
-                                                id="Phone"
-                                                value="(436) 486-3538 x29071" />
+                                        <!-- <div class="row mb-3">
+                                            <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="email" type="email" class="form-control" id="email" value="<?php echo $user['email']; ?>" />
+                                            </div>
+                                        </div> -->
+
+                                        <div class="text-end">
+                                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                         </div>
-                                    </div>
 
-                                    <div class="row mb-3">
-                                        <label
-                                            for="Email"
-                                            class="col-md-4 col-lg-3 col-form-label">Email</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input
-                                                name="email"
-                                                type="email"
-                                                class="form-control"
-                                                id="Email"
-                                                value="k.anderson@example.com" />
+                                    </form>
+                                <?php endif; ?>
+
+                                <!-- Form untuk edit data mitra pengelola -->
+                                <?php if ($user['mitra_nama']): ?>
+                                    <h5 class="card-title">Edit Profil Mitra Pengelola</h5>
+                                    <form method="post" action="<?php echo base_url('profile/update_mitra_pengelola'); ?>">
+
+                                        <div class="row mb-3">
+                                            <label for="mitra_nama" class="col-md-4 col-lg-3 col-form-label">Nama Mitra</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="mitra_nama" type="text" class="form-control" id="mitra_nama" value="<?php echo $user['mitra_nama']; ?>" />
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-primary">
-                                            Save Changes
-                                        </button>
-                                    </div>
-                                </form>
+                                        <div class="row mb-3">
+                                            <label for="mitra_usaha" class="col-md-4 col-lg-3 col-form-label">Nama Usaha</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="mitra_usaha" type="text" class="form-control" id="mitra_usaha" value="<?php echo $user['mitra_usaha']; ?>" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="mitra_alamat" class="col-md-4 col-lg-3 col-form-label">Alamat</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="mitra_alamat" type="text" class="form-control" id="mitra_alamat" value="<?php echo $user['mitra_alamat']; ?>" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="mitra_no_hp" class="col-md-4 col-lg-3 col-form-label">Nomor HP</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="mitra_no_hp" type="text" class="form-control" id="mitra_no_hp" value="<?php echo $user['mitra_no_hp']; ?>" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="mitra_deskripsi" class="col-md-4 col-lg-3 col-form-label">Deskripsi Usaha</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <textarea name="mitra_deskripsi" class="form-control" id="mitra_deskripsi"><?php echo $user['mitra_deskripsi']; ?></textarea>
+                                            </div>
+                                        </div>
+
+                                        <!-- <div class="row mb-3">
+                                            <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="email" type="email" class="form-control" id="email" value="<?php echo $user['email']; ?>" />
+                                            </div>
+                                        </div> -->
+
+                                        <div class="text-end">
+                                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                        </div>
+
+                                    </form>
+                                <?php endif; ?>
+
                                 <!-- End Profile Edit Form -->
                             </div>
 
