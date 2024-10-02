@@ -26,6 +26,7 @@ class Auth extends CI_Controller
         if ($this->input->post()) {
             $email = $this->input->post('email');
             $password = $this->input->post('password');
+            $location = $this->input->post('location'); // Get the location from the form
 
             // Log the attempt
             log_message('debug', "Attempting login with email: $email");
@@ -33,25 +34,36 @@ class Auth extends CI_Controller
             $user = $this->Mod_auth->validate_login($email, $password);
 
             if ($user) {
+                // Set session data
                 $this->session->set_userdata(array(
                     'user_id' => $user['user_id'],
                     'nama' => $user['nama'],
                     'email' => $user['email'],
                     'level_name' => $user['level_name'],
                     'mitra_id' => $user['mitra_id'],
+                    'lokasi' => $location, // Store the location in the session
                     'logged_in' => TRUE
                 ));
 
-                // Redirect to dashboard
+                // Check the user level and update the appropriate table with the location
+                if ($user['level_name'] == 'pemasok') {
+                    $this->Mod_auth->update_pemasok_location($user['user_id'], $location);
+                } elseif ($user['level_name'] == 'pengelola') {
+                    $this->Mod_auth->update_pengelola_location($user['user_id'], $location);
+                }
+
+                // Redirect to the dashboard
                 redirect('dashboard');
-                exit; // Make sure no further code is executed
+                exit; // Ensure no further code is executed
             } else {
+                // Handle invalid login credentials
                 echo json_encode(['status' => 'error', 'message' => 'Invalid username or password.']);
             }
         } else {
             echo json_encode(['status' => 'error', 'message' => 'No data provided.']);
         }
     }
+
 
 
     public function register()
