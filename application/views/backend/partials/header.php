@@ -70,11 +70,15 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="<?php echo site_url('profile'); ?>">
-                                <i class="bi bi-person"></i>
-                                <span>My Profile</span>
-                            </a>
+                            <?php if ($this->session->userdata('level_name') !== 'admin'): ?>
+                                <a class="dropdown-item d-flex align-items-center" href="<?php echo site_url('profile'); ?>">
+                                    <i class="bi bi-person"></i>
+                                    <span>My Profile</span>
+                                </a>
+                            <?php else: ?>
+                            <?php endif; ?>
                         </li>
+
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -129,7 +133,7 @@
 
             // Jika level_name adalah "pemasok", hanya tampilkan item menu Pemasok
             if ($level_name == 'pemasok') : ?>
-            <li class="nav-heading">Mitra</li>
+                <li class="nav-heading">Mitra</li>
                 <li class="nav-item">
                     <a class="nav-link <?php echo ($this->uri->segment(1) == 'pemasok') ? '' : 'collapsed'; ?>" href="<?php echo site_url('pemasok'); ?>">
                         <i class="bi bi-person"></i>
@@ -139,7 +143,7 @@
             <?php
             // Jika level_name adalah "pengelola", hanya tampilkan item menu Pengelola
             elseif ($level_name == 'pengelola') : ?>
-            <li class="nav-heading">Mitra</li>
+                <li class="nav-heading">Mitra</li>
                 <li class="nav-item">
                     <a class="nav-link <?php echo ($this->uri->segment(1) == 'pengelola') ? '' : 'collapsed'; ?>" href="<?php echo site_url('pengelola'); ?>">
                         <i class="bi bi-person"></i>
@@ -147,10 +151,10 @@
                     </a>
                 </li>
 
-                <?php
+            <?php
             // Jika level_name adalah "pengelola", hanya tampilkan item menu Pengelola
             elseif ($level_name == 'admin') : ?>
-            <li class="nav-heading">Kelola Data</li>
+                <li class="nav-heading">Kelola Data</li>
                 <li class="nav-item">
                     <a class="nav-link <?php echo ($this->uri->segment(1) == 'pengelola') ? '' : 'collapsed'; ?>" href="<?php echo site_url('admin/pengelola'); ?>">
                         <i class="bi bi-person"></i>
