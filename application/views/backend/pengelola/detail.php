@@ -13,63 +13,80 @@
 
     <section class="section">
         <div class="row">
-            <div class="col-lg-12">
-                <div class="card-body">
-                    <h5 class="card-title">Detail Barang</h5>
-
-                    <!-- Cek apakah jumlah_mentah kosong atau tidak -->
-                    <?php if (empty($detail_produk['jumlah_mentah'])) : ?>
-                        <!-- Jika jumlah_mentah kosong, tampilkan tombol "Input Diolah" -->
-                        <button type="button" class="btn btn-sm btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalDiolah">
-                            Input Diolah
-                        </button>
-                    <?php endif; ?>
-
-                    <table class="table table-bordered">
-                        <tbody>
+            <div class="col">
+                <table class="table" style="border-collapse: collapse; width: 100%;">
+                    <tbody>
+                        <tr>
+                            <th scope="row" style="width: 25%; border: none;">Nama Pemilik</th>
+                            <td style="border: none;"><?php echo $detail_produk['nama_pengelola']; ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" style="border: none;">Nama Usaha</th>
+                            <td style="border: none;"><?php echo $detail_produk['nama_usaha_pengelola']; ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" style="border: none;">Diambil Dari</th>
+                            <td style="border: none;"><?php echo $detail_produk['nama_usaha_pemasok']; ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" style="border: none;">Nomor HP Pengelola</th>
+                            <td style="border: none;"><?php echo $detail_produk['no_hp_pengelola']; ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table datatable">
+                        <thead>
                             <tr>
-                                <th scope="row">Nama Pemilik</th>
-                                <td><?php echo $detail_produk['nama_pengelola']; ?></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Nama Usaha</th>
-                                <td><?php echo $detail_produk['nama_usaha_pengelola']; ?></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Diambil Dari</th>
-                                <td><?php echo $detail_produk['nama_usaha_pemasok']; ?></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Nomor HP Pengelola</th>
-                                <td><?php echo $detail_produk['no_hp_pengelola']; ?></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Tanggal Diambil</th>
-                                <td><?php echo date('d F Y H:i', strtotime($detail_produk['tanggal'])); ?></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Jumlah Stok</th>
-                                <td><?php echo $detail_produk['jumlah_stok']; ?> kg</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Tanggal Diolah</th>
-                                <td>
-                                    <?php echo !empty($detail_produk['tanggal_diolah']) ? date('d F Y H:i', strtotime($detail_produk['tanggal_diolah'])) : '-'; ?>
-                                </td>
-                            </tr>
-                            <tr>
+                                <th>No</th>
+                                <th>Nama Usaha Pemasok</th>
+                                <th>Tanggal Diambil</th>
+                                <th>Jumlah Stok</th>
+                                <th>Tanggal Diolah</th>
                                 <th scope="row">Jumlah Mentah</th>
-                                <td>
-                                    <?php echo !empty($detail_produk['jumlah_mentah']) ? $detail_produk['jumlah_mentah'] . ' kg' : '-'; ?>
-                                </td>
+                                <th>Aksi</th>
                             </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (!empty($riwayat_pemasok)) : ?>
+                                <?php $no = 1;
+                                foreach ($riwayat_pemasok as $riwayat) : ?>
+                                    <tr>
+                                        <td><?= $no++ ?></td>
+                                        <td><?= $riwayat->nama_usaha_pemasok ?></td>
+                                        <td><?= date('d F Y H:i', strtotime($riwayat->tanggal)); ?></td>
+                                        <td><?= $riwayat->jumlah_stok ?> kg</td>
+                                        <td><?php echo !empty($riwayat->tanggal_diolah) ? date('d F Y H:i', strtotime($riwayat->tanggal_diolah)) : '-'; ?></td>
+                                        <td><?php echo !empty($riwayat->jumlah_mentah) ? $riwayat->jumlah_mentah . ' kg' : '-'; ?></td>
+                                        <td>
+                                            <button
+                                                class="btn btn-success btn-sm border-0 olahButton"
+                                                data-id_pengelola="<?= $riwayat->id ?>"
+                                                data-jumlah_stok="<?= $riwayat->jumlah_stok ?>"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modalDiolah">
+                                                Olah
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <tr>
+                                    <td colspan="7" align="center">Tidak ada riwayat untuk pemasok ini.</td>
+                                </tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <a class="btn btn-sm btn-secondary" href="<?= base_url('pengelola'); ?>">Kembali</a>
-                    </div>
                 </div>
             </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center">
+            <a class="btn btn-secondary" href="<?= base_url('pengelola'); ?>">Kembali</a>
         </div>
     </section>
 </main>
@@ -117,7 +134,6 @@
         </div>
     </div>
 </div>
-
 
 <script>
     function submitForm() {

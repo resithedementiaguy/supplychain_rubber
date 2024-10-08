@@ -42,6 +42,7 @@ class Pengelola extends CI_Controller
     public function detail($id)
     {
         $data['detail_produk'] = $this->Mod_pengelola->get_detail($id);
+        $data['riwayat_pemasok'] = $this->Mod_pengelola->get_riwayat_pemasok($data['detail_produk']['id_pemasok']);
 
         $this->load->view('backend/partials/header');
         $this->load->view('backend/pengelola/detail', $data);

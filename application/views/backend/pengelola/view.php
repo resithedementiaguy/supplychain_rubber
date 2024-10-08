@@ -48,9 +48,8 @@
                                                 <td><?= $ambil->jumlah_stok ?> kg</td>
                                                 <td>
                                                     <a class="btn btn-success btn-sm border-0" href="<?php echo site_url('pengelola/detail/' . $ambil->id); ?>">Detail</a>
-                                                    <button class="btn btn-danger btn-sm border-0" data-bs-toggle="modal" data-bs-target="#hapusModal-<?= $ambil->id ?>" style="cursor: pointer;">Hapus</button>
+                                                    <!-- <button class="btn btn-danger btn-sm border-0" data-bs-toggle="modal" data-bs-target="#hapusModal-<?= $ambil->id ?>" style="cursor: pointer;">Hapus</button>
 
-                                                    <!-- Modal Hapus -->
                                                     <div class="modal fade" id="hapusModal-<?= $ambil->id ?>" tabindex="-1" aria-labelledby="hapusModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
@@ -67,7 +66,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
