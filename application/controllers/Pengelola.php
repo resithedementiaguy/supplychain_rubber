@@ -32,7 +32,6 @@ class Pengelola extends CI_Controller
 
     public function add_view()
     {
-        // Mengambil hanya pemasok yang status stoknya belum diambil
         $data['nama_usaha'] = $this->Mod_pemasok->get_pemasok_belum_diambil();
         $this->load->view('backend/partials/header');
         $this->load->view('backend/pengelola/add', $data);
@@ -53,27 +52,35 @@ class Pengelola extends CI_Controller
     {
         date_default_timezone_set('Asia/Jakarta');
         $tgl = date('Y-m-d H:i:s', time());
-        // Ambil data dari POST
-        $data = [
-            'id_pengelola' => $this->input->post('id_pengelola'),
-            'tanggal' => $tgl,
-            'jumlah_stok' => $this->input->post('jumlah_stok'),
-            'jumlah_mentah' => $this->input->post('jumlah_mentah')
-        ];
 
-        $this->db->insert('olah', $data);
+        $id_ambil = $this->input->post('id_ambil');
+        $jumlah_stok = $this->input->post('jumlah_stok');
+        $jumlah_mentah = $this->input->post('jumlah_mentah');
 
-        // Cek apakah data berhasil disimpan
-        if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('success', 'Data berhasil disimpan');
-        } else {
-            $this->session->set_flashdata('error', 'Gagal menyimpan data');
+        if (empty($id_ambil) || empty($jumlah_stok) || empty($jumlah_mentah)) {
+            echo json_encode(['success' => false, 'message' => 'Data input tidak lengkap.']);
+            return;
         }
 
-        // Redirect kembali ke halaman detail produk
-        redirect('pengelola/detail/' . $data['id_pengelola']);
-    }
+        $data = [
+            'id_ambil' => $id_ambil,
+            'tanggal' => $tgl,
+            'jumlah_stok' => $jumlah_stok,
+            'jumlah_mentah' => $jumlah_mentah
+        ];
 
+        try {
+            $this->db->insert('olah', $data);
+            log_message('debug', 'Query Insert: ' . $this->db->last_query());
+            if ($this->db->affected_rows() > 0) {
+                echo json_encode(['success' => true, 'message' => 'Data berhasil disimpan!']);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Tidak ada perubahan data yang disimpan.']);
+            }
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+        }
+    }
 
     public function get_stok_by_id()
     {

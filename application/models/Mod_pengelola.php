@@ -55,7 +55,7 @@ class Mod_pengelola extends CI_Model
         $this->db->from('ambil');
         $this->db->join('pemasok', 'ambil.id_pemasok = pemasok.id', 'left');
         $this->db->join('mitra_pengelola', 'ambil.id_pengelola = mitra_pengelola.id', 'left');
-        $this->db->join('olah', 'ambil.id = olah.id', 'left'); // Relasi ke tabel olah berdasarkan id_ambil
+        $this->db->join('olah', 'ambil.id = olah.id', 'left');
         $this->db->where('ambil.id', $id_ambil);
         return $this->db->get()->row_array();
     }
@@ -63,13 +63,17 @@ class Mod_pengelola extends CI_Model
     public function get_riwayat_pemasok($id_pemasok)
     {
         $this->db->select(
-            'ambil.id, ambil.jumlah_stok, ambil.tanggal, ambil.keterangan, 
-        pemasok.nama as nama_pemasok, pemasok.nama_usaha as nama_usaha_pemasok, pemasok.no_hp as no_hp_pemasok,
-        mitra_pengelola.nama as nama_pengelola, mitra_pengelola.nama_usaha as nama_usaha_pengelola, mitra_pengelola.no_hp as no_hp_pengelola'
+            'ambil.id as id_ambil, ambil.jumlah_stok, ambil.tanggal, ambil.keterangan, 
+        pemasok.nama as nama_pemasok, pemasok.nama_usaha as nama_usaha_pemasok, 
+        pemasok.no_hp as no_hp_pemasok,
+        mitra_pengelola.nama as nama_pengelola, mitra_pengelola.nama_usaha as nama_usaha_pengelola, 
+        mitra_pengelola.no_hp as no_hp_pengelola,
+        olah.tanggal as tanggal_diolah, olah.jumlah_mentah'
         );
         $this->db->from('ambil');
         $this->db->join('pemasok', 'ambil.id_pemasok = pemasok.id', 'left');
         $this->db->join('mitra_pengelola', 'ambil.id_pengelola = mitra_pengelola.id', 'left');
+        $this->db->join('olah', 'ambil.id = olah.id_ambil', 'left');
         $this->db->where('ambil.id_pemasok', $id_pemasok);
         return $this->db->get()->result();
     }

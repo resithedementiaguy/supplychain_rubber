@@ -60,17 +60,33 @@
                                         <td><?= $riwayat->nama_usaha_pemasok ?></td>
                                         <td><?= date('d F Y H:i', strtotime($riwayat->tanggal)); ?></td>
                                         <td><?= $riwayat->jumlah_stok ?> kg</td>
-                                        <td><?php echo !empty($riwayat->tanggal_diolah) ? date('d F Y H:i', strtotime($riwayat->tanggal_diolah)) : '-'; ?></td>
-                                        <td><?php echo !empty($riwayat->jumlah_mentah) ? $riwayat->jumlah_mentah . ' kg' : '-'; ?></td>
                                         <td>
-                                            <button
-                                                class="btn btn-success btn-sm border-0 olahButton"
-                                                data-id_pengelola="<?= $riwayat->id ?>"
-                                                data-jumlah_stok="<?= $riwayat->jumlah_stok ?>"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#modalDiolah">
-                                                Olah
-                                            </button>
+                                            <?php if (!empty($riwayat->tanggal_diolah)) : ?>
+                                                <?= date('d F Y H:i', strtotime($riwayat->tanggal_diolah)); ?>
+                                            <?php else : ?>
+                                                -
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <?php if (!empty($riwayat->jumlah_mentah)) : ?>
+                                                <?= $riwayat->jumlah_mentah . ' kg'; ?>
+                                            <?php else : ?>
+                                                -
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <?php if (empty($riwayat->tanggal_diolah)) : // Cek jika tanggal diolah kosong 
+                                            ?>
+                                                <button class="btn btn-success btn-sm border-0 olahButton"
+                                                    data-id_ambil="<?= $riwayat->id_ambil ?>"
+                                                    data-jumlah_stok="<?= $riwayat->jumlah_stok ?>"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalDiolah">
+                                                    Olah
+                                                </button>
+                                            <?php else : ?>
+                                                -
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -96,23 +112,22 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalDiolahLabel">Barang Diolah</h5>
+                <h5 class="modal-title" id="modalDiolahLabel">Proses Pengolahan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="formDiolah" method="POST" action="<?= base_url('pengelola/insert_olah') ?>">
+                <form id="formDiolah" method="POST">
                     <div class="mb-3">
-                        <?php
-                        date_default_timezone_set('Asia/Jakarta');
-                        $tgl = date('Y-m-d H:i:s', time());
-                        ?>
                         <label for="tanggalDiolah" class="form-label">Tanggal Diolah</label>
-                        <input type="text" class="form-control" id="tanggalDiolah" name="tanggal" value="<?= $tgl ?>" readonly required>
+                        <input type="text" class="form-control" id="tanggalDiolah" name="tanggal" value="<?= date('Y-m-d H:i:s') ?>" readonly required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jumlahStok" class="form-label">Jumlah Stok (kg)</label>
+                        <input type="text" class="form-control" id="jumlahStok" name="jumlah_stok" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="beratMentah" class="form-label">Berat Mentah</label>
-                        <input type="hidden" name="id_pengelola" value="<?php echo $detail_produk['id']; ?>">
-                        <input type="hidden" name="jumlah_stok" id="jumlah_stok" value="<?php echo $detail_produk['jumlah_stok']; ?>">
+                        <input type="hidden" name="id_ambil" id="id_ambil">
                         <input type="number" class="form-control" name="jumlah_mentah" id="beratMentah" placeholder="Masukkan berat mentah (kg)" required>
                     </div>
                 </form>
@@ -121,49 +136,49 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                 <button type="submit" class="btn btn-primary" form="formDiolah">Simpan</button>
             </div>
-            <?php if ($this->session->flashdata('success')): ?>
-                <div class="alert alert-success">
-                    <?= $this->session->flashdata('success'); ?>
-                </div>
-            <?php elseif ($this->session->flashdata('error')): ?>
-                <div class="alert alert-danger">
-                    <?= $this->session->flashdata('error'); ?>
-                </div>
-            <?php endif; ?>
-
         </div>
     </div>
 </div>
 
 <script>
-    function submitForm() {
-        // Ambil nilai dari form
-        const tanggalDiolah = document.getElementById('tanggalDiolah').value;
-        const beratMentah = document.getElementById('beratMentah').value;
-        const idPengelola = '<?= $id_pengelola; ?>';
+    $(document).ready(function() {
+        $(document).on('click', '.olahButton', function() {
+            const idAmbil = $(this).data('id_ambil');
+            const jumlahStok = $(this).data('jumlah_stok');
 
-        console.log("Tanggal Diolah: ", tanggalDiolah);
-        console.log("Berat Mentah: ", beratMentah);
-        console.log("ID Pengelola: ", idPengelola);
-
-        // Kirim data ke server menggunakan AJAX
-        $.ajax({
-            url: '<?= site_url('pengelola/insert_olah'); ?>',
-            type: 'POST',
-            data: {
-                id_pengelola: idPengelola,
-                tanggal: tanggalDiolah,
-                jumlah_mentah: beratMentah
-            },
-            success: function(response) {
-                // Lakukan sesuatu jika berhasil, misalnya refresh data atau tampilkan pesan
-                alert('Data berhasil disimpan!');
-                $('#modalDiolah').modal('hide');
-            },
-            error: function() {
-                // Lakukan sesuatu jika gagal
-                alert('Gagal menyimpan data!');
-            }
+            $('#jumlahStok').val(jumlahStok);
+            $('#id_ambil').val(idAmbil);
         });
-    }
+
+        $('#formDiolah').on('submit', function(event) {
+            event.preventDefault();
+
+            const formData = $(this).serialize();
+
+            // Make AJAX request
+            $.ajax({
+                url: '<?= site_url('pengelola/insert_olah'); ?>',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    console.log(response);
+                    try {
+                        const jsonResponse = JSON.parse(response);
+                        if (jsonResponse.success) {
+                            alert('Data berhasil disimpan!');
+                            $('#modalDiolah').modal('hide');
+                            location.reload(); // Tambahkan ini untuk refresh halaman
+                        } else {
+                            alert('Gagal menyimpan data: ' + jsonResponse.message);
+                        }
+                    } catch (e) {
+                        alert('Gagal memproses respons: ' + e.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('Gagal menyimpan data! Error: ' + error);
+                }
+            });
+        });
+    });
 </script>
