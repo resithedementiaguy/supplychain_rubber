@@ -37,7 +37,7 @@ class Mod_pemasok extends CI_Model
 
     public function get_stok_by_id($id)
     {
-        $this->db->select('jumlah_stok');
+        $this->db->select('jumlah_stok, lokasi');
         $this->db->from('status_stok');
         $this->db->where('id_pemasok', $id);
         $this->db->order_by('tanggal','DESC');
@@ -59,7 +59,7 @@ class Mod_pemasok extends CI_Model
 
     public function get_pemasok_belum_diambil()
     {
-        $this->db->select('pemasok.id, pemasok.nama_usaha, pemasok.no_hp');
+        $this->db->select('pemasok.id, pemasok.nama_usaha, pemasok.no_hp, status_stok.lokasi');
         $this->db->from('pemasok');
         $this->db->join('status_stok', 'pemasok.id = status_stok.id_pemasok');
         $this->db->where('status_stok.status', 'Belum diambil');

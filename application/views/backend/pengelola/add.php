@@ -22,23 +22,21 @@
                         <?php if ($nama_usaha): ?>
                             <option value="" selected hidden>Pilih Usaha Pemasok</option>
                             <?php foreach ($nama_usaha as $pemasok): ?>
-                                <option value="<?= $pemasok->id ?>"><?= $pemasok->nama_usaha ?> - <?= $pemasok->no_hp ?></option>
+                                <option value="<?= $pemasok->id ?>" data-koordinat="<?= $pemasok->lokasi ?>"><?= $pemasok->nama_usaha ?> - <?= $pemasok->no_hp ?></option>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <option value="" selected hidden>Belum ada stok dari usaha pemasok</option>
                         <?php endif; ?>
                     </select>
                 </div>
-                <div class="col-12">
-                    <label for="inputAddress" class="form-label">Alamat</label>
-                    <input type="text" class="form-control" id="jumlah_stok" name="jumlah_stok" placeholder="Alamat Usaha Pemasok" required readonly>
-                </div>
+
                 <div class="col-12">
                     <label for="inputAddress" class="form-label">Lokasi</label>
                     <div>
-                        <a class="btn btn-primary" href="#">Buka Maps</a>
+                        <a class="btn btn-primary" id="openMapBtn" href="javascript:void(0)">Buka Maps</a>
                     </div>
                 </div>
+
                 <div class="col-12">
                     <label for="inputEmail4" class="form-label">Tanggal</label>
                     <?php
@@ -53,10 +51,10 @@
                 </div>
                 <div class="col-12">
                     <label for="inputAddress" class="form-label">Keterangan</label>
-                    <textarea class="form-control" name="keterangan" id="keterangan"></textarea>
+                    <textarea class="form-control" name="keterangan" id="keterangan" placeholder="Masukkan keterangan"></textarea>
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
-                    <a class="btn  btn-secondary" href="<?= base_url('pengelola'); ?>">Kembali</a>
+                    <a class="btn btn-secondary" href="<?= base_url('pengelola'); ?>">Kembali</a>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
@@ -87,5 +85,20 @@
                 $('#jumlah_stok').val('');
             }
         });
+    });
+
+    document.getElementById('openMapBtn').addEventListener('click', function() {
+        // Ambil koordinat dari pemasok yang dipilih
+        var selectedPemasok = document.getElementById('id_pemasok');
+        var selectedOption = selectedPemasok.options[selectedPemasok.selectedIndex];
+        var koordinat = selectedOption.getAttribute('data-koordinat');
+
+        if (koordinat) {
+            // Redirect ke Google Maps dengan koordinat dari database
+            const mapsUrl = `https://www.google.com/maps?q=${koordinat}&z=15&hl=id`;
+            window.open(mapsUrl, '_blank'); // Buka Google Maps di tab baru
+        } else {
+            alert("Pilih pemasok terlebih dahulu.");
+        }
     });
 </script>
