@@ -45,13 +45,6 @@ class Auth extends CI_Controller
                     'logged_in' => TRUE
                 ));
 
-                // Check the user level and update the appropriate table with the location
-                if ($user['level_name'] == 'pemasok') {
-                    $this->Mod_auth->update_pemasok_location($user['user_id'], $location);
-                } elseif ($user['level_name'] == 'pengelola') {
-                    $this->Mod_auth->update_pengelola_location($user['user_id'], $location);
-                }
-
                 // Redirect to the dashboard
                 redirect('dashboard');
                 exit; // Ensure no further code is executed
@@ -63,7 +56,6 @@ class Auth extends CI_Controller
             echo json_encode(['status' => 'error', 'message' => 'No data provided.']);
         }
     }
-
 
 
     public function register()

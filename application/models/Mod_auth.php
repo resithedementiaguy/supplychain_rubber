@@ -95,21 +95,4 @@ class Mod_auth extends CI_Model
 
         return false;
     }
-
-    // Update the location for a pemasok
-    public function update_pemasok_location($user_id, $location)
-    {
-        $this->db->set('lokasi', $location);
-        $this->db->where('id_user', $user_id);
-        $this->db->update('pemasok');
-    }
-
-    // Update the location for a pengelola
-    public function update_pengelola_location($user_id, $location)
-    {
-        $this->db->set('lokasi', $location);
-        $this->db->where('id_user', $user_id);
-        $this->db->update('mitra_pengelola');
-    }
-
 }

@@ -43,18 +43,27 @@ class Pemasok extends CI_Controller
 
     public function add()
     {
+        $this->form_validation->set_rules('location', 'Location', 'required|trim');
         date_default_timezone_set('Asia/Jakarta');
         $tgl = date('Y-m-d H:i:s', time());
 
-        $data = array(
-            'id_pemasok' => $this->input->post('id_pemasok'),
-            'tanggal' => $tgl,
-            'jumlah_stok' => $this->input->post('jumlah_stok')
-        );
+        if ($this->form_validation->run() == FALSE) {
+            // Handle validation errors
+            redirect('pemasok/add_view');
+        } else {
+            $data = array(
+                'id_pemasok' => $this->input->post('id_pemasok'),
+                'tanggal' => $tgl,
+                'jumlah_stok' => $this->input->post('jumlah_stok'),
+                'jenis' => $this->input->post('jenis_kendaraan'),
+                'harga' => $this->input->post('harga_ban'),
+                'lokasi' => $this->input->post('location')
+            );
 
-        $this->Mod_pemasok->add_stok($data);
+            $this->Mod_pemasok->add_stok($data);
 
-        redirect('pemasok/add_view');
+            redirect('pemasok/add_view');
+        }
     }
 
     public function delete_stok($id)

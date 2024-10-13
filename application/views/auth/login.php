@@ -61,9 +61,6 @@
                                             <div class="invalid-feedback">Masukkan password anda.</div>
                                         </div>
 
-                                        <!-- Input untuk lokasi (latitude dan longitude) -->
-                                        <input type="hidden" name="location" id="location">
-
                                         <div class="col-12">
                                             <button class="btn btn-primary w-100" type="submit">Login</button>
                                         </div>
@@ -84,22 +81,6 @@
     </main><!-- End #main -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-    <script>
-        // Get the user's location using the Geolocation API
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                // Combine latitude and longitude into a single string
-                const locationValue = position.coords.latitude + ',' + position.coords.longitude;
-                // Set the combined value in the hidden input
-                document.getElementById('location').value = locationValue;
-            }, function() {
-                console.error("Unable to retrieve your location");
-            });
-        } else {
-            console.error("Geolocation is not supported by this browser.");
-        }
-    </script>
 
     <!-- Vendor JS Files -->
     <script src="<?= base_url('') ?>assets/vendor/apexcharts/apexcharts.min.js"></script>

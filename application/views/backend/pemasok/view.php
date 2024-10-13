@@ -9,7 +9,6 @@
             </ol>
         </nav>
     </div>
-    <!-- End Page Title -->
 
     <section class="section">
         <div class="row">
@@ -43,7 +42,9 @@
                                         <th>Nama</th>
                                         <th>Nama Usaha</th>
                                         <th>Nomor HP</th>
+                                        <th>Jenis</th>
                                         <th>Berat</th>
+                                        <th>Harga</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -58,7 +59,9 @@
                                                 <td><?= $stok->nama ?></td>
                                                 <td><?= $stok->nama_usaha ?></td>
                                                 <td><?= $stok->no_hp ?></td>
+                                                <td><?= $stok->jenis ?></td>
                                                 <td><?= $stok->jumlah_stok ?> kg</td>
+                                                <td><?= "Rp" . number_format($stok->harga, 0, ',', '.') ?></td>
                                                 <td>
                                                     <?php
                                                     // Cocokkan sesuai nilai ENUM di database
