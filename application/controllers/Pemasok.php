@@ -8,7 +8,7 @@ class Pemasok extends CI_Controller
         parent::__construct();
         $this->load->model('Mod_pemasok');
         $this->load->model('Mod_pengelola');
-        $this->check_login(); // Ensure user is logged in
+        $this->check_login(); 
     }
 
     private function check_login()

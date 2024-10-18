@@ -1,5 +1,4 @@
 <main id="main" class="main">
-
     <div class="pagetitle">
         <h1>Dashboard</h1>
     </div>
@@ -11,30 +10,29 @@
                     <div class="col-xxl-6 col-md-4">
                         <div class="card info-card customers-card">
                             <div class="card-body">
-                                <h5 class="card-title">Total Stok Pemasok</h5>
+                                <h5 class="card-title">Total Stok Belum Diambil</h5>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-cart"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>1.244 /kg</h6>
+                                        <h6><?= number_format($total_stok_belum_diambil) ?> /kg</h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Sales Card -->
                     <div class="col-xxl-6 col-md-4">
-                        <div class="card info-card sales-card">
+                        <div class="card info-card customers-card">
                             <div class="card-body">
-                                <h5 class="card-title">Total Ambil Pengelola</h5>
+                                <h5 class="card-title">Total Stok Sudah Diambil</h5>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-cart"></i>
+                                        <i class="bi bi-cart-check"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>145 /kg</h6>
+                                        <h6><?= number_format($total_stok_sudah_diambil) ?> /kg</h6>
                                     </div>
                                 </div>
                             </div>
@@ -44,18 +42,6 @@
                     <!-- Reports -->
                     <div class="col-12">
                         <div class="card">
-                            <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                                </ul>
-                            </div>
-
                             <div class="card-body">
                                 <h5 class="card-title">Laporan Data <span>/bulan</span></h5>
                                 <div id="reportsChart"></div>
@@ -65,7 +51,7 @@
                     </div>
 
                     <!-- Recent Sales -->
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                         <div class="card recent-sales overflow-auto">
 
                             <div class="card-body">
@@ -100,7 +86,8 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
+
                 </div>
             </div>
         </div>
@@ -109,10 +96,13 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
+        var stok = <?= $stok ?>;
+        var bulan = <?= $bulan ?>;
+
         new ApexCharts(document.querySelector("#reportsChart"), {
             series: [{
                 name: 'Stok',
-                data: [31, 40, 90, 51, 42, 82, 56, 65, 78, 20, 81, 76], // Sesuaikan jumlah data dengan jumlah bulan
+                data: stok,
             }],
             chart: {
                 height: 350,
@@ -143,14 +133,13 @@
             },
             xaxis: {
                 type: 'category',
-                categories: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
+                categories: bulan
             },
             tooltip: {
                 x: {
-                    
+
                 },
             }
         }).render();
     });
 </script>
-<!-- End Line Chart -->

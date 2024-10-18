@@ -18,6 +18,32 @@ class Mod_pemasok extends CI_Model
         return $query->result();
     }
 
+    public function get_total_stok($status = null, $user_id = null)
+    {
+        $this->db->select_sum('jumlah_stok');
+
+        if ($status !== null) {
+            $this->db->where('status', $status);
+        }
+
+        if ($user_id !== null) {
+            $this->db->where('id_pemasok', $user_id);
+        }
+
+        $query = $this->db->get('status_stok');
+        return $query->row()->jumlah_stok;
+    }
+
+    public function get_stok_per_bulan($user_id)
+    {
+        $this->db->select('MONTH(tanggal) as bulan, SUM(jumlah_stok) as total_stok');
+        $this->db->where('id_pemasok', $user_id);
+        $this->db->group_by('MONTH(tanggal)');
+        $this->db->order_by('MONTH(tanggal)', 'ASC');
+        $query = $this->db->get('status_stok');
+        return $query->result();
+    }
+
     public function update_pemasok($id, $data)
     {
         $this->db->where('id', $id);
@@ -40,7 +66,7 @@ class Mod_pemasok extends CI_Model
         $this->db->select('jumlah_stok, lokasi');
         $this->db->from('status_stok');
         $this->db->where('id_pemasok', $id);
-        $this->db->order_by('tanggal','DESC');
+        $this->db->order_by('tanggal', 'DESC');
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->row()->jumlah_stok;
@@ -48,7 +74,8 @@ class Mod_pemasok extends CI_Model
         return null;
     }
 
-    public function get_all_stok($id_pemasok) {
+    public function get_all_stok($id_pemasok)
+    {
         $this->db->select('status_stok.jumlah_stok, pemasok.nama, pemasok.nama_usaha, pemasok.no_hp, status_stok.jenis, status_stok.harga, status_stok.status, status_stok.tanggal, status_stok.id');
         $this->db->from('status_stok');
         $this->db->join('pemasok', 'status_stok.id_pemasok = pemasok.id', 'left');
