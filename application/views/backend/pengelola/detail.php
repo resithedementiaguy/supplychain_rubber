@@ -1,25 +1,20 @@
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1 class="pb-2">Detail Produk Pengelola</h1>
+        <h1 class="pb-2">Detail Mitra Pengelola</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a>Home</a></li>
                 <li class="breadcrumb-item">Mitra Pengelola</li>
                 <li class="breadcrumb-item">Detail</li>
-                <li class="breadcrumb-item active">Sentosa Gaming</li>
+                <li class="breadcrumb-item active"><?php echo $detail_produk['nama_usaha_pemasok']; ?></li>
             </ol>
         </nav>
     </div>
 
     <section class="section">
-        <div class="row">
-            <div class="col">
-
-            </div>
-        </div>
         <div class="card">
-            <div class="card-header text-white bg-secondary">
-                <p class="h5 py-1">Daftar Ambil Pemasok</p>
+            <div class="card-header text-white bg-success">
+                <p class="h5 py-1">Daftar Ambil Pemasok <?php echo $detail_produk['nama_usaha_pemasok']; ?></p>
             </div>
             <div class="card-body">
                 <table class="table" style="border-collapse: collapse; width: 100%;">
@@ -43,7 +38,7 @@
                     </tbody>
                 </table>
 
-                <div class="alert alert-secondary">
+                <div class="alert alert-success">
                     <strong>Histori Pemasok</strong>
                 </div>
 

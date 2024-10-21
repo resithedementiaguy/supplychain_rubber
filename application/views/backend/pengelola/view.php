@@ -3,9 +3,8 @@
         <h1 class="pb-2">Mitra Pengelola</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item">Mitra Pengelola</li>
-                <li class="breadcrumb-item active">Data</li>
+                <li class="breadcrumb-item"><a>Home</a></li>
+                <li class="breadcrumb-item active">Mitra Pengelola</li>
             </ol>
         </nav>
     </div>
@@ -84,3 +83,58 @@
         </div>
     </section>
 </main>
+
+<script>
+    function getPengelolaLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    var pengelola_lat = position.coords.latitude;
+                    var pengelola_long = position.coords.longitude;
+
+                    console.log("Lokasi pengelola: ", pengelola_lat, pengelola_long);
+
+                    // Kirim koordinat ke server
+                    $.ajax({
+                        url: '<?= base_url("pengelola/update_location") ?>',
+                        type: 'POST',
+                        data: {
+                            lat: pengelola_lat,
+                            long: pengelola_long
+                        },
+                        success: function(response) {
+                            console.log('Lokasi berhasil dikirim ke server:', response);
+                        },
+                        error: function(error) {
+                            console.error('Error saat mengirim lokasi:', error);
+                            alert('Gagal mengirim lokasi ke server.');
+                        }
+                    });
+                },
+                function(error) {
+                    switch (error.code) {
+                        case error.PERMISSION_DENIED:
+                            alert("Pengguna menolak permintaan Geolocation.");
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            alert("Informasi lokasi tidak tersedia.");
+                            break;
+                        case error.TIMEOUT:
+                            alert("Permintaan lokasi pengguna kedaluwarsa.");
+                            break;
+                        case error.UNKNOWN_ERROR:
+                            alert("Terjadi kesalahan yang tidak diketahui.");
+                            break;
+                    }
+                }
+            );
+        } else {
+            alert('Geolocation tidak didukung oleh browser ini.');
+        }
+    }
+
+    // Jalankan fungsi saat halaman siap
+    $(document).ready(function() {
+        getPengelolaLocation();
+    });
+</script>

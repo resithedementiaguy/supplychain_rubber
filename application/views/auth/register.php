@@ -40,7 +40,7 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-5 col-md-12 d-flex flex-column align-items-center justify-content-center">
-                            <div class="card mb-3">
+                            <div class="card">
                                 <div class="card-body">
                                     <div class="pt-4 pb-2">
                                         <h5 class="card-title text-center pb-0 fs-4">Buat Akun Baru</h5>

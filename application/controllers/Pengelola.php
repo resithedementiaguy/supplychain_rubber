@@ -31,11 +31,39 @@ class Pengelola extends CI_Controller
         $this->load->view('backend/partials/footer');
     }
 
+    public function update_location()
+    {
+        $lat = $this->input->post('lat');
+        $long = $this->input->post('long');
+
+        if (empty($lat) || empty($long)) {
+            log_message('error', 'Lokasi tidak ditemukan: lat=' . $lat . ' long=' . $long);
+            show_error('Lokasi tidak valid.', 400);
+            return;
+        }
+
+        // Simpan koordinat di session
+        $this->session->set_userdata('pengelola_lat', $lat);
+        $this->session->set_userdata('pengelola_long', $long);
+
+        echo json_encode(['status' => 'success']);
+    }
+
     public function add_view()
     {
-        // Koordinat pengelola
-        $pengelola_lat = -6.978686;
-        $pengelola_long = 110.404302;
+        // Lihat apakah session berisi koordinat
+        $pengelola_lat = $this->session->userdata('pengelola_lat');
+        $pengelola_long = $this->session->userdata('pengelola_long');
+
+        if (empty($pengelola_lat) || empty($pengelola_long)) {
+            // Cek session saat ini
+            log_message('error', 'Session pengelola_lat: ' . $pengelola_lat);
+            log_message('error', 'Session pengelola_long: ' . $pengelola_long);
+
+            // Tampilkan error jika koordinat tidak ditemukan
+            show_error('Lokasi pengelola tidak ditemukan. Silakan aktifkan lokasi pada perangkat Anda.', 400);
+            return;
+        }
 
         // Ambil data pemasok dari model
         $nama_usaha = $this->Mod_pemasok->get_pemasok_belum_diambil();
@@ -64,6 +92,14 @@ class Pengelola extends CI_Controller
         // Kirim data ke view
         $data['nama_usaha'] = $sortedPemasok;
         $data['total_distance'] = $tspResult['total_distance'];
+
+        // Ambil data session
+        $pengelola_lat = $this->session->userdata('pengelola_lat');
+        $pengelola_long = $this->session->userdata('pengelola_long');
+
+        // Kirim data session ke view
+        $data['pengelola_lat'] = $pengelola_lat;
+        $data['pengelola_long'] = $pengelola_long;
 
         // Muat view
         $this->load->view('backend/partials/header');

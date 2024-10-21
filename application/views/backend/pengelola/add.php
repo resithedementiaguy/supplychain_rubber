@@ -3,9 +3,9 @@
         <h1 class="pb-2">Ambil Stok Pemasok</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item">Pengelola</li>
-                <li class="breadcrumb-item active">Ambil</li>
+                <li class="breadcrumb-item"><a>Home</a></li>
+                <li class="breadcrumb-item">Mitra Pengelola</li>
+                <li class="breadcrumb-item active">Ambil Stok</li>
             </ol>
         </nav>
     </div>
@@ -79,59 +79,135 @@
     </div>
 </main>
 
+<!-- Modal untuk konfirmasi pengambilan stok -->
+<div class="modal fade" id="ambilStokModal" tabindex="-1" role="dialog" aria-labelledby="ambilStokModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ambilStokModalLabel">Konfirmasi Pengambilan Stok</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Apakah Anda yakin ingin mengambil stok ini?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-success" id="confirmAmbilStokBtn">Ya, Ambil Stok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Modal untuk peringatan -->
 <div class="modal fade" id="keteranganModal" tabindex="-1" role="dialog" aria-labelledby="keteranganModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="keteranganModalLabel">Peringatan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Keterangan wajib diisi.
+                Keterangan tidak boleh kosong!
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Tutup</button>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Modal untuk pesan berhasil -->
+<div class="modal fade" id="berhasilAmbilStokModal" tabindex="-1" role="dialog" aria-labelledby="berhasilAmbilStokModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-success" id="berhasilAmbilStokModalLabel">Berhasil</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Stok berhasil diambil dari pemasok!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Okey</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
     $(document).ready(function() {
+        // Ketika tombol "Ambil Stok" ditekan
         $('.ambilStokBtn').click(function() {
             var idPemasok = $(this).data('id');
-            var jumlahStok = $(this).closest('tr').find('.jumlahStok').data('jumlah'); // Ambil jumlah stok dari tabel
-            var keterangan = $('#keterangan').val();
+            var jumlahStok = $(this).closest('tr').find('.jumlahStok').data('jumlah');
+            var keterangan = $('#keterangan').val(); // Ambil nilai keterangan
 
-            if (idPemasok && jumlahStok) {
-                // Set hidden input untuk ID pemasok
-                $('<input>').attr({
-                    type: 'hidden',
-                    name: 'id_pemasok',
-                    value: idPemasok
-                }).appendTo('#ambilStokForm');
+            // Periksa apakah keterangan kosong
+            if (keterangan.trim() === '') {
+                $('#keteranganModal').modal('show'); // Tampilkan modal peringatan
+            } else if (idPemasok && jumlahStok) {
+                // Simpan ID pemasok dan jumlah stok di modal konfirmasi
+                $('#confirmAmbilStokBtn').data('id', idPemasok); // Simpan ID di button
+                $('#confirmAmbilStokBtn').data('jumlah', jumlahStok); // Simpan jumlah stok
 
-                // Set jumlah stok ke input
-                $('#jumlah_stok').val(jumlahStok);
-
-                // Kirim form
-                $('#ambilStokForm').submit();
+                // Tampilkan modal konfirmasi
+                $('#ambilStokModal').modal('show');
             } else {
                 alert('Mohon lengkapi jumlah stok.');
             }
         });
-    });
 
-    $(document).ready(function() {
+        // Ketika tombol "Ya, Ambil Stok" di modal ditekan
+        $('#confirmAmbilStokBtn').click(function() {
+            var idPemasok = $(this).data('id');
+            var jumlahStok = $(this).data('jumlah');
+
+            // Set hidden input untuk ID pemasok
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'id_pemasok',
+                value: idPemasok
+            }).appendTo('#ambilStokForm');
+
+            // Set jumlah stok ke input hidden
+            $('#jumlah_stok').val(jumlahStok);
+
+            // Submit form setelah konfirmasi
+            $('#ambilStokForm').submit();
+        });
+
+        // Tangani event submit untuk form ambil stok
         $('#ambilStokForm').on('submit', function(event) {
-            var keterangan = $('#keterangan').val();
-            if (keterangan.trim() === '') {
-                event.preventDefault(); // Mencegah pengiriman form
-                $('#keteranganModal').modal('show'); // Tampilkan modal
-            }
+            event.preventDefault(); // Mencegah pengiriman form default
+
+            // Kirim data menggunakan AJAX
+            $.ajax({
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                data: $(this).serialize(), // Mengirim data form
+                success: function(response) {
+                    // Sembunyikan modal konfirmasi sebelum menampilkan modal berhasil
+                    $('#ambilStokModal').modal('hide'); // Hilangkan modal konfirmasi
+
+                    // Jika berhasil, tampilkan modal berhasil
+                    $('#berhasilAmbilStokModal').modal('show');
+                },
+                error: function(error) {
+                    alert('Gagal mengambil stok. Silakan coba lagi.');
+                }
+            });
+        });
+
+        // Tangani event ketika modal berhasil ditutup
+        $('#berhasilAmbilStokModal').on('hidden.bs.modal', function() {
+            location.reload(); // Refresh halaman setelah modal ditutup
         });
     });
 
@@ -159,4 +235,11 @@
         updateTanggal();
         setInterval(updateTanggal, 1000);
     });
+
+    // Ambil data session dari server
+    var pengelola_lat = '<?= $pengelola_lat ?>';
+    var pengelola_long = '<?= $pengelola_long ?>';
+
+    // Tampilkan data di console log
+    console.log("Lokasi pengelola: ", pengelola_lat, pengelola_long);
 </script>
