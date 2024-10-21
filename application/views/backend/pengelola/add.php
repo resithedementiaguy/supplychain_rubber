@@ -13,7 +13,6 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Ambil Stok</h5>
-
             <form class="row g-3" method="post" action="<?= base_url('pengelola/add') ?>">
                 <div class="col-12">
                     <label for="inputEmail4" class="form-label">Nama Usaha Pemasok</label>
@@ -22,7 +21,9 @@
                         <?php if ($nama_usaha): ?>
                             <option value="" selected hidden>Pilih Usaha Pemasok</option>
                             <?php foreach ($nama_usaha as $pemasok): ?>
-                                <option value="<?= $pemasok->id ?>" data-koordinat="<?= $pemasok->lokasi ?>"><?= $pemasok->nama_usaha ?> - <?= $pemasok->no_hp ?></option>
+                                <option value="<?= $pemasok->id ?>" data-koordinat="<?= $pemasok->lokasi ?>">
+                                    <?= $pemasok->nama_usaha ?> - <?= $pemasok->jumlah_stok ?>/kg - <?= number_format($pemasok->distance, 2) ?> km
+                                </option>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <option value="" selected hidden>Belum ada stok dari usaha pemasok</option>
@@ -87,14 +88,13 @@
         });
     });
 
+    // Fungsi untuk membuka Google Maps dengan koordinat
     document.getElementById('openMapBtn').addEventListener('click', function() {
-        // Ambil koordinat dari pemasok yang dipilih
         var selectedPemasok = document.getElementById('id_pemasok');
         var selectedOption = selectedPemasok.options[selectedPemasok.selectedIndex];
         var koordinat = selectedOption.getAttribute('data-koordinat');
 
         if (koordinat) {
-            // Redirect ke Google Maps dengan koordinat dari database
             const mapsUrl = `https://www.google.com/maps?q=${koordinat}&z=15&hl=id`;
             window.open(mapsUrl, '_blank'); // Buka Google Maps di tab baru
         } else {

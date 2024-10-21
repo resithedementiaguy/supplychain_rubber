@@ -25,6 +25,7 @@ class Pengelola extends CI_Controller
         $id_pengelola = $this->session->userdata('mitra_id');
         $data['daftar_ambil'] = $this->Mod_pengelola->get_all_ambil($id_pengelola);
 
+        // Load view
         $this->load->view('backend/partials/header');
         $this->load->view('backend/pengelola/view', $data);
         $this->load->view('backend/partials/footer');
@@ -32,10 +33,48 @@ class Pengelola extends CI_Controller
 
     public function add_view()
     {
-        $data['nama_usaha'] = $this->Mod_pemasok->get_pemasok_belum_diambil();
+        $pengelola_lat = -6.978686;
+        $pengelola_long = 110.404302;
+
+        // Ambil data pemasok dari model
+        $nama_usaha = $this->Mod_pemasok->get_pemasok_belum_diambil();
+
+        // Hitung jarak dari pengelola ke setiap pemasok
+        foreach ($nama_usaha as $pemasok) {
+            // Pisahkan string lokasi jadi latitude dan longitude
+            $koordinat = explode(',', $pemasok->lokasi);
+            $lat = isset($koordinat[0]) ? trim($koordinat[0]) : 0;
+            $long = isset($koordinat[1]) ? trim($koordinat[1]) : 0;
+
+            // Hitung jarak
+            $pemasok->distance = $this->haversineDistance($pengelola_lat, $pengelola_long, $lat, $long);
+        }
+
+        // Urutkan pemasok berdasarkan jarak terdekat
+        usort($nama_usaha, function ($a, $b) {
+            return $a->distance <=> $b->distance;
+        });
+
+        $data['nama_usaha'] = $nama_usaha;
         $this->load->view('backend/partials/header');
         $this->load->view('backend/pengelola/add', $data);
         $this->load->view('backend/partials/footer');
+    }
+
+    public function haversineDistance($lat1, $long1, $lat2, $long2)
+    {
+        $earthRadius = 6371;
+        $latDelta = deg2rad($lat2 - $lat1);
+        $longDelta = deg2rad($long2 - $long1);
+
+        $a = sin($latDelta / 2) * sin($latDelta / 2) +
+            cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+            sin($longDelta / 2) * sin($longDelta / 2);
+
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+        $distance = $earthRadius * $c;
+
+        return $distance;
     }
 
     public function detail($id)
