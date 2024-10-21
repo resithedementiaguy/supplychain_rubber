@@ -33,48 +33,160 @@ class Pengelola extends CI_Controller
 
     public function add_view()
     {
+        // Koordinat pengelola
         $pengelola_lat = -6.978686;
         $pengelola_long = 110.404302;
 
         // Ambil data pemasok dari model
         $nama_usaha = $this->Mod_pemasok->get_pemasok_belum_diambil();
 
-        // Hitung jarak dari pengelola ke setiap pemasok
-        foreach ($nama_usaha as $pemasok) {
-            // Pisahkan string lokasi jadi latitude dan longitude
-            $koordinat = explode(',', $pemasok->lokasi);
-            $lat = isset($koordinat[0]) ? trim($koordinat[0]) : 0;
-            $long = isset($koordinat[1]) ? trim($koordinat[1]) : 0;
+        // Hitung matriks jarak antara pengelola dan semua pemasok
+        $distanceMatrix = $this->calculateDistanceMatrix($pengelola_lat, $pengelola_long, $nama_usaha);
 
-            // Hitung jarak
-            $pemasok->distance = $this->haversineDistance($pengelola_lat, $pengelola_long, $lat, $long);
+        // Terapkan algoritma Nearest Neighbor untuk TSP
+        $tspResult = $this->nearestNeighborTSP($distanceMatrix);
+
+        // Urutkan nama usaha berdasarkan hasil TSP
+        $sortedPemasok = [];
+        foreach ($tspResult['tour'] as $index) {
+            if ($index != 0) { // Skip index 0 (pengelola)
+                $nama_usaha[$index - 1]->distance = $distanceMatrix[0][$index]; // Tambahkan properti distance
+                $sortedPemasok[] = $nama_usaha[$index - 1]; // -1 karena index 0 untuk pengelola
+            }
         }
 
-        // Urutkan pemasok berdasarkan jarak terdekat
-        usort($nama_usaha, function ($a, $b) {
-            return $a->distance <=> $b->distance;
-        });
+        // Tambahkan alamat berdasarkan koordinat dari pemasok
+        foreach ($sortedPemasok as $pemasok) {
+            list($lat, $long) = explode(',', $pemasok->lokasi);
+            $pemasok->alamat = $this->getAddressFromCoordinates($lat, $long);
+        }
 
-        $data['nama_usaha'] = $nama_usaha;
+        // Kirim data ke view
+        $data['nama_usaha'] = $sortedPemasok;
+        $data['total_distance'] = $tspResult['total_distance'];
+
+        // Muat view
         $this->load->view('backend/partials/header');
         $this->load->view('backend/pengelola/add', $data);
         $this->load->view('backend/partials/footer');
     }
 
-    public function haversineDistance($lat1, $long1, $lat2, $long2)
+    public function getAddressFromCoordinates($latitude, $longitude)
     {
-        $earthRadius = 6371;
-        $latDelta = deg2rad($lat2 - $lat1);
-        $longDelta = deg2rad($long2 - $long1);
+        // Menghapus spasi yang tidak perlu
+        $latitude = trim($latitude);
+        $longitude = trim($longitude);
 
-        $a = sin($latDelta / 2) * sin($latDelta / 2) +
-            cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
-            sin($longDelta / 2) * sin($longDelta / 2);
+        // Membuat URL untuk mendapatkan alamat berdasarkan koordinat
+        $url = "https://nominatim.openstreetmap.org/reverse?lat=$latitude&lon=$longitude&format=json";
 
-        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
-        $distance = $earthRadius * $c;
+        // Debug: Cek URL yang dibuat
+        error_log("Requesting URL: " . $url);
 
-        return $distance;
+        // Menyiapkan context dengan header User-Agent
+        $options = [
+            'http' => [
+                'header' => "User-Agent: MyApplication/1.0\r\n"
+            ]
+        ];
+        $context = stream_context_create($options);
+
+        // Mengambil data dari URL dengan context yang disiapkan
+        $response = file_get_contents($url, false, $context);
+
+        // Cek jika permintaan berhasil
+        if ($response === FALSE) {
+            $error = error_get_last();
+            // Log kesalahan
+            error_log("Error fetching address: " . $error['message']);
+            return "Gagal mengambil data alamat: " . $error['message'];
+        }
+
+        // Mengdecode data JSON
+        $responseData = json_decode($response);
+
+        // Cek apakah data berhasil diambil
+        if (isset($responseData->display_name)) {
+            return $responseData->display_name;
+        } else {
+            return "Alamat tidak ditemukan.";
+        }
+    }
+
+    public function calculateDistanceMatrix($pengelola_lat, $pengelola_long, $pemasok_list)
+    {
+        // Masukkan pengelola sebagai titik awal
+        $locations = [['lat' => $pengelola_lat, 'long' => $pengelola_long]];
+
+        // Masukkan semua pemasok ke dalam array lokasi
+        foreach ($pemasok_list as $pemasok) {
+            $koordinat = explode(',', $pemasok->lokasi);
+            $lat = isset($koordinat[0]) ? trim($koordinat[0]) : 0;
+            $long = isset($koordinat[1]) ? trim($koordinat[1]) : 0;
+            $locations[] = ['lat' => $lat, 'long' => $long];
+        }
+
+        // Matriks jarak
+        $distanceMatrix = [];
+
+        // Hitung jarak antara setiap pasang titik
+        for ($i = 0; $i < count($locations); $i++) {
+            for ($j = 0; $j < count($locations); $j++) {
+                if ($i == $j) {
+                    $distanceMatrix[$i][$j] = 0; // Jarak ke diri sendiri = 0
+                } else {
+                    $distanceMatrix[$i][$j] = $this->haversineDistance(
+                        $locations[$i]['lat'],
+                        $locations[$i]['long'],
+                        $locations[$j]['lat'],
+                        $locations[$j]['long']
+                    );
+                }
+            }
+        }
+
+        return $distanceMatrix;
+    }
+
+    public function nearestNeighborTSP($distanceMatrix)
+    {
+        $numLocations = count($distanceMatrix);
+        $visited = array_fill(0, $numLocations, false);
+        $tour = []; // Menyimpan urutan kunjungan
+        $totalDistance = 0;
+
+        // Mulai dari pengelola (titik 0)
+        $currentLocation = 0;
+        $visited[0] = true;
+        $tour[] = $currentLocation;
+
+        for ($step = 1; $step < $numLocations; $step++) {
+            $nearestDistance = PHP_FLOAT_MAX;
+            $nearestNeighbor = -1;
+
+            // Cari titik terdekat yang belum dikunjungi
+            for ($i = 0; $i < $numLocations; $i++) {
+                if (!$visited[$i] && $distanceMatrix[$currentLocation][$i] < $nearestDistance) {
+                    $nearestDistance = $distanceMatrix[$currentLocation][$i];
+                    $nearestNeighbor = $i;
+                }
+            }
+
+            // Pergi ke titik terdekat
+            $tour[] = $nearestNeighbor;
+            $totalDistance += $nearestDistance;
+            $visited[$nearestNeighbor] = true;
+            $currentLocation = $nearestNeighbor;
+        }
+
+        // Kembali ke titik awal (pengelola)
+        $totalDistance += $distanceMatrix[$currentLocation][0];
+        $tour[] = 0; // Tambahkan pengelola sebagai titik akhir
+
+        return [
+            'tour' => $tour,
+            'total_distance' => $totalDistance
+        ];
     }
 
     public function detail($id)
@@ -152,5 +264,21 @@ class Pengelola extends CI_Controller
         } else {
             show_error('Gagal menghapus data pemasok.', 500, 'Kesalahan Penghapusan');
         }
+    }
+
+    public function haversineDistance($lat1, $long1, $lat2, $long2)
+    {
+        $earthRadius = 6371;
+        $latDelta = deg2rad($lat2 - $lat1);
+        $longDelta = deg2rad($long2 - $long1);
+
+        $a = sin($latDelta / 2) * sin($latDelta / 2) +
+            cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+            sin($longDelta / 2) * sin($longDelta / 2);
+
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+        $distance = $earthRadius * $c;
+
+        return $distance;
     }
 }
