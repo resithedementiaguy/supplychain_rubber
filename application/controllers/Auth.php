@@ -20,13 +20,12 @@ class Auth extends CI_Controller
         }
     }
 
-
     public function login()
     {
         if ($this->input->post()) {
             $email = $this->input->post('email');
             $password = $this->input->post('password');
-            $location = $this->input->post('location'); // Get the location from the form
+            $location = $this->input->post('location');
 
             // Log the attempt
             log_message('debug', "Attempting login with email: $email");
@@ -57,14 +56,13 @@ class Auth extends CI_Controller
         }
     }
 
-
     public function register()
     {
         // Set validation rules
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'required|trim');
-        $this->form_validation->set_rules('location', 'Location', 'required|trim'); // Use 'location' instead of 'lokasi'
+        $this->form_validation->set_rules('location', 'Location', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('auth/register');

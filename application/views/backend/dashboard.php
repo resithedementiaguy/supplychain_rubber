@@ -1,7 +1,13 @@
 <main id="main" class="main">
-    <div class="pagetitle">
-        <h1>Dashboard Pemasok</h1>
-    </div>
+    <?php if ($level_name == 'pemasok'): ?>
+        <div class="pagetitle">
+            <h1>Dashboard Pemasok</h1>
+        </div>
+    <?php elseif ($level_name == 'pengelola'): ?>
+        <div class="pagetitle">
+            <h1>Dashboard Pengelola</h1>
+        </div>
+    <?php endif; ?>
 
     <section class="section dashboard">
         <div class="row">
@@ -74,7 +80,7 @@
                         </div>
                     <?php endif; ?>
 
-                    <!-- Reports -->
+                    <!-- Laporan Data -->
                     <?php if ($level_name == 'pemasok'): ?>
                         <div class="col-12">
                             <div class="card">
@@ -105,6 +111,8 @@
         document.addEventListener("DOMContentLoaded", () => {
             var stok = <?= $stok ?>;
             var bulan = <?= $bulan ?>;
+
+            console.log(stok, bulan); // Debugging
 
             new ApexCharts(document.querySelector("#reportsChartPemasok"), {
                 series: [{
@@ -157,16 +165,16 @@
             var stok_diolah = <?= $stok_diolah ?>;
             var bulan = <?= $bulan ?>;
 
-            console.log(stok_diambil, stok_diolah, bulan); // Debugging untuk memastikan data benar
+            console.log(stok_diambil, stok_diolah, bulan); // Debugging
 
             new ApexCharts(document.querySelector("#reportsChartPengelola"), {
                 series: [{
                         name: 'Stok Diambil',
-                        data: stok_diambil, // Data stok diambil per bulan
+                        data: stok_diambil,
                     },
                     {
                         name: 'Stok Diolah',
-                        data: stok_diolah, // Data stok diolah per bulan
+                        data: stok_diolah,
                     }
                 ],
                 chart: {
@@ -179,7 +187,7 @@
                 markers: {
                     size: 4
                 },
-                colors: ['#4154f1', '#ff771d'], // Mengganti warna jika diperlukan
+                colors: ['#4154f1', '#ff771d'],
                 fill: {
                     type: "gradient",
                     gradient: {
@@ -198,7 +206,7 @@
                 },
                 xaxis: {
                     type: 'category',
-                    categories: bulan // Menggunakan data bulan
+                    categories: bulan
                 },
                 tooltip: {
                     x: {},

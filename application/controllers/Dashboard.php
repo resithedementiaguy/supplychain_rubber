@@ -34,6 +34,7 @@ class Dashboard extends CI_Controller
             // Ambil stok per bulan untuk pemasok
             $stok_data = $this->Mod_pemasok->get_stok_per_bulan($user_id);
 
+            // Inisialisasi array untuk menyimpan per bulan
             $stok = array_fill(0, 12, 0);
 
             // Proses stok per bulan
@@ -41,10 +42,11 @@ class Dashboard extends CI_Controller
                 $stok[$item->bulan - 1] = $item->total_stok;
             }
 
-            // Kirim stok dan bulan ke view dalam bentuk JSON
+            // Kirim ke view dalam bentuk JSON
             $data['stok'] = json_encode($stok);
             $data['bulan'] = json_encode($bulan);
         }
+
         // Jika pengguna pengelola
         elseif ($level_name == 'pengelola') {
             $data['total_ambil'] = $this->Mod_pengelola->get_total_ambil($user_id);
@@ -54,9 +56,9 @@ class Dashboard extends CI_Controller
             $stok_diambil_data = $this->Mod_pengelola->get_stok_diambil_per_bulan($user_id);
             $stok_diolah_data = $this->Mod_pengelola->get_stok_diolah_per_bulan($user_id);
 
-            // Inisialisasi array untuk menyimpan total stok per bulan
-            $stok_diambil = array_fill(0, 12, 0); // Untuk 12 bulan
-            $stok_diolah = array_fill(0, 12, 0); // Untuk 12 bulan
+            // Inisialisasi array untuk menyimpan per bulan
+            $stok_diambil = array_fill(0, 12, 0);
+            $stok_diolah = array_fill(0, 12, 0);
 
             // Proses stok diambil per bulan
             foreach ($stok_diambil_data as $item) {
@@ -68,7 +70,7 @@ class Dashboard extends CI_Controller
                 $stok_diolah[$item->bulan - 1] = $item->total_stok;
             }
 
-            // Kirim stok diambil dan stok diolah ke view
+            // Kirim ke view dalam bentuk JSON
             $data['stok_diambil'] = json_encode($stok_diambil);
             $data['stok_diolah'] = json_encode($stok_diolah);
             $data['bulan'] = json_encode($bulan);
