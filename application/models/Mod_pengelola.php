@@ -16,6 +16,57 @@ class Mod_pengelola extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function get_total_ambil($user_id)
+    {
+        $this->db->select_sum('a.jumlah_stok');
+        $this->db->from('ambil a');
+        $this->db->join('olah o', 'a.id = o.id_ambil', 'left');
+        $this->db->where('a.id_pengelola', $user_id);
+        $this->db->where('o.id_ambil IS NULL');
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->row()->jumlah_stok;
+        } else {
+            return 0;
+        }
+    }
+
+    public function get_total_diolah($user_id)
+    {
+        $this->db->select_sum('olah.jumlah_mentah');
+        $this->db->from('olah');
+        $this->db->join('ambil', 'ambil.id = olah.id_ambil');
+        $this->db->where('ambil.id_pengelola', $user_id);
+
+        $query = $this->db->get();
+        return $query->row()->jumlah_mentah ? $query->row()->jumlah_mentah : 0;
+    }
+
+    public function get_stok_diambil_per_bulan($user_id)
+    {
+        $this->db->select('MONTH(tanggal) as bulan, SUM(jumlah_stok) as total_stok');
+        $this->db->from('ambil');
+        $this->db->where('id_pengelola', $user_id);
+        $this->db->group_by('MONTH(tanggal)');
+        $this->db->order_by('MONTH(tanggal)', 'ASC');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function get_stok_diolah_per_bulan($user_id)
+    {
+        $this->db->select('MONTH(olah.tanggal) as bulan, SUM(olah.jumlah_mentah) as total_stok');
+        $this->db->from('olah');
+        $this->db->join('ambil', 'ambil.id = olah.id_ambil');
+        $this->db->where('ambil.id_pengelola', $user_id);
+        $this->db->group_by('MONTH(olah.tanggal)');
+        $this->db->order_by('MONTH(olah.tanggal)', 'ASC');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+
     public function update_mitra($id, $data)
     {
         $this->db->where('id', $id);
