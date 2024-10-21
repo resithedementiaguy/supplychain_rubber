@@ -82,6 +82,7 @@ class Mod_pengelola extends CI_Model
     public function add_ambil($data)
     {
         return $this->db->insert('ambil', $data);
+        return $this->db->insert_id();
     }
 
     public function get_all_ambil($id_pengelola)

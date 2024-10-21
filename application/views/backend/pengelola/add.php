@@ -1,6 +1,6 @@
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Ambil Stok Pemasok</h1>
+        <h1 class="pb-2">Ambil Stok Pemasok</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -25,7 +25,8 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Usaha</th>
-                        <th>Lokasi</th> <!-- Menampilkan alamat di sini -->
+                        <th>Lokasi</th>
+                        <th>Berat Stok (kg)</th>
                         <th>Jarak (KM)</th>
                         <th>Aksi</th>
                     </tr>
@@ -35,12 +36,17 @@
                         <?php $no = 1; ?>
                         <?php foreach ($nama_usaha as $pemasok) : ?>
                             <tr>
-                                <td><?= $no++; ?></td>
+                                <td>
+                                    <input type="hidden" name="selected_stok[]" value="<?= $pemasok->id; ?>">
+                                    <?= $no++; ?>
+                                </td>
                                 <td><?= $pemasok->nama_usaha; ?></td>
-                                <td><?= $pemasok->alamat; ?></td> <!-- Menampilkan alamat -->
+                                <td><?= $pemasok->alamat; ?></td>
+                                <td class="jumlahStok" data-jumlah="<?= $pemasok->jumlah_stok; ?>"><?= $pemasok->jumlah_stok; ?> kg</td>
                                 <td><?= number_format($pemasok->distance, 2); ?> km</td>
                                 <td>
-                                    <a href="<?= base_url('pengelola/add_ambil/' . $pemasok->id); ?>" class="btn btn-success">Ambil Stok</a>
+                                    <a class="btn btn-primary openMapBtn" href="javascript:void(0)" data-koordinat="<?= $pemasok->lokasi ?>">Buka Maps</a>
+                                    <button type="button" class="btn btn-success ambilStokBtn" data-id="<?= $pemasok->id; ?>">Ambil Stok</button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -52,92 +58,105 @@
                 </tbody>
             </table>
 
-            <form class="row g-3" method="post" action="<?= base_url('pengelola/add') ?>">
+            <form class="row g-3" id="ambilStokForm" method="post" action="<?= base_url('pengelola/add'); ?>">
                 <div class="col-12">
-                    <label for="inputEmail4" class="form-label">Nama Usaha Pemasok</label>
-                    <input type="hidden" name="id_pengelola" value="<?= $this->session->userdata('mitra_id') ?>">
-                    <select class="form-control" name="id_pemasok" id="id_pemasok" data-live-search="true">
-                        <?php if ($nama_usaha): ?>
-                            <option value="" selected hidden>- Pilih Usaha Pemasok -</option>
-                            <?php foreach ($nama_usaha as $pemasok): ?>
-                                <option value="<?= $pemasok->id ?>" data-koordinat="<?= $pemasok->lokasi ?>">
-                                    <?= $pemasok->nama_usaha ?> - <?= $pemasok->jumlah_stok ?>/kg - <?= number_format($pemasok->distance, 2) ?> km
-                                </option>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <option value="" selected hidden>Belum ada stok dari usaha pemasok</option>
-                        <?php endif; ?>
-                    </select>
+                    <label for="tanggal" class="form-label">Tanggal</label>
+                    <input type="text" class="form-control" id="tanggal" placeholder="Tanggal" readonly>
                 </div>
-
-                <div class="col-12">
-                    <label for="inputAddress" class="form-label">Lokasi</label>
-                    <div>
-                        <a class="btn btn-primary" id="openMapBtn" href="javascript:void(0)">Buka Maps</a>
-                    </div>
-                </div>
-
-                <div class="col-12">
-                    <label for="inputEmail4" class="form-label">Tanggal</label>
-                    <?php
-                    date_default_timezone_set('Asia/Jakarta');
-                    $tgl = date('Y-m-d H:i:s', time());
-                    ?>
-                    <input type="text" class="form-control" id="tanggal" value="<?= $tgl ?>" placeholder="Tanggal" readonly>
+                <div class="col-12" style="display: none;">
+                    <label for="jumlah_stok" class="form-label">Jumlah Stok (kg)</label>
+                    <input type="hidden" class="form-control" id="jumlah_stok" name="jumlah_stok" placeholder="Jumlah Stok (kg)">
                 </div>
                 <div class="col-12">
-                    <label for="inputAddress" class="form-label">Jumlah Stok (kg)</label>
-                    <input type="text" class="form-control" id="jumlah_stok" name="jumlah_stok" placeholder="Jumlah Stok (kg)" required readonly>
-                </div>
-                <div class="col-12">
-                    <label for="inputAddress" class="form-label">Keterangan</label>
-                    <textarea class="form-control" name="keterangan" id="keterangan" placeholder="Masukkan keterangan"></textarea>
+                    <label for="keterangan" class="form-label">Keterangan <span class="text-danger">*</span></label>
+                    <textarea class="form-control" name="keterangan" id="keterangan" placeholder="Masukkan keterangan" required></textarea>
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
                     <a class="btn btn-secondary" href="<?= base_url('pengelola'); ?>">Kembali</a>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
         </div>
     </div>
 </main>
 
+<!-- Modal untuk peringatan -->
+<div class="modal fade" id="keteranganModal" tabindex="-1" role="dialog" aria-labelledby="keteranganModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="keteranganModalLabel">Peringatan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Keterangan wajib diisi.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function() {
-        $('#id_pemasok').change(function() {
-            var selectedUsaha = $(this).val();
-            if (selectedUsaha) {
-                $.ajax({
-                    url: '<?= base_url('pengelola/get_stok_by_id'); ?>',
-                    type: 'POST',
-                    data: {
-                        id_pemasok: selectedUsaha
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        $('#jumlah_stok').val(response ? response : 0);
-                    },
-                    error: function(xhr, status, error) {
-                        alert('Terjadi kesalahan: ' + error);
-                    }
-                });
+        $('.ambilStokBtn').click(function() {
+            var idPemasok = $(this).data('id');
+            var jumlahStok = $(this).closest('tr').find('.jumlahStok').data('jumlah'); // Ambil jumlah stok dari tabel
+            var keterangan = $('#keterangan').val();
+
+            if (idPemasok && jumlahStok) {
+                // Set hidden input untuk ID pemasok
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'id_pemasok',
+                    value: idPemasok
+                }).appendTo('#ambilStokForm');
+
+                // Set jumlah stok ke input
+                $('#jumlah_stok').val(jumlahStok);
+
+                // Kirim form
+                $('#ambilStokForm').submit();
             } else {
-                $('#jumlah_stok').val('');
+                alert('Mohon lengkapi jumlah stok.');
             }
         });
     });
 
-    // Fungsi untuk membuka Google Maps dengan koordinat
-    document.getElementById('openMapBtn').addEventListener('click', function() {
-        var selectedPemasok = document.getElementById('id_pemasok');
-        var selectedOption = selectedPemasok.options[selectedPemasok.selectedIndex];
-        var koordinat = selectedOption.getAttribute('data-koordinat');
+    $(document).ready(function() {
+        $('#ambilStokForm').on('submit', function(event) {
+            var keterangan = $('#keterangan').val();
+            if (keterangan.trim() === '') {
+                event.preventDefault(); // Mencegah pengiriman form
+                $('#keteranganModal').modal('show'); // Tampilkan modal
+            }
+        });
+    });
 
-        if (koordinat) {
-            const mapsUrl = `https://www.google.com/maps?q=${koordinat}&z=15&hl=id`;
-            window.open(mapsUrl, '_blank'); // Buka Google Maps di tab baru
-        } else {
-            alert("Pilih pemasok terlebih dahulu.");
+    // Fungsi untuk membuka Google Maps dengan koordinat dari tombol di tabel
+    $(document).ready(function() {
+        $(document).on('click', '.openMapBtn', function() {
+            var koordinat = $(this).data('koordinat');
+            if (koordinat) {
+                const mapsUrl = `https://www.google.com/maps?q=${koordinat}&z=15&hl=id`;
+                window.open(mapsUrl, '_blank'); // Buka Google Maps di tab baru
+            } else {
+                alert("Koordinat tidak tersedia.");
+            }
+        });
+    });
+
+    // Fungsi untuk tanggal dan jam dinamis
+    $(document).ready(function() {
+        function updateTanggal() {
+            var now = new Date();
+            var tgl = now.toISOString().slice(0, 19).replace('T', ' ');
+            $('#tanggal').val(tgl);
         }
+
+        updateTanggal();
+        setInterval(updateTanggal, 1000);
     });
 </script>

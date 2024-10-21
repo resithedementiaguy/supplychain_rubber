@@ -189,6 +189,22 @@ class Pengelola extends CI_Controller
         ];
     }
 
+    public function haversineDistance($lat1, $long1, $lat2, $long2)
+    {
+        $earthRadius = 6371;
+        $latDelta = deg2rad($lat2 - $lat1);
+        $longDelta = deg2rad($long2 - $long1);
+
+        $a = sin($latDelta / 2) * sin($latDelta / 2) +
+            cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+            sin($longDelta / 2) * sin($longDelta / 2);
+
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+        $distance = $earthRadius * $c;
+
+        return $distance;
+    }
+
     public function detail($id)
     {
         $data['detail_produk'] = $this->Mod_pengelola->get_detail($id);
@@ -242,11 +258,13 @@ class Pengelola extends CI_Controller
 
     public function add()
     {
+        $id_pengelola = $this->session->userdata('mitra_id');
+
         date_default_timezone_set('Asia/Jakarta');
         $tgl = date('Y-m-d H:i:s', time());
 
         $data = array(
-            'id_pengelola' => $this->input->post('id_pengelola'),
+            'id_pengelola' => $id_pengelola,
             'id_pemasok' => $this->input->post('id_pemasok'),
             'tanggal' => $tgl,
             'jumlah_stok' => $this->input->post('jumlah_stok'),
@@ -264,21 +282,5 @@ class Pengelola extends CI_Controller
         } else {
             show_error('Gagal menghapus data pemasok.', 500, 'Kesalahan Penghapusan');
         }
-    }
-
-    public function haversineDistance($lat1, $long1, $lat2, $long2)
-    {
-        $earthRadius = 6371;
-        $latDelta = deg2rad($lat2 - $lat1);
-        $longDelta = deg2rad($long2 - $long1);
-
-        $a = sin($latDelta / 2) * sin($latDelta / 2) +
-            cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
-            sin($longDelta / 2) * sin($longDelta / 2);
-
-        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
-        $distance = $earthRadius * $c;
-
-        return $distance;
     }
 }

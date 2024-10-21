@@ -1,6 +1,6 @@
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Mitra Pengelola</h1>
+        <h1 class="pb-2">Mitra Pengelola</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -14,10 +14,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
+                    <div class="card-header text-white bg-primary">
+                        <p class="h5 py-1">Daftar History Pengelola</p>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">Daftar Mitra Pengelola</h5>
                         <div class="mb-3 d-flex justify-content-between align-items-center">
-                            <a class="btn btn-primary btn-sm border-0" style="cursor: pointer;" href="<?= base_url('pengelola/add_view') ?>"><b>Ambil Stok</b></a>
+                            <a class="btn btn-primary border-0" style="cursor: pointer;" href="<?= base_url('pengelola/add_view') ?>"><b>Ambil Stok</b></a>
                         </div>
                         <form action="<?= base_url('pengelola') ?>" method="POST">
                             <input type="hidden" value="<?php echo $this->session->userdata('mitra_id'); ?>" name="session_mitra_id" id="session_mitra_id">
@@ -25,7 +27,7 @@
 
                         <!-- Table with stripped rows -->
                         <div class="table-responsive">
-                            <table class="table datatable">
+                            <table class="table table table-striped datatable">
                                 <thead>
                                     <tr>
                                         <th>No</th>
