@@ -1,6 +1,6 @@
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Detail Produk Pengelola</h1>
+        <h1 class="pb-2">Detail Produk Pengelola</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -14,6 +14,14 @@
     <section class="section">
         <div class="row">
             <div class="col">
+
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header text-white bg-secondary">
+                <p class="h5 py-1">Daftar Ambil Pemasok</p>
+            </div>
+            <div class="card-body">
                 <table class="table" style="border-collapse: collapse; width: 100%;">
                     <tbody>
                         <tr>
@@ -34,10 +42,11 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
+
+                <div class="alert alert-secondary">
+                    <strong>Histori Pemasok</strong>
+                </div>
+
                 <div class="table-responsive">
                     <table class="table datatable">
                         <thead>
