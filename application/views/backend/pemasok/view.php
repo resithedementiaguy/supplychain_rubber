@@ -4,8 +4,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item">Pemasok</li>
-                <li class="breadcrumb-item active">Data</li>
+                <li class="breadcrumb-item active">Pemasok</li>
             </ol>
         </nav>
     </div>
@@ -14,8 +13,10 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
+                <div class="card-header text-white bg-primary">
+                        <p class="h5 py-1">Daftar Pemasok</p>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">Daftar Pemasok</h5>
                         <div class="mb-3 d-flex justify-content-between align-items-center">
                             <?php if (!empty($daftar_stok)) : ?>
                                 <?php
@@ -23,12 +24,12 @@
                                 $status_terbaru = $daftar_stok[0]->status;
                                 ?>
                                 <?php if ($status_terbaru == 'Sudah diambil'): ?>
-                                    <a class="btn btn-primary btn-sm border-0" href="<?= base_url('pemasok/add_view') ?>"><b>Tambah Stok</b></a>
+                                    <a class="btn btn-primary border-0" href="<?= base_url('pemasok/add_view') ?>"><b>Tambah Stok</b></a>
                                 <?php else: ?>
                                     <span class="text-danger">Tunggu sampai stok diambil</span>
                                 <?php endif; ?>
                             <?php else: ?>
-                                <a class="btn btn-primary btn-sm border-0" href="<?= base_url('pemasok/add_view') ?>"><b>Tambah Stok</b></a>
+                                <a class="btn btn-primary border-0" href="<?= base_url('pemasok/add_view') ?>"><b>Tambah Stok</b></a>
                             <?php endif; ?>
                         </div>
 
@@ -41,7 +42,6 @@
                                         <th>Tanggal</th>
                                         <th>Nama</th>
                                         <th>Nama Usaha</th>
-                                        <th>Nomor HP</th>
                                         <th>Jenis</th>
                                         <th>Berat</th>
                                         <th>Harga</th>
@@ -58,7 +58,6 @@
                                                 <td><?= date('d F Y H:i', strtotime($stok->tanggal)); ?></td>
                                                 <td><?= $stok->nama ?></td>
                                                 <td><?= $stok->nama_usaha ?></td>
-                                                <td><?= $stok->no_hp ?></td>
                                                 <td><?= $stok->jenis ?></td>
                                                 <td><?= $stok->jumlah_stok ?> kg</td>
                                                 <td><?= "Rp" . number_format($stok->harga, 0, ',', '.') ?></td>
@@ -74,27 +73,28 @@
                                                     <?php endif; ?>
                                                 </td>
                                                 <td>
-                                                    <!-- <button class="btn btn-success btn-sm border-0" type="button" style="cursor: pointer;" onclick="window.location.href='edit-link.php';">Edit</button> -->
-                                                    <button class="btn btn-danger btn-sm border-0" data-bs-toggle="modal" data-bs-target="#hapusModal-<?= $stok->id ?>" style="cursor: pointer;">Hapus</button>
+                                                    <?php if ($stok->status != 'Sudah diambil'): ?>
+                                                        <button class="btn btn-danger btn-sm border-0" data-bs-toggle="modal" data-bs-target="#hapusModal-<?= $stok->id ?>" style="cursor: pointer;">Hapus</button>
 
-                                                    <!-- Modal Hapus -->
-                                                    <div class="modal fade" id="hapusModal-<?= $stok->id ?>" tabindex="-1" aria-labelledby="hapusModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="hapusModalLabel">Konfirmasi Hapus</h5>
-                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    Apakah Anda yakin ingin menghapus stok dari pemasok <strong><?= $stok->nama ?></strong>?
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
-                                                                    <a href="<?= base_url('pemasok/delete/' . $stok->id) ?>" class="btn btn-danger">Iya, Hapus</a>
+                                                        <!-- Modal Hapus -->
+                                                        <div class="modal fade" id="hapusModal-<?= $stok->id ?>" tabindex="-1" aria-labelledby="hapusModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="hapusModalLabel">Konfirmasi Hapus</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        Apakah Anda yakin ingin menghapus stok dari pemasok <strong><?= $stok->nama ?></strong>?
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                                                                        <a href="<?= base_url('pemasok/delete/' . $stok->id) ?>" class="btn btn-danger">Iya, Hapus</a>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    <?php endif; ?>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

@@ -15,7 +15,6 @@
             <p class="h5 py-1">Daftar Pemasok (Berdasarkan Rute Optimal)</p>
         </div>
         <div class="card-body">
-            <!-- Menampilkan Total Jarak -->
             <div class="alert alert-info">
                 <strong>Total Jarak Keseluruhan: </strong> <?= number_format($total_distance, 2) ?> km
             </div>
