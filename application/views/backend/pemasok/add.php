@@ -12,7 +12,7 @@
 
     <div class="card">
         <div class="card-header text-white bg-info">
-            <p class="h5 py-1">Tambah Stok Ban Bekas</p>
+            <p class="h5 pt-1">Tambah Stok Ban Bekas</p>
         </div>
         <div class="card-body">
             <div class="alert alert-info">
@@ -77,6 +77,7 @@
         console.error("Geolocation is not supported by this browser.");
     }
 
+    // Format Tanggal Dinamis
     function updateTanggal() {
         const now = new Date();
         const year = now.getFullYear();
@@ -92,37 +93,54 @@
     }
 
     setInterval(updateTanggal, 1000);
-
     updateTanggal();
 
+
+    // Format Harga Rupiah
     function formatRupiah(element) {
         let value = element.value.replace(/[^\d]/g, "");
         element.value = value ? "Rp" + parseInt(value).toLocaleString("id-ID") : "";
     }
 
     $(document).ready(function() {
+        $("form").submit(function(event) {
+            let hargaBan = $("#harga_ban").val().replace(/[^\d]/g, "");
+            $("#harga_ban").val(hargaBan);
+        });
+    });
+
+    $(document).ready(function() {
         $("#submitHarga").click(function() {
             // Ambil nilai input dan hapus format "Rp" serta pemisah ribuan
             let hargaBan = $("#harga_ban").val().replace(/[^\d]/g, "");
+            let idPemasok = $("#id_pemasok").val();
+            let jumlahStok = $("#jumlah_stok").val();
+            let jenisKendaraan = $("#jenis_kendaraan").val();
+            let location = $("#location").val();
 
-            if (hargaBan) {
+            if (hargaBan && idPemasok && jumlahStok && jenisKendaraan && location) {
                 // Kirim data ke server menggunakan AJAX
                 $.ajax({
-                    url: "<?= base_url('pemasok/simpan_harga_ban'); ?>",
+                    url: "<?= base_url('pemasok/add'); ?>",
                     type: "POST",
                     data: {
-                        harga_ban: hargaBan
+                        id_pemasok: idPemasok,
+                        tanggal: new Date().toISOString().slice(0, 19).replace('T', ' '), // Format tanggal
+                        jumlah_stok: jumlahStok,
+                        jenis_kendaraan: jenisKendaraan,
+                        harga_ban: hargaBan,
+                        location: location
                     },
                     success: function(response) {
                         alert("Harga berhasil disimpan!");
-                        $("#harga_ban").val("");
+                        $("#harga_ban").val(""); // Clear the input field
                     },
                     error: function() {
                         alert("Gagal menyimpan harga. Silakan coba lagi.");
                     }
                 });
             } else {
-                alert("Harap masukkan harga ban bekas.");
+                alert("Harap lengkapi semua field.");
             }
         });
     });

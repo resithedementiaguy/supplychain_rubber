@@ -76,19 +76,21 @@ class Pemasok extends CI_Controller
     public function add()
     {
         $this->form_validation->set_rules('location', 'Location', 'required|trim');
+        $this->form_validation->set_rules('harga_ban', 'Harga Ban', 'required|trim');
+
         date_default_timezone_set('Asia/Jakarta');
         $tgl = date('Y-m-d H:i:s', time());
 
         if ($this->form_validation->run() == FALSE) {
-            // Handle validation errors
             redirect('pemasok/add_view');
         } else {
+            $hargaBan = str_replace([",", "Rp"], "", $this->input->post('harga_ban'));  // Remove the "Rp" and commas
             $data = array(
                 'id_pemasok' => $this->input->post('id_pemasok'),
                 'tanggal' => $tgl,
                 'jumlah_stok' => $this->input->post('jumlah_stok'),
                 'jenis' => $this->input->post('jenis_kendaraan'),
-                'harga' => $this->input->post('harga_ban'),
+                'harga' => $hargaBan,  // Store the cleaned value
                 'lokasi' => $this->input->post('location')
             );
 

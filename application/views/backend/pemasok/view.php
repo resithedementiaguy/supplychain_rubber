@@ -14,7 +14,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header text-white bg-primary">
-                        <p class="h5 py-1">Daftar Pemasok</p>
+                        <p class="h5 pt-1">Daftar Pemasok</p>
                     </div>
                     <div class="card-body">
                         <div class="alert alert-primary">
