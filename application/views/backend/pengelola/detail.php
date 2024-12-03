@@ -14,7 +14,7 @@
     <section class="section">
         <div class="card">
             <div class="card-header text-white bg-success">
-                <p class="h5 py-1">Daftar Ambil Pemasok <?php echo $detail_produk['nama_usaha_pemasok']; ?></p>
+                <p class="h5 pt-1">Daftar Ambil Pemasok <?php echo $detail_produk['nama_usaha_pemasok']; ?></p>
             </div>
             <div class="card-body">
                 <table class="table" style="border-collapse: collapse; width: 100%;">
@@ -39,7 +39,7 @@
                 </table>
 
                 <div class="alert alert-success">
-                    <strong>Histori Pemasok</strong>
+                    Di bawah ini merupakan histori ambil dari pemasok
                 </div>
 
                 <div class="table-responsive">

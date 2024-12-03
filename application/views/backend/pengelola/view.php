@@ -14,9 +14,12 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header text-white bg-primary">
-                        <p class="h5 py-1">Daftar History Pengelola</p>
+                        <p class="h5 pt-1">Daftar History Pengelola</p>
                     </div>
                     <div class="card-body">
+                        <div class="alert alert-primary">
+                            Silahkan untuk menambahkan dan mengecek stok crumb rubber
+                        </div>
                         <div class="mb-3 d-flex justify-content-between align-items-center">
                             <a class="btn btn-primary border-0" style="cursor: pointer;" href="<?= base_url('pengelola/add_view') ?>"><b>Ambil Stok</b></a>
                         </div>
@@ -46,26 +49,7 @@
                                                 <td><?= $ambil->nama_usaha ?></td>
                                                 <td><?= $ambil->no_hp ?></td>
                                                 <td>
-                                                    <a class="btn btn-success btn-sm border-0" href="<?php echo site_url('pengelola/detail/' . $ambil->id); ?>">Detail</a>
-                                                    <!-- <button class="btn btn-danger btn-sm border-0" data-bs-toggle="modal" data-bs-target="#hapusModal-<?= $ambil->id ?>" style="cursor: pointer;">Hapus</button>
-
-                                                    <div class="modal fade" id="hapusModal-<?= $ambil->id ?>" tabindex="-1" aria-labelledby="hapusModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="hapusModalLabel">Konfirmasi Hapus</h5>
-                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    Apakah Anda yakin ingin menghapus stok dari pengelola <strong><?= $ambil->nama ?></strong>?
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
-                                                                    <a href="<?= base_url('pengelola/delete/' . $ambil->id) ?>" class="btn btn-danger">Iya, Hapus</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> -->
+                                                    <a class="btn btn-success btn-sm border-0" href="<?php echo site_url('pengelola/detail/' . $ambil->id); ?>"><i class="bi bi-eye"></i> Detail</a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

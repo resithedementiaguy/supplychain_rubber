@@ -12,7 +12,7 @@
 
     <div class="card">
         <div class="card-header text-white bg-info">
-            <p class="h5 py-1">Daftar Pemasok (Berdasarkan Rute Optimal)</p>
+            <p class="h5 pt-1">Daftar Pemasok (Berdasarkan Rute Optimal)</p>
         </div>
         <div class="card-body">
             <div class="alert alert-info">
@@ -44,8 +44,13 @@
                                 <td class="jumlahStok" data-jumlah="<?= $pemasok->jumlah_stok; ?>"><?= $pemasok->jumlah_stok; ?> kg</td>
                                 <td><?= number_format($pemasok->distance, 2); ?> km</td>
                                 <td>
-                                    <a class="btn btn-primary openMapBtn" href="javascript:void(0)" data-koordinat="<?= $pemasok->lokasi ?>">Buka Maps</a>
-                                    <button type="button" class="btn btn-success ambilStokBtn" data-id="<?= $pemasok->id; ?>">Ambil Stok</button>
+                                    <a class="btn btn-primary openMapBtn" href="javascript:void(0)" data-koordinat="<?= $pemasok->lokasi ?>">
+                                        <i class="bi bi-map"></i> Buka Maps
+                                    </a>
+
+                                    <button type="button" class="btn btn-success ambilStokBtn" data-id="<?= $pemasok->id; ?>">
+                                        <i class="bi bi-check-square"></i> Ambil Stok
+                                    </button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -67,13 +72,15 @@
                     <input type="hidden" class="form-control" id="jumlah_stok" name="jumlah_stok" placeholder="Jumlah Stok (kg)">
                 </div>
                 <div class="col-12">
-                    <label for="keterangan" class="form-label">Keterangan <span class="text-danger">*</span></label>
+                    <label for="keterangan" class="form-label">Keterangan<span class="text-danger">*</span></label>
                     <textarea class="form-control" name="keterangan" id="keterangan" placeholder="Masukkan keterangan" required></textarea>
                 </div>
-                <div class="d-flex justify-content-between align-items-center">
-                    <a class="btn btn-secondary" href="<?= base_url('pengelola'); ?>">Kembali</a>
-                </div>
             </form>
+        </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-between align-items-center">
+                <a class="btn btn-secondary" href="<?= base_url('pengelola'); ?>">Kembali</a>
+            </div>
         </div>
     </div>
 </main>
@@ -113,7 +120,7 @@
                 Keterangan tidak boleh kosong!
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
             </div>
         </div>
     </div>
