@@ -18,7 +18,7 @@
                     </div>
                     <div class="card-body">
                         <div class="alert alert-primary">
-                            Di bawah ini merupakan daftar riwayat dari pemasok
+                            Silahkan untuk menambahkan dan mengecek stok ban bekas
                         </div>
                         <div class="mb-3 d-flex justify-content-between align-items-center">
                             <?php if (!empty($daftar_stok)) : ?>

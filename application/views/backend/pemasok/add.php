@@ -5,7 +5,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                 <li class="breadcrumb-item">Pemasok</li>
-                <li class="breadcrumb-item active">Tambah</li>
+                <li class="breadcrumb-item active">Tambah Stok</li>
             </ol>
         </nav>
     </div>
@@ -15,8 +15,8 @@
             <p class="h5 pt-1">Tambah Stok Ban Bekas</p>
         </div>
         <div class="card-body">
-            <div class="alert alert-info">
-                *Silahkan untuk mengisi semua form yang ada di bawah!
+            <div class="alert alert-info mb-0">
+                Silahkan untuk mengisi semua form yang ada di bawah!
             </div>
             <form class="row g-3" method="post" action="<?= base_url('pemasok/add') ?>">
                 <div class="col-12">
@@ -27,16 +27,16 @@
                     <input type="text" class="form-control" id="tanggal" placeholder="Tanggal" readonly>
                 </div>
                 <div class="col-12">
-                    <label for="jumlah_stok" class="form-label">Jumlah Stok (kg)</label>
-                    <input type="number" class="form-control" id="jumlah_stok" name="jumlah_stok" placeholder="Masukkan Jumlah Stok" required>
-                </div>
-                <div class="col-12">
                     <label for="jenis_kendaraan" class="form-label">Jenis Kendaraan</label>
-                    <select class="form-control" id="jenis_kendaraan" name="jenis_kendaraan" required>
+                    <select class="form-select" id="jenis_kendaraan" name="jenis_kendaraan" required>
                         <option value="">- Pilih Jenis Kendaraan -</option>
                         <option value="Mobil">Mobil</option>
                         <option value="Motor">Motor</option>
                     </select>
+                </div>
+                <div class="col-12">
+                    <label for="jumlah_stok" class="form-label">Jumlah Stok (kg)</label>
+                    <input type="number" class="form-control" id="jumlah_stok" name="jumlah_stok" placeholder="Masukkan Jumlah Stok" required>
                 </div>
                 <div class="col-12">
                     <label for="harga_ban" class="form-label">Harga Ban Bekas (kg)</label>
