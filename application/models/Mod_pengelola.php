@@ -32,6 +32,26 @@ class Mod_pengelola extends CI_Model
         }
     }
 
+    public function get_ambil_by_pemasok($id_status_stok)
+    {
+        $this->db->select('ambil.*, 
+                       status_stok.id AS id_status_stok, 
+                       status_stok.status, 
+                       mitra_pengelola.nama AS nama_pengelola, 
+                       mitra_pengelola.lokasi AS lokasi_pengelola,
+                       pemasok.nama AS nama_pemasok, 
+                       pemasok.lokasi AS lokasi_pemasok');
+
+        $this->db->from('ambil');
+        $this->db->join('status_stok', 'status_stok.id_pemasok = ambil.id_pemasok', 'left');
+        $this->db->join('mitra_pengelola', 'mitra_pengelola.id = ambil.id_pengelola', 'left');
+        $this->db->join('pemasok', 'pemasok.id = status_stok.id_pemasok', 'left');
+
+        $this->db->where('status_stok.id', $id_status_stok);
+
+        return $this->db->get()->result();
+    }
+
     public function get_total_diolah($user_id)
     {
         $this->db->select_sum('olah.jumlah_mentah');
@@ -65,7 +85,6 @@ class Mod_pengelola extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-
 
     public function update_mitra($id, $data)
     {

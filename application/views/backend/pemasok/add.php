@@ -40,7 +40,14 @@
                 </div>
                 <div class="col-12">
                     <label for="harga_ban" class="form-label">Harga Ban Bekas (kg)</label>
-                    <input type="number" class="form-control" id="harga_ban" name="harga_ban" placeholder="Masukkan Harga Ban Bekas" required>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="harga_ban"
+                        name="harga_ban"
+                        placeholder="Masukkan Harga Ban Bekas"
+                        required
+                        oninput="formatRupiah(this)">
                 </div>
 
                 <!-- Hidden input for location -->
@@ -51,27 +58,25 @@
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
-
-            <script>
-                // Get the user's location using the Geolocation API
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(function(position) {
-                        // Combine latitude and longitude into a single string
-                        const locationValue = position.coords.latitude + ',' + position.coords.longitude;
-                        // Set the combined value in the hidden input
-                        document.getElementById('location').value = locationValue;
-                    }, function() {
-                        console.error("Unable to retrieve your location");
-                    });
-                } else {
-                    console.error("Geolocation is not supported by this browser.");
-                }
-            </script>
         </div>
     </div>
 </main>
 
 <script>
+    // Get the user's location using the Geolocation API
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            // Combine latitude and longitude into a single string
+            const locationValue = position.coords.latitude + ',' + position.coords.longitude;
+            // Set the combined value in the hidden input
+            document.getElementById('location').value = locationValue;
+        }, function() {
+            console.error("Unable to retrieve your location");
+        });
+    } else {
+        console.error("Geolocation is not supported by this browser.");
+    }
+
     function updateTanggal() {
         const now = new Date();
         const year = now.getFullYear();
@@ -89,4 +94,36 @@
     setInterval(updateTanggal, 1000);
 
     updateTanggal();
+
+    function formatRupiah(element) {
+        let value = element.value.replace(/[^\d]/g, "");
+        element.value = value ? "Rp" + parseInt(value).toLocaleString("id-ID") : "";
+    }
+
+    $(document).ready(function() {
+        $("#submitHarga").click(function() {
+            // Ambil nilai input dan hapus format "Rp" serta pemisah ribuan
+            let hargaBan = $("#harga_ban").val().replace(/[^\d]/g, "");
+
+            if (hargaBan) {
+                // Kirim data ke server menggunakan AJAX
+                $.ajax({
+                    url: "<?= base_url('pemasok/simpan_harga_ban'); ?>",
+                    type: "POST",
+                    data: {
+                        harga_ban: hargaBan
+                    },
+                    success: function(response) {
+                        alert("Harga berhasil disimpan!");
+                        $("#harga_ban").val("");
+                    },
+                    error: function() {
+                        alert("Gagal menyimpan harga. Silakan coba lagi.");
+                    }
+                });
+            } else {
+                alert("Harap masukkan harga ban bekas.");
+            }
+        });
+    });
 </script>

@@ -8,7 +8,7 @@ class Pemasok extends CI_Controller
         parent::__construct();
         $this->load->model('Mod_pemasok');
         $this->load->model('Mod_pengelola');
-        $this->check_login(); 
+        $this->check_login();
     }
 
     private function check_login()
@@ -33,10 +33,35 @@ class Pemasok extends CI_Controller
         $this->load->view('backend/partials/footer');
     }
 
-    public function detail()
+    public function detail($id_status_stok)
     {
+        // Ambil data status_stok berdasarkan ID status_stok
+        $data['status_stok'] = $this->Mod_pemasok->get_status_stok_by_id($id_status_stok);
+
+        // Jika data status_stok ditemukan, ambil data pemasok berdasarkan id_pemasok yang ada pada status_stok
+        if ($data['status_stok']) {
+            $data['pemasok'] = $this->Mod_pemasok->get_pemasok_by_id($data['status_stok']->id_pemasok);
+
+            // Validasi jika status stok sudah diambil
+            if ($data['status_stok']->status === 'Sudah diambil') {
+                $ambil_data = $this->Mod_pengelola->get_ambil_by_pemasok($id_status_stok);
+                if (!empty($ambil_data)) {
+                    // Mengambil pengelola dan data terkait
+                    $data['pengelola'] = $ambil_data[0]; // Jika hanya ada satu data yang diambil
+                } else {
+                    $data['pengelola'] = null;
+                }
+            } else {
+                $data['pengelola'] = null;
+            }
+        } else {
+            $data['pemasok'] = null;
+            $data['pengelola'] = null;
+        }
+
+        // Load view
         $this->load->view('backend/partials/header');
-        $this->load->view('backend/pemasok/detail');
+        $this->load->view('backend/pemasok/detail', $data);
         $this->load->view('backend/partials/footer');
     }
 

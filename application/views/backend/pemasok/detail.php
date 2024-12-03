@@ -24,40 +24,42 @@
                 <tbody>
                     <tr>
                         <th scope="row" style="width: 25%; border: none;">Nama</th>
-                        <td style="border: none;">John Doe</td>
+                        <td style="border: none;"><?= $pemasok->nama ?? 'Tidak tersedia'; ?></td>
                     </tr>
                     <tr>
                         <th scope="row" style="border: none;">Nama Usaha</th>
-                        <td style="border: none;">Crumb Supplies</td>
+                        <td style="border: none;"><?= $pemasok->nama_usaha ?? 'Tidak tersedia'; ?></td>
                     </tr>
                     <tr>
                         <th scope="row" style="border: none;">Tanggal Tambah</th>
-                        <td style="border: none;">2024-11-30</td>
+                        <td style="border: none;"><?= $status_stok->tanggal ?? 'Tidak tersedia'; ?></td>
                     </tr>
                     <tr>
                         <th scope="row" style="border: none;">Jenis</th>
-                        <td style="border: none;">Karet Mentah</td>
+                        <td style="border: none;"><?= $status_stok->jenis ?? 'Tidak tersedia'; ?></td>
                     </tr>
                     <tr>
                         <th scope="row" style="border: none;">Berat (kg)</th>
-                        <td style="border: none;">500kg</td>
+                        <td style="border: none;"><?= $status_stok->jumlah_stok ? $status_stok->jumlah_stok . 'kg' : 'Tidak tersedia'; ?></td>
                     </tr>
                     <tr>
                         <th scope="row" style="border: none;">Harga (Rp)</th>
-                        <td style="border: none;">Rp5,000,000</td>
+                        <td style="border: none;">Rp<?= isset($status_stok->harga) ? number_format($status_stok->harga, 0, ',', '.') : 'Tidak tersedia'; ?></td>
                     </tr>
                     <tr>
                         <th scope="row" style="border: none;">Status</th>
-                        <td style="border: none;">Sudah Diambil</td>
+                        <td style="border: none;"><?= $status_stok->status ?? 'Tidak tersedia'; ?></td>
                     </tr>
-                    <tr>
-                        <th scope="row" style="border: none;">Diambil oleh</th>
-                        <td style="border: none;">Mike Tyson</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" style="border: none;">Tanggal Diambil</th>
-                        <td style="border: none;">2024-12-02</td>
-                    </tr>
+                    <?php if ($status_stok->status === 'Sudah diambil' && !empty($pengelola)): ?>
+                        <tr>
+                            <th scope="row" style="border: none;">Diambil oleh</th>
+                            <td style="border: none;"><?= $pengelola->nama_pengelola ?? 'Tidak tersedia'; ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" style="border: none;">Tanggal Diambil</th>
+                            <td style="border: none;"><?= $pengelola->tanggal ?? 'Tidak tersedia'; ?></td>
+                        </tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
