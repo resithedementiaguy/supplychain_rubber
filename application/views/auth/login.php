@@ -36,11 +36,14 @@
         <div class="container">
             <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
                 <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="pt-4 pb-2">
+                    <div class="card">
+                        <div class="card-body m-0 p-0">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-7 d-flex flex-column align-items-center justify-content-center">
+                                    <img src="<?= base_url('') ?>assets/img/wave-background.jpg" alt="Gambar Login" class="img-fluid rounded-start" style="max-height: 100%; width: 100%; object-fit: cover;">
+                                </div>
+                                <div class="col-lg-5 px-5 pt-4 pb-4 d-flex flex-column align-items-center justify-content-center">
+                                    <div class="pb-2">
                                         <h5 class="card-title text-center pb-0 fs-4">Login Crumb Rubber</h5>
                                         <p class="text-center small">Masukkan email & password untuk login</p>
                                     </div>
@@ -78,7 +81,7 @@
                 </div>
             </section>
         </div>
-    </main><!-- End #main -->
+    </main>
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

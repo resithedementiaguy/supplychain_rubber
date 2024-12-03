@@ -1,6 +1,6 @@
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Pemasok</h1>
+        <h1 class="pb-2">Pemasok</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -13,10 +13,13 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                <div class="card-header text-white bg-primary">
+                    <div class="card-header text-white bg-primary">
                         <p class="h5 py-1">Daftar Pemasok</p>
                     </div>
                     <div class="card-body">
+                        <div class="alert alert-primary">
+                            Di bawah ini merupakan daftar riwayat dari pemasok
+                        </div>
                         <div class="mb-3 d-flex justify-content-between align-items-center">
                             <?php if (!empty($daftar_stok)) : ?>
                                 <?php
@@ -39,8 +42,8 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Tanggal</th>
                                         <th>Nama</th>
+                                        <th>Tanggal</th>
                                         <th>Nama Usaha</th>
                                         <th>Jenis</th>
                                         <th>Berat</th>
@@ -55,8 +58,8 @@
                                         foreach ($daftar_stok as $stok) : ?>
                                             <tr>
                                                 <td><?= $no++ ?></td>
-                                                <td><?= date('d F Y H:i', strtotime($stok->tanggal)); ?></td>
                                                 <td><?= $stok->nama ?></td>
+                                                <td><?= date('d F Y, H:i', strtotime($stok->tanggal)); ?> WIB</td>
                                                 <td><?= $stok->nama_usaha ?></td>
                                                 <td><?= $stok->jenis ?></td>
                                                 <td><?= $stok->jumlah_stok ?> kg</td>
@@ -73,8 +76,13 @@
                                                     <?php endif; ?>
                                                 </td>
                                                 <td>
+                                                    <button class="btn btn-success btn-sm border-0" onclick="window.location.href='<?= base_url('pemasok/detail/' . $stok->id) ?>'" style="cursor: pointer;">
+                                                        <i class="bi bi-eye"></i> Detail
+                                                    </button>
                                                     <?php if ($stok->status != 'Sudah diambil'): ?>
-                                                        <button class="btn btn-danger btn-sm border-0" data-bs-toggle="modal" data-bs-target="#hapusModal-<?= $stok->id ?>" style="cursor: pointer;">Hapus</button>
+                                                        <button class="btn btn-danger btn-sm border-0" data-bs-toggle="modal" data-bs-target="#hapusModal-<?= $stok->id ?>" style="cursor: pointer;">
+                                                            <i class="bi bi-trash"></i> Hapus
+                                                        </button>
 
                                                         <!-- Modal Hapus -->
                                                         <div class="modal fade" id="hapusModal-<?= $stok->id ?>" tabindex="-1" aria-labelledby="hapusModalLabel" aria-hidden="true">
@@ -89,7 +97,7 @@
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
-                                                                        <a href="<?= base_url('pemasok/delete/' . $stok->id) ?>" class="btn btn-danger">Iya, Hapus</a>
+                                                                        <a href="<?= base_url('pemasok/delete/' . $stok->id) ?>" class="btn btn-danger"><i class="bi bi-check-circle"></i> Iya, Hapus</a>
                                                                     </div>
                                                                 </div>
                                                             </div>

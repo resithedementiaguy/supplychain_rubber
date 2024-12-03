@@ -4,7 +4,7 @@
         <div class="container-fluid container-xl position-relative d-flex align-items-center">
             <a href="index.html" class="logo d-flex align-items-center me-auto">
                 <!-- Uncomment the line below if you also wish to use an image logo -->
-                <h1 class="sitename">REPRO</h1>
+                <h1 class="sitename">Crumb Rubber</h1>
             </a>
             <nav id="navmenu" class="navmenu">
                 <ul>

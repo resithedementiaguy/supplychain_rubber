@@ -32,56 +32,45 @@
 </head>
 
 <body>
-
     <main>
         <div class="container">
-
             <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-5 col-md-12 d-flex flex-column align-items-center justify-content-center">
-                            <div class="card">
+                            <div class="card pt-4 pb-4">
                                 <div class="card-body">
-                                    <div class="pt-4 pb-2">
+                                    <div class="pb-2">
                                         <h5 class="card-title text-center pb-0 fs-4">Buat Akun Baru</h5>
                                         <p class="text-center small">Masukkan informasi data Anda untuk membuat akun</p>
                                     </div>
 
                                     <form class="row g-3 needs-validation" action="<?= base_url('auth/register') ?>" method="POST" id="registrationForm">
                                         <div class="col-12">
-                                            <label for="yourEmail" class="form-label">Email</label>
-                                            <input type="email" name="email" class="form-control" id="email" placeholder="Masukkan Email" required>
-                                            <div class="invalid-feedback">Please enter a valid Email address!</div>
-                                        </div>
-                                        <div class="col-12">
-                                            <label for="yourName" class="form-label">Nama Pemilik</label>
-                                            <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama Pemilik" required>
-                                            <div class="invalid-feedback">Please, enter your name!</div>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <label for="yourName" class="form-label">Nama Usaha</label>
-                                            <input type="text" name="nama_usaha" class="form-control" id="nama_usaha" placeholder="Masukkan Nama Usaha" required>
-                                            <div class="invalid-feedback">Please, enter your name!</div>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <label>Kategori Akun</label>
-                                            <select class="form-control" name="level" id="level" required>
-                                                <option value="" selected hidden>Pilih kategori akun yang akan dibuat</option>
+                                            <label for="kategori" class="form-label">Kategori Akun</label>
+                                            <select class="form-select" name="level" id="level" required>
+                                                <option value="" selected hidden>- Pilih Kategori Akun -</option>
                                                 <option value="pemasok">Pemasok</option>
                                                 <option value="pengelola">Pengelola Mitra</option>
                                             </select>
                                         </div>
-
-                                        <div class="col-12">
-                                            <label for="yourName" class="form-label">Nomor Telepon</label>
-                                            <input type="number" name="no_hp" class="form-control" id="no_hp" placeholder="Masukkan Nomor Hp" required>
+                                        <div class="col-md-6">
+                                            <label for="yourName" class="form-label">Nama Pemilik</label>
+                                            <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama Pemilik" required>
                                             <div class="invalid-feedback">Please, enter your name!</div>
                                         </div>
-
-                                        <div class="col-12">
-                                            <label for="yourName" class="form-label">Alamat</label>
+                                        <div class="col-md-6">
+                                            <label for="nama" class="form-label">Nama Usaha</label>
+                                            <input type="text" name="nama_usaha" class="form-control" id="nama_usaha" placeholder="Masukkan Nama Usaha" required>
+                                            <div class="invalid-feedback">Please, enter your name!</div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="telepon" class="form-label">Nomor Telepon</label>
+                                            <input type="text" name="no_hp" class="form-control" id="no_hp" placeholder="Masukkan Nomor Telepon" required>
+                                            <div class="invalid-feedback">Please, enter your name!</div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="alamat" class="form-label">Alamat</label>
                                             <input type="text" name="alamat" class="form-control" id="alamat" placeholder="Masukkan Alamat" required>
                                             <div class="invalid-feedback">Please, enter your name!</div>
                                         </div>
@@ -90,12 +79,17 @@
                                         <input type="hidden" name="location" id="location">
 
                                         <div class="col-12">
-                                            <label for="yourPassword" class="form-label">Password</label>
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="email" name="email" class="form-control" id="email" placeholder="Masukkan Email" required>
+                                            <div class="invalid-feedback">Please enter a valid Email address!</div>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="password" class="form-label">Password</label>
                                             <input type="password" name="password" class="form-control" id="yourPassword" placeholder="Buat Password" required>
                                             <div class="invalid-feedback">Please enter your password!</div>
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-12 mt-4">
                                             <button class="btn btn-primary w-100" type="submit">Buat Akun</button>
                                         </div>
                                         <div class="col-12 mt-4 d-flex justify-content-center text-center">
@@ -105,33 +99,14 @@
                                             <p class="small mb-0"><a href="<?= base_url('') ?>">Kembali ke Beranda</a></p>
                                         </div>
                                     </form>
-
-                                    <script>
-                                        // Get the user's location using the Geolocation API
-                                        if (navigator.geolocation) {
-                                            navigator.geolocation.getCurrentPosition(function(position) {
-                                                // Combine latitude and longitude into a single string
-                                                const locationValue = position.coords.latitude + ',' + position.coords.longitude;
-                                                // Set the combined value in the hidden input
-                                                document.getElementById('location').value = locationValue;
-                                            }, function() {
-                                                console.error("Unable to retrieve your location");
-                                            });
-                                        } else {
-                                            console.error("Geolocation is not supported by this browser.");
-                                        }
-                                    </script>
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </section>
-
         </div>
-    </main><!-- End #main -->
+    </main>
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -147,6 +122,22 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+
+    <script>
+        // Get the user's location using the Geolocation API
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                // Combine latitude and longitude into a single string
+                const locationValue = position.coords.latitude + ',' + position.coords.longitude;
+                // Set the combined value in the hidden input
+                document.getElementById('location').value = locationValue;
+            }, function() {
+                console.error("Unable to retrieve your location");
+            });
+        } else {
+            console.error("Geolocation is not supported by this browser.");
+        }
+    </script>
 
 </body>
 
