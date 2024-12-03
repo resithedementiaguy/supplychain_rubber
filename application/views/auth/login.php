@@ -49,7 +49,6 @@
                                     </div>
 
                                     <form class="row g-3 needs-validation" method="POST" action="<?= base_url('auth/login') ?>" id="loginForm">
-
                                         <div class="col-12">
                                             <label for="email" class="form-label">Email</label>
                                             <div class="input-group has-validation">
@@ -57,18 +56,17 @@
                                                 <div class="invalid-feedback">Masukkan email anda.</div>
                                             </div>
                                         </div>
-
                                         <div class="col-12">
                                             <label for="password" class="form-label">Password</label>
                                             <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan Password" required>
                                             <div class="invalid-feedback">Masukkan password anda.</div>
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-12 mt-4">
                                             <button class="btn btn-primary w-100" type="submit">Login</button>
                                         </div>
                                         <div class="col-12 mt-4 d-flex justify-content-center text-center">
-                                            <p class="small mb-0">Belum punya akun? <a href="<?= base_url('auth/register') ?>">Buat akun disini!</a></p>
+                                            <p class="small mb-0">Belum punya akun? <a href="<?= base_url('auth/register') ?>">Buat akun sekarang!</a></p>
                                         </div>
                                         <div class="col-12 mt-2 d-flex justify-content-center text-center">
                                             <p class="small mb-0"><a href="<?= base_url('') ?>">Kembali ke Beranda</a></p>

@@ -33,6 +33,13 @@ class Pemasok extends CI_Controller
         $this->load->view('backend/partials/footer');
     }
 
+    public function detail()
+    {
+        $this->load->view('backend/partials/header');
+        $this->load->view('backend/pemasok/detail');
+        $this->load->view('backend/partials/footer');
+    }
+
     public function add_view()
     {
         $data['nama_usaha'] = $this->Mod_pengelola->get_mitra();
