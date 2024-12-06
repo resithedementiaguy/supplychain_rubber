@@ -32,27 +32,25 @@
 </head>
 
 <body>
-    <main>
+    <main style="background-color: ;">
         <div class="container">
             <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
                 <div class="container">
-                    <div class="card">
-                        <div class="card-body m-0 p-0">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-7 d-flex flex-column align-items-center justify-content-center">
-                                    <img src="<?= base_url('') ?>assets/img/wave-background.jpg" alt="Gambar Login" class="img-fluid rounded-start" style="max-height: 100%; width: 100%; object-fit: cover;">
-                                </div>
-                                <div class="col-lg-5 px-5 pt-4 pb-4 d-flex flex-column align-items-center justify-content-center">
-                                    <div class="pb-2">
-                                        <h5 class="card-title text-center pb-0 fs-4">Login Crumb Rubber</h5>
-                                        <p class="text-center small">Masukkan email & password untuk login</p>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5 col-md-12 d-flex flex-column align-items-center justify-content-center">
+                            <div class="card py-5">
+                                <div class="card-body pb-0 px-4">
+                                    <div class="pb-2 text-center">
+                                        <img src="<?= base_url('') ?>assets/img/logo-udinus-repro.png" alt="" width="200px">
+                                        <h5 class="card-title pb-0 fs-4">Login Crumb Rubber</h5>
+                                        <p class="text-muted small">Masukkan email & password untuk login</p>
                                     </div>
 
-                                    <form class="row g-3 needs-validation" method="POST" action="<?= base_url('auth/login') ?>" id="loginForm">
+                                    <form class="row g-3 needs-validation" method="POST" action="<?= base_url('auth/login') ?>" id="loginForm" novalidate>
                                         <div class="col-12">
                                             <label for="email" class="form-label">Email</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="email" class="form-control" id="email" placeholder="Masukkan Email" required>
+                                                <input type="email" name="email" class="form-control" id="email" placeholder="Masukkan Email" required>
                                                 <div class="invalid-feedback">Masukkan email anda.</div>
                                             </div>
                                         </div>
@@ -65,10 +63,10 @@
                                         <div class="col-12 mt-4">
                                             <button class="btn btn-primary w-100" type="submit">Login</button>
                                         </div>
-                                        <div class="col-12 mt-4 d-flex justify-content-center text-center">
+                                        <div class="col-12 mt-3 text-center">
                                             <p class="small mb-0">Belum punya akun? <a href="<?= base_url('auth/register') ?>">Buat akun sekarang!</a></p>
                                         </div>
-                                        <div class="col-12 mt-2 d-flex justify-content-center text-center">
+                                        <div class="col-12 mt-2 text-center">
                                             <p class="small mb-0"><a href="<?= base_url('') ?>">Kembali ke Beranda</a></p>
                                         </div>
                                     </form>

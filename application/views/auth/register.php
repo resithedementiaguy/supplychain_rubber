@@ -40,9 +40,9 @@
                         <div class="col-lg-5 col-md-12 d-flex flex-column align-items-center justify-content-center">
                             <div class="card pt-4 pb-4">
                                 <div class="card-body">
-                                    <div class="pb-2">
-                                        <h5 class="card-title text-center pb-0 fs-4">Buat Akun Baru</h5>
-                                        <p class="text-center small">Masukkan informasi data Anda untuk membuat akun</p>
+                                    <div class="pb-2 text-center">
+                                        <h5 class="card-title pb-0 fs-4">Buat Akun Baru</h5>
+                                        <p class="text-muted small">Masukkan informasi data Anda untuk membuat akun</p>
                                     </div>
 
                                     <form class="row g-3 needs-validation" action="<?= base_url('auth/register') ?>" method="POST" id="registrationForm">
