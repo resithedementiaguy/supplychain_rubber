@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    <main style="background-color: ;">
+    <main style="background-image: url('<?= base_url("assets/img/bg-gradient-1.jpg") ?>'); background-size: cover; background-position: center; min-height: 100vh;">
         <div class="container">
             <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
                 <div class="container">
@@ -42,22 +42,30 @@
                                 <div class="card-body pb-0 px-4">
                                     <div class="pb-2 text-center">
                                         <img src="<?= base_url('') ?>assets/img/logo-udinus-repro.png" alt="" width="200px">
-                                        <h5 class="card-title pb-0 fs-4">Login Crumb Rubber</h5>
-                                        <p class="text-muted small">Masukkan email & password untuk login</p>
+                                        <h5 class="card-title pb-0 fs-3">Login Crumb Rubber</h5>
+                                        <p class="text-muted">Masukkan email & password untuk login</p>
                                     </div>
 
                                     <form class="row g-3 needs-validation" method="POST" action="<?= base_url('auth/login') ?>" id="loginForm" novalidate>
                                         <div class="col-12">
                                             <label for="email" class="form-label">Email</label>
                                             <div class="input-group has-validation">
+                                                <span class="input-group-text" id="inputGroupPrepend">
+                                                    <i class="bi bi-person-fill text-secondary"></i>
+                                                </span>
                                                 <input type="email" name="email" class="form-control" id="email" placeholder="Masukkan Email" required>
                                                 <div class="invalid-feedback">Masukkan email anda.</div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <label for="password" class="form-label">Password</label>
-                                            <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan Password" required>
-                                            <div class="invalid-feedback">Masukkan password anda.</div>
+                                            <div class="input-group has-validation">
+                                                <span class="input-group-text" id="inputGroupPrepend">
+                                                    <i class="bi bi-lock-fill text-secondary"></i>
+                                                </span>
+                                                <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan Password" required>
+                                                <div class="invalid-feedback">Masukkan password anda.</div>
+                                            </div>
                                         </div>
 
                                         <div class="col-12 mt-4">

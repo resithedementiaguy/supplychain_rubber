@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    <main>
+    <main style="background-image: url('<?= base_url("assets/img/bg-gradient-2.jpg") ?>'); background-size: cover; background-position: center; min-height: 100vh;">
         <div class="container">
             <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
                 <div class="container">
