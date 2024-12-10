@@ -37,11 +37,11 @@
             <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
                 <div class="container">
                     <div class="row justify-content-center">
-                        <div class="col-lg-5 col-md-12 d-flex flex-column align-items-center justify-content-center">
+                        <div class="col-lg-4 col-md-12 d-flex flex-column align-items-center justify-content-center">
                             <div class="card py-5">
                                 <div class="card-body pb-0 px-4">
                                     <div class="pb-2 text-center">
-                                        <img src="<?= base_url('') ?>assets/img/logo-udinus-repro.png" alt="" width="200px">
+                                        <img src="<?= base_url('') ?>assets/img/logo-udinus-repro.png" alt="" width="175px">
                                         <h5 class="card-title pb-0 fs-3">Login Crumb Rubber</h5>
                                         <p class="text-muted">Masukkan email & password untuk login</p>
                                     </div>

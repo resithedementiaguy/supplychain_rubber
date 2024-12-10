@@ -143,6 +143,13 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link <?php echo ($this->uri->segment(1) == 'hargaban') ? '' : 'collapsed'; ?>" href="<?php echo site_url('hargaban'); ?>">
+                        <i class="bi bi-person"></i>
+                        <span>Harga Ban Bekas</span>
+                    </a>
+                </li>
+
             <?php
             // Jika level_name adalah "pengelola", hanya tampilkan item menu Pengelola
             elseif ($level_name == 'admin') : ?>
