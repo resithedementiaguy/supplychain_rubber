@@ -21,7 +21,10 @@
                             Silahkan untuk menambahkan dan mengecek stok ban bekas
                         </div>
                         <div class="mb-3 d-flex justify-content-between align-items-center">
-                            <a class="btn btn-primary border-0" href="<?= site_url('hargaban/create') ?>"><b>Tambah Stok</b></a>
+                            <!-- Button to trigger modal -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahStokModal">
+                                <b>Tambah Stok</b>
+                            </button>
                         </div>
 
                         <!-- Table with stripped rows -->
@@ -53,4 +56,42 @@
             </div>
         </div>
     </section>
+
+    <!-- Modal for Tambah Stok -->
+    <div class="modal fade" id="tambahStokModal" tabindex="-1" aria-labelledby="tambahStokModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="tambahStokModalLabel">Tambah Stok</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form class="row g-3 p-3" method="post" action="<?= site_url('hargaban/create') ?>">
+                    <div class="modal-body">
+                        <div class="col-12">
+                            <label for="jenis" class="form-label">Jenis Kendaraan</label>
+                            <select class="form-select" id="jenis" name="jenis" required>
+                                <option value="">- Pilih Jenis Kendaraan -</option>
+                                <option value="Mobil">Mobil</option>
+                                <option value="Motor">Motor</option>
+                            </select>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <label for="harga" class="form-label">Harga Ban Bekas</label>
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="harga"
+                                name="harga"
+                                placeholder="Masukkan Harga Ban Bekas"
+                                required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </main>
