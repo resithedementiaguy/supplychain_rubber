@@ -3,7 +3,7 @@
         <h1 class="pb-2">Pemasok</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="<?= base_url('dashboard'); ?>">Dashboard</a></li>
                 <li class="breadcrumb-item active">Pemasok</li>
             </ol>
         </nav>
@@ -36,7 +36,6 @@
                             <?php endif; ?>
                         </div>
 
-                        <!-- Table with stripped rows -->
                         <div class="table-responsive">
                             <table class="table datatable">
                                 <thead>

@@ -111,7 +111,7 @@ class Pemasok extends CI_Controller
             $this->Mod_pemasok->add_stok($data);
 
             $this->session->set_flashdata('success', 'Data berhasil disimpan.');
-            redirect('pemasok');
+            redirect('pemasok/add_view');
         }
     }
 

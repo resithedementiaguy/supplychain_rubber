@@ -3,8 +3,9 @@
         <h1 class="pb-2">Tambah Stok Pemasok</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?php base_url('dashboard') ?>">Home</a></li>
-                <li class="breadcrumb-item">Pemasok</li>
+                <li class="breadcrumb-item"><a href="<?= base_url('dashboard'); ?>">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="<?= base_url('pemasok'); ?>">Pemasok</a></li>
+                </li>
                 <li class="breadcrumb-item active">Tambah Stok</li>
             </ol>
         </nav>
@@ -46,8 +47,6 @@
                         id="harga_ban"
                         name="harga_ban"
                         placeholder="Rp0"
-                        required
-                        oninput="formatRupiah(this)"
                         readonly>
                 </div>
                 <div class="col-12">
@@ -66,6 +65,36 @@
         </div>
     </div>
 </main>
+
+<!-- Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Berhasil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Data berhasil disimpan.
+            </div>
+            <div class="modal-footer">
+                <a href="<?= base_url('pemasok'); ?>" class="btn btn-secondary">Kembali</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("DOMContentLoaded triggered");
+        <?php if ($this->session->flashdata('success')): ?>
+            console.log("Flashdata success exists");
+            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
+        <?php endif; ?>
+    });
+</script>
+
 <script>
     document.getElementById('jenis_kendaraan').addEventListener('change', function() {
         const jenis = this.value;
@@ -78,8 +107,8 @@
                         document.getElementById('harga_ban').value = new Intl.NumberFormat('id-ID', {
                             style: 'currency',
                             currency: 'IDR',
-                            minimumFractionDigits: 0, // Hilangkan desimal
-                            maximumFractionDigits: 0 // Hilangkan desimal
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 0
                         }).format(data.harga);
 
                         calculateTotal();
@@ -99,8 +128,8 @@
         document.getElementById('total_harga').value = new Intl.NumberFormat('id-ID', {
             style: 'currency',
             currency: 'IDR',
-            minimumFractionDigits: 0, // Hilangkan desimal
-            maximumFractionDigits: 0 // Hilangkan desimal
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
         }).format(totalHarga);
     }
 
@@ -133,53 +162,4 @@
 
     setInterval(updateTanggal, 1000);
     updateTanggal();
-
-
-    // Format Harga Rupiah
-    function formatRupiah(element) {
-        let value = element.value.replace(/[^\d]/g, "");
-        element.value = value ? "Rp" + parseInt(value).toLocaleString("id-ID") : "";
-    }
-
-    $(document).ready(function() {
-        $("form").submit(function(event) {
-            let hargaBan = $("#harga_ban").val().replace(/[^\d]/g, "");
-            $("#harga_ban").val(hargaBan);
-        });
-    });
-
-    $(document).ready(function() {
-        $("#submitHarga").click(function() {
-            let hargaBan = $("#harga_ban").val().replace(/[^\d]/g, "");
-            let idPemasok = $("#id_pemasok").val();
-            let jumlahStok = $("#jumlah_stok").val();
-            let jenisKendaraan = $("#jenis_kendaraan").val();
-            let location = $("#location").val();
-
-            if (hargaBan && idPemasok && jumlahStok && jenisKendaraan && location) {
-                // Kirim data ke server menggunakan AJAX
-                $.ajax({
-                    url: "<?= base_url('pemasok/add'); ?>",
-                    type: "POST",
-                    data: {
-                        id_pemasok: idPemasok,
-                        tanggal: new Date().toISOString().slice(0, 19).replace('T', ' '), // Format tanggal
-                        jumlah_stok: jumlahStok,
-                        jenis_kendaraan: jenisKendaraan,
-                        harga_ban: hargaBan,
-                        location: location
-                    },
-                    success: function(response) {
-                        alert("Harga berhasil disimpan!");
-                        $("#harga_ban").val("");
-                    },
-                    error: function() {
-                        alert("Gagal menyimpan harga. Silakan coba lagi.");
-                    }
-                });
-            } else {
-                alert("Harap lengkapi semua field.");
-            }
-        });
-    });
 </script>
