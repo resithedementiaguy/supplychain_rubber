@@ -3,8 +3,8 @@
         <h1 class="pb-2">Ambil Stok Pemasok</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a>Home</a></li>
-                <li class="breadcrumb-item">Mitra Pengelola</li>
+                <li class="breadcrumb-item"><a href="<?= base_url('dashboard'); ?>">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="<?= base_url('pengelola'); ?>">Mitra Pengelola</a></li>
                 <li class="breadcrumb-item active">Ambil Stok</li>
             </ol>
         </nav>

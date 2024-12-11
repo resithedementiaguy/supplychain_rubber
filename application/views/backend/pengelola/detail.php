@@ -3,8 +3,8 @@
         <h1 class="pb-2">Detail Mitra Pengelola</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a>Home</a></li>
-                <li class="breadcrumb-item">Mitra Pengelola</li>
+                <li class="breadcrumb-item"><a href="<?= base_url('dashboard'); ?>">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="<?= base_url('pengelola'); ?>">Mitra Pengelola</a></li>
                 <li class="breadcrumb-item">Detail</li>
                 <li class="breadcrumb-item active"><?php echo $detail_produk['nama_usaha_pemasok']; ?></li>
             </ol>

@@ -3,7 +3,7 @@
         <h1 class="pb-2">Mitra Pengelola</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a>Home</a></li>
+                <li class="breadcrumb-item"><a href="<?= base_url('dashboard'); ?>">Dashboard</a></li>
                 <li class="breadcrumb-item active">Mitra Pengelola</li>
             </ol>
         </nav>

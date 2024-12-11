@@ -3,7 +3,7 @@
         <h1 class="pb-2">Harga Ban Bekas</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="<?= base_url('dashboard'); ?>">Dashboard</a></li>
                 <li class="breadcrumb-item active">Harga Ban Bekas</li>
             </ol>
         </nav>
@@ -43,8 +43,8 @@
                                     <tr>
                                         <td><?= $no++ ?></td>
                                         <td><?= $item->jenis ?></td>
-                                        <td><?= $item->harga ?></td>
-                                        <td><?= $item->ins_time ?></td>
+                                        <td><?= 'Rp' . number_format($item->harga, 0, ',', '.') ?></td>
+                                        <td><?= formatTanggal($item->ins_time); ?></td>
                                         <td>
                                             <button
                                                 class="btn btn-success border-0"
@@ -63,6 +63,65 @@
                                             </button>
                                         </td>
                                     </tr>
+                                    <!-- Modal Edit Harga Ban -->
+                                    <div class="modal fade" id="editModal-<?= $item->id ?>" tabindex="-1" aria-labelledby="editModalLabel-<?= $item->id ?>" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header bg-success text-white d-flex align-items-center">
+                                                    <h5 class="modal-title" id="editModalLabel-<?= $item->id ?>">Edit Harga Ban Bekas</h5>
+                                                    <button type="button" class="btn-close text-white bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <form method="post" action="<?= site_url('hargaban/update/' . $item->id) ?>">
+                                                    <div class="modal-body">
+                                                        <div class="mb-3">
+                                                            <label for="jenis-<?= $item->id ?>" class="form-label">Jenis Kendaraan</label>
+                                                            <select class="form-select" id="jenis-<?= $item->id ?>" name="jenis" required>
+                                                                <option value="">- Pilih Jenis Kendaraan -</option>
+                                                                <option value="Mobil" <?= $item->jenis === 'Mobil' ? 'selected' : '' ?>>Mobil</option>
+                                                                <option value="Motor" <?= $item->jenis === 'Motor' ? 'selected' : '' ?>>Motor</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="harga-<?= $item->id ?>" class="form-label">Harga Ban Bekas</label>
+                                                            <input
+                                                                type="text"
+                                                                class="form-control"
+                                                                id="harga-<?= $item->id ?>"
+                                                                name="harga"
+                                                                value="<?= $item->harga ?>"
+                                                                placeholder="Masukkan Harga Ban Bekas"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                                        <button type="submit" class="btn btn-success">Simpan</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Modal Konfirmasi Hapus -->
+                                    <div class="modal fade" id="hapusModal-<?= $item->id ?>" tabindex="-1" aria-labelledby="hapusModalLabel-<?= $item->id ?>" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header bg-danger text-white d-flex align-items-center">
+                                                    <h5 class="modal-title" id="hapusModalLabel-<?= $item->id ?>">Konfirmasi Hapus</h5>
+                                                    <button type="button" class="btn-close text-white bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Apakah Anda yakin ingin menghapus data ini? <br>
+                                                    <strong>Jenis:</strong> <?= $item->jenis ?> <br>
+                                                    <strong>Harga:</strong> <?= $item->harga ?> <br>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                    <a href="<?= site_url('hargaban/delete/' . $item->id) ?>" class="btn btn-danger">Hapus</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <?php endforeach; ?>
                             </table>
                         </div>
@@ -76,9 +135,9 @@
     <div class="modal fade" id="tambahStokModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header bg-info text-white">
+                <div class="modal-header bg-info text-white d-flex align-items-center">
                     <h5 class="modal-title">Tambah Stok</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close text-white bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" action="<?= site_url('hargaban/create') ?>">
                     <div class="modal-body">
@@ -110,63 +169,29 @@
         </div>
     </div>
 
-    <!-- Modal Edit Harga Ban -->
-    <div class="modal fade" id="editModal-<?= $item->id ?>" tabindex="-1" aria-labelledby="editModalLabel-<?= $item->id ?>" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-success text-white d-flex align-items-center">
-                    <h5 class="modal-title" id="editModalLabel-<?= $item->id ?>">Edit Harga Ban Bekas</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form method="post" action="<?= site_url('hargaban/update/' . $item->id) ?>">
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="jenis-<?= $item->id ?>" class="form-label">Jenis Kendaraan</label>
-                            <select class="form-select" id="jenis-<?= $item->id ?>" name="jenis" required>
-                                <option value="">- Pilih Jenis Kendaraan -</option>
-                                <option value="Mobil" <?= $item->jenis === 'Mobil' ? 'selected' : '' ?>>Mobil</option>
-                                <option value="Motor" <?= $item->jenis === 'Motor' ? 'selected' : '' ?>>Motor</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="harga-<?= $item->id ?>" class="form-label">Harga Ban Bekas</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="harga-<?= $item->id ?>"
-                                name="harga"
-                                value="<?= $item->harga ?>"
-                                placeholder="Masukkan Harga Ban Bekas"
-                                required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                        <button type="submit" class="btn btn-success">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
-    <!-- Modal Konfirmasi Hapus -->
-    <div class="modal fade" id="hapusModal-<?= $item->id ?>" tabindex="-1" aria-labelledby="hapusModalLabel-<?= $item->id ?>" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-danger text-white d-flex align-items-center">
-                    <h5 class="modal-title" id="hapusModalLabel-<?= $item->id ?>">Konfirmasi Hapus</h5>
-                    <button type="button" class="btn-close text-white bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Apakah Anda yakin ingin menghapus data ini? <br>
-                    <strong>Jenis:</strong> <?= $item->jenis ?> <br>
-                    <strong>Harga:</strong> <?= $item->harga ?> <br>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <a href="<?= site_url('hargaban/delete/' . $item->id) ?>" class="btn btn-danger">Hapus</a>
-                </div>
-            </div>
-        </div>
-    </div>
 </main>
+
+<?php
+function formatTanggal($datetime)
+{
+    $bulan = [
+        'January' => 'Januari',
+        'February' => 'Februari',
+        'March' => 'Maret',
+        'April' => 'April',
+        'May' => 'Mei',
+        'June' => 'Juni',
+        'July' => 'Juli',
+        'August' => 'Agustus',
+        'September' => 'September',
+        'October' => 'Oktober',
+        'November' => 'November',
+        'December' => 'Desember'
+    ];
+
+    $timestamp = strtotime($datetime);
+    $bulanIndo = $bulan[date('F', $timestamp)];
+    return date('d', $timestamp) . ' ' . $bulanIndo . ' ' . date('Y, H:i', $timestamp) . ' WIB';
+}
+?>
