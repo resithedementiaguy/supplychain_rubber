@@ -29,7 +29,7 @@
                                 <?php if ($status_terbaru == 'Sudah diambil'): ?>
                                     <a class="btn btn-primary border-0" href="<?= base_url('pemasok/add_view') ?>"><b>Tambah Stok</b></a>
                                 <?php else: ?>
-                                    <span class="text-danger">Tunggu sampai stok diambil</span>
+                                    <span class="badge rounded-pill bg-danger p-2 px-3"><i class="bi bi-exclamation-octagon me-1"></i> Tunggu sampai stok diambil</span>
                                 <?php endif; ?>
                             <?php else: ?>
                                 <a class="btn btn-primary border-0" href="<?= base_url('pemasok/add_view') ?>"><b>Tambah Stok</b></a>
@@ -67,19 +67,19 @@
                                                     <?php
                                                     // Cocokkan sesuai nilai ENUM di database
                                                     if ($stok->status == 'Belum diambil'): ?>
-                                                        <span class="badge bg-warning text-dark"><?= $stok->status ?></span>
+                                                        <span class="badge rounded-pill bg-warning text-dark p-1 px-2"><?= $stok->status ?></span>
                                                     <?php elseif ($stok->status == 'Sudah diambil'): ?>
-                                                        <span class="badge bg-success"><?= $stok->status ?></span>
+                                                        <span class="badge rounded-pill bg-success p-1 px-2"><?= $stok->status ?></span>
                                                     <?php else: ?>
-                                                        <span class="badge bg-secondary"><?= $stok->status ?></span>
+                                                        <span class="badge rounded-pill bg-secondary p-1 px-2"><?= $stok->status ?></span>
                                                     <?php endif; ?>
                                                 </td>
                                                 <td>
-                                                    <button class="btn btn-success btn-sm border-0" onclick="window.location.href='<?= base_url('pemasok/detail/' . $stok->id) ?>'" style="cursor: pointer;">
+                                                    <button class="btn btn-success border-0" onclick="window.location.href='<?= base_url('pemasok/detail/' . $stok->id) ?>'" style="cursor: pointer;">
                                                         <i class="bi bi-eye"></i> Detail
                                                     </button>
                                                     <?php if ($stok->status != 'Sudah diambil'): ?>
-                                                        <button class="btn btn-danger btn-sm border-0" data-bs-toggle="modal" data-bs-target="#hapusModal-<?= $stok->id ?>" style="cursor: pointer;">
+                                                        <button class="btn btn-danger border-0" data-bs-toggle="modal" data-bs-target="#hapusModal-<?= $stok->id ?>" style="cursor: pointer;">
                                                             <i class="bi bi-trash"></i> Hapus
                                                         </button>
 

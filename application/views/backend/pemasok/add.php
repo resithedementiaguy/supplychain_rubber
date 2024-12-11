@@ -56,11 +56,10 @@
 
                 <!-- Hidden input for location -->
                 <input type="hidden" name="location" id="location">
-
-                <div class="col-12 mt-5 d-flex justify-content-between align-items-center">
-                    <a class="btn btn-secondary" href="<?= base_url('pemasok'); ?>">Kembali</a>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
+        </div>
+        <div class="card-footer d-flex justify-content-between align-items-center py-3">
+            <a class="btn btn-secondary" href="<?= base_url('pemasok'); ?>">Kembali</a>
+            <button type="submit" class="btn btn-primary">Simpan</button>
             </form>
         </div>
     </div>

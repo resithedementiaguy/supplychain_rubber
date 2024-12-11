@@ -43,12 +43,24 @@
                         <td style="border: none;"><?= $status_stok->jumlah_stok ? $status_stok->jumlah_stok . 'kg' : 'Tidak tersedia'; ?></td>
                     </tr>
                     <tr>
-                        <th scope="row" style="border: none;">Harga (Rp)</th>
+                        <th scope="row" style="border: none;">Harga per kg</th>
                         <td style="border: none;">Rp<?= isset($status_stok->harga) ? number_format($status_stok->harga, 0, ',', '.') : 'Tidak tersedia'; ?></td>
                     </tr>
                     <tr>
+                        <th scope="row" style="border: none;">Total Harga</th>
+                        <td style="border: none;">Rp<?= isset($status_stok->harga) ? number_format($status_stok->total_harga, 0, ',', '.') : 'Tidak tersedia'; ?></td>
+                    </tr>
+                    <tr>
                         <th scope="row" style="border: none;">Status</th>
-                        <td style="border: none;"><?= $status_stok->status ?? 'Tidak tersedia'; ?></td>
+                        <td style="border: none;">
+                            <?php if ($status_stok->status == 'Belum diambil'): ?>
+                                <span class="badge rounded-pill bg-warning text-dark p-1 px-2"><?= $status_stok->status ?></span>
+                            <?php elseif ($status_stok->status == 'Sudah diambil'): ?>
+                                <span class="badge rounded-pill bg-success p-1 px-2"><?= $status_stok->status ?></span>
+                            <?php else: ?>
+                                <?= $status_stok->status ?? 'Tidak tersedia'; ?>
+                            <?php endif; ?>
+                        </td>
                     </tr>
                     <?php if ($status_stok->status === 'Sudah diambil' && !empty($pengelola)): ?>
                         <tr>
