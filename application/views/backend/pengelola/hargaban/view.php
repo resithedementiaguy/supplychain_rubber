@@ -36,9 +36,10 @@
                                     <th>Harga</th>
                                     <th>Waktu Input</th>
                                     <th>Aksi</th>
-                                </tr><?php
-                                        $no = 1;
-                                        foreach ($harga_ban as $item): ?>
+                                </tr>
+                                <?php
+                                $no = 1;
+                                foreach ($harga_ban as $item): ?>
                                     <tr>
                                         <td><?= $no++ ?></td>
                                         <td><?= $item->jenis ?></td>

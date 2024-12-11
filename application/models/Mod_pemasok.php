@@ -66,6 +66,15 @@ class Mod_pemasok extends CI_Model
         return $this->db->delete('status_stok');
     }
 
+    public function get_harga_by_jenis($jenis_kendaraan)
+    {
+        $query = $this->db->select('harga')
+            ->from('harga_ban_bekas')
+            ->where('jenis', $jenis_kendaraan)
+            ->get();
+        return $query->row() ? $query->row()->harga : null;
+    }
+
     public function add_stok($data)
     {
         return $this->db->insert('status_stok', $data);
@@ -86,7 +95,7 @@ class Mod_pemasok extends CI_Model
 
     public function get_all_stok($id_pemasok)
     {
-        $this->db->select('status_stok.jumlah_stok, pemasok.id as id_pemasok, pemasok.nama, pemasok.nama_usaha, pemasok.no_hp, status_stok.jenis, status_stok.harga, status_stok.status, status_stok.tanggal, status_stok.id');
+        $this->db->select('status_stok.jumlah_stok, pemasok.id as id_pemasok, pemasok.nama, pemasok.nama_usaha, pemasok.no_hp, status_stok.jenis, status_stok.harga, status_stok.total_harga, status_stok.status, status_stok.tanggal, status_stok.id');
         $this->db->from('status_stok');
         $this->db->join('pemasok', 'status_stok.id_pemasok = pemasok.id', 'left');
         $this->db->where('status_stok.id_pemasok', $id_pemasok);

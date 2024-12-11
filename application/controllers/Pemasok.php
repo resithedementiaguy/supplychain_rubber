@@ -75,8 +75,8 @@ class Pemasok extends CI_Controller
 
     public function add()
     {
-        $this->form_validation->set_rules('location', 'Location', 'required|trim');
-        $this->form_validation->set_rules('harga_ban', 'Harga Ban', 'required|trim');
+        $this->form_validation->set_rules('jenis_kendaraan', 'Jenis Kendaraan', 'required|trim');
+        $this->form_validation->set_rules('jumlah_stok', 'Jumlah Stok', 'required|trim|numeric');
 
         date_default_timezone_set('Asia/Jakarta');
         $tgl = date('Y-m-d H:i:s', time());
@@ -84,20 +84,43 @@ class Pemasok extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             redirect('pemasok/add_view');
         } else {
-            $hargaBan = str_replace([",", "Rp"], "", $this->input->post('harga_ban'));  // Remove the "Rp" and commas
+            $jenis_kendaraan = $this->input->post('jenis_kendaraan');
+            $jumlah_stok = $this->input->post('jumlah_stok');
+
+            // Ambil harga dari model
+            $harga_per_kg = $this->Mod_pemasok->get_harga_by_jenis($jenis_kendaraan);
+
+            if (!$harga_per_kg) {
+                $this->session->set_flashdata('error', 'Harga untuk jenis kendaraan ini belum tersedia.');
+                redirect('pemasok/add_view');
+            }
+
+            // Hitung total harga
+            $total_harga = $jumlah_stok * $harga_per_kg;
+
             $data = array(
                 'id_pemasok' => $this->input->post('id_pemasok'),
                 'tanggal' => $tgl,
-                'jumlah_stok' => $this->input->post('jumlah_stok'),
-                'jenis' => $this->input->post('jenis_kendaraan'),
-                'harga' => $hargaBan,  // Store the cleaned value
+                'jumlah_stok' => $jumlah_stok,
+                'jenis' => $jenis_kendaraan,
+                'harga' => $harga_per_kg,
+                'total_harga' => $total_harga,
                 'lokasi' => $this->input->post('location')
             );
 
             $this->Mod_pemasok->add_stok($data);
 
-            redirect('pemasok/add_view');
+            $this->session->set_flashdata('success', 'Data berhasil disimpan.');
+            redirect('pemasok');
         }
+    }
+
+    public function get_harga($jenis)
+    {
+        // Ambil harga dari model
+        $harga = $this->Mod_pemasok->get_harga_by_jenis($jenis);
+
+        echo json_encode(['harga' => $harga ? $harga : 0]);
     }
 
     public function delete_stok($id)

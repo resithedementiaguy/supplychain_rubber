@@ -42,12 +42,12 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Tanggal</th>
                                         <th>Nama Usaha</th>
+                                        <th>Tanggal</th>
                                         <th>Jenis</th>
                                         <th>Berat</th>
-                                        <th>Harga</th>
+                                        <th>Harga per kg</th>
+                                        <th>Total Harga</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -58,12 +58,12 @@
                                         foreach ($daftar_stok as $stok) : ?>
                                             <tr>
                                                 <td><?= $no++ ?></td>
-                                                <td><?= $stok->nama ?></td>
-                                                <td><?= date('d F Y, H:i', strtotime($stok->tanggal)); ?> WIB</td>
                                                 <td><?= $stok->nama_usaha ?></td>
+                                                <td><?= date('d F Y, H:i', strtotime($stok->tanggal)); ?> WIB</td>
                                                 <td><?= $stok->jenis ?></td>
                                                 <td><?= $stok->jumlah_stok ?> kg</td>
                                                 <td><?= "Rp" . number_format($stok->harga, 0, ',', '.') ?></td>
+                                                <td><?= "Rp" . number_format($stok->total_harga, 0, ',', '.') ?></td>
                                                 <td>
                                                     <?php
                                                     // Cocokkan sesuai nilai ENUM di database

@@ -3,7 +3,7 @@
         <h1 class="pb-2">Tambah Stok Pemasok</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="<?php base_url('dashboard') ?>">Home</a></li>
                 <li class="breadcrumb-item">Pemasok</li>
                 <li class="breadcrumb-item active">Tambah Stok</li>
             </ol>
@@ -39,15 +39,20 @@
                     <input type="number" class="form-control" id="jumlah_stok" name="jumlah_stok" placeholder="Masukkan Jumlah Stok" required>
                 </div>
                 <div class="col-12">
-                    <label for="harga_ban" class="form-label">Harga Ban Bekas (kg)</label>
+                    <label for="harga_ban" class="form-label">Harga Ban Bekas per kg</label>
                     <input
                         type="text"
                         class="form-control"
                         id="harga_ban"
                         name="harga_ban"
-                        placeholder="Masukkan Harga Ban Bekas"
+                        placeholder="Rp0"
                         required
-                        oninput="formatRupiah(this)">
+                        oninput="formatRupiah(this)"
+                        readonly>
+                </div>
+                <div class="col-12">
+                    <label for="total_harga" class="form-label">Total Harga Ban Bekas</label>
+                    <input type="text" class="form-control" id="total_harga" name="total_harga" placeholder="Rp0" readonly>
                 </div>
 
                 <!-- Hidden input for location -->
@@ -61,14 +66,48 @@
         </div>
     </div>
 </main>
-
 <script>
+    document.getElementById('jenis_kendaraan').addEventListener('change', function() {
+        const jenis = this.value;
+
+        if (jenis) {
+            fetch(`<?= base_url('pemasok/get_harga/') ?>${jenis}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.harga) {
+                        document.getElementById('harga_ban').value = new Intl.NumberFormat('id-ID', {
+                            style: 'currency',
+                            currency: 'IDR',
+                            minimumFractionDigits: 0, // Hilangkan desimal
+                            maximumFractionDigits: 0 // Hilangkan desimal
+                        }).format(data.harga);
+
+                        calculateTotal();
+                    }
+                });
+        }
+    });
+
+    document.getElementById('jumlah_stok').addEventListener('input', calculateTotal);
+
+    function calculateTotal() {
+        const hargaBan = parseFloat(document.getElementById('harga_ban').value.replace(/[^\d]/g, '')) || 0;
+        const jumlahStok = parseFloat(document.getElementById('jumlah_stok').value) || 0;
+
+        const totalHarga = hargaBan * jumlahStok;
+
+        document.getElementById('total_harga').value = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0, // Hilangkan desimal
+            maximumFractionDigits: 0 // Hilangkan desimal
+        }).format(totalHarga);
+    }
+
     // Get the user's location using the Geolocation API
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-            // Combine latitude and longitude into a single string
             const locationValue = position.coords.latitude + ',' + position.coords.longitude;
-            // Set the combined value in the hidden input
             document.getElementById('location').value = locationValue;
         }, function() {
             console.error("Unable to retrieve your location");
@@ -111,7 +150,6 @@
 
     $(document).ready(function() {
         $("#submitHarga").click(function() {
-            // Ambil nilai input dan hapus format "Rp" serta pemisah ribuan
             let hargaBan = $("#harga_ban").val().replace(/[^\d]/g, "");
             let idPemasok = $("#id_pemasok").val();
             let jumlahStok = $("#jumlah_stok").val();
@@ -133,7 +171,7 @@
                     },
                     success: function(response) {
                         alert("Harga berhasil disimpan!");
-                        $("#harga_ban").val(""); // Clear the input field
+                        $("#harga_ban").val("");
                     },
                     error: function() {
                         alert("Gagal menyimpan harga. Silakan coba lagi.");
