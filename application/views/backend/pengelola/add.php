@@ -1,6 +1,6 @@
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1 class="pb-2">Ambil Stok Pemasok</h1>
+        <h1 class="pb-2">Ambil Stok Dari Pemasok</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?= base_url('dashboard'); ?>">Dashboard</a></li>
@@ -19,48 +19,54 @@
                 <strong>Total Jarak Keseluruhan: </strong> <?= number_format($total_distance, 2) ?> km
             </div>
 
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Usaha</th>
-                        <th>Lokasi</th>
-                        <th>Berat Stok (kg)</th>
-                        <th>Jarak (KM)</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (!empty($nama_usaha)) : ?>
-                        <?php $no = 1; ?>
-                        <?php foreach ($nama_usaha as $pemasok) : ?>
-                            <tr>
-                                <td>
-                                    <input type="hidden" name="selected_stok[]" value="<?= $pemasok->id; ?>">
-                                    <?= $no++; ?>
-                                </td>
-                                <td><?= $pemasok->nama_usaha; ?></td>
-                                <td><?= $pemasok->alamat; ?></td>
-                                <td class="jumlahStok" data-jumlah="<?= $pemasok->jumlah_stok; ?>"><?= $pemasok->jumlah_stok; ?> kg</td>
-                                <td><?= number_format($pemasok->distance, 2); ?> km</td>
-                                <td>
-                                    <a class="btn btn-primary openMapBtn" href="javascript:void(0)" data-koordinat="<?= $pemasok->lokasi ?>">
-                                        <i class="bi bi-map"></i> Buka Maps
-                                    </a>
-
-                                    <button type="button" class="btn btn-success ambilStokBtn" data-id="<?= $pemasok->id; ?>">
-                                        <i class="bi bi-check-square"></i> Ambil Stok
-                                    </button>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php else : ?>
-                        <tr>
-                            <td colspan="5" class="text-center">Tidak ada pemasok tersedia.</td>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr style="align-items: center; vertical-align: middle;">
+                            <th style="align-items: center; vertical-align: middle; width: 50px;">No</th>
+                            <th style="align-items: center; vertical-align: middle;">Nama Usaha</th>
+                            <th style="align-items: center; vertical-align: middle;">Lokasi</th>
+                            <th style="align-items: center; vertical-align: middle;">Jenis</th>
+                            <th style="align-items: center; vertical-align: middle;">Berat Stok (kg)</th>
+                            <th style="align-items: center; vertical-align: middle;">Total Harga</th>
+                            <th style="align-items: center; vertical-align: middle; width: 90px;">Jarak (KM)</th>
+                            <th style="align-items: center; vertical-align: middle;">Aksi</th>
                         </tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php if (!empty($nama_usaha)) : ?>
+                            <?php $no = 1; ?>
+                            <?php foreach ($nama_usaha as $pemasok) : ?>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="selected_stok[]" value="<?= $pemasok->id; ?>">
+                                        <?= $no++; ?>
+                                    </td>
+                                    <td><?= $pemasok->nama_usaha; ?></td>
+                                    <td><?= $pemasok->alamat; ?></td>
+                                    <td><?= $pemasok->jenis; ?></td>
+                                    <td class="jumlahStok" data-jumlah="<?= $pemasok->jumlah_stok; ?>"><?= $pemasok->jumlah_stok; ?> kg</td>
+                                    <td><?= "Rp" . number_format($pemasok->total_harga, 0, ',', '.'); ?></td>
+                                    <td><?= number_format($pemasok->distance, 2); ?> km</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary openMapBtn" data-koordinat="<?= $pemasok->lokasi ?>">
+                                            <i class="bi bi-map"></i> Buka Maps
+                                        </button>
+
+                                        <button type="button" class="btn btn-success ambilStokBtn" data-id="<?= $pemasok->id; ?>">
+                                            <i class="bi bi-check-square"></i> Ambil Stok
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else : ?>
+                            <tr>
+                                <td colspan="5" class="text-center">Tidak ada pemasok tersedia.</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
 
             <form class="row g-3" id="ambilStokForm" method="post" action="<?= base_url('pengelola/add'); ?>">
                 <div class="col-12">
