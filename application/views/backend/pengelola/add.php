@@ -22,15 +22,16 @@
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
                     <thead>
-                        <tr style="align-items: center; vertical-align: middle;">
-                            <th style="align-items: center; vertical-align: middle; width: 50px;">No</th>
-                            <th style="align-items: center; vertical-align: middle;">Nama Usaha</th>
-                            <th style="align-items: center; vertical-align: middle;">Lokasi</th>
-                            <th style="align-items: center; vertical-align: middle;">Jenis</th>
-                            <th style="align-items: center; vertical-align: middle;">Berat Stok (kg)</th>
-                            <th style="align-items: center; vertical-align: middle;">Total Harga</th>
-                            <th style="align-items: center; vertical-align: middle; width: 90px;">Jarak (KM)</th>
-                            <th style="align-items: center; vertical-align: middle;">Aksi</th>
+                        <tr>
+                            <th style="text-align: center; vertical-align: middle; width: 50px;">No</th>
+                            <th style="text-align: center; vertical-align: middle;">Nama Usaha</th>
+                            <th style="text-align: center; vertical-align: middle;">Lokasi</th>
+                            <th style="text-align: center; vertical-align: middle;">Jenis</th>
+                            <th style="text-align: center; vertical-align: middle;">Berat Stok (kg)</th>
+                            <th style="text-align: center; vertical-align: middle;">Total Harga</th>
+                            <th style="text-align: center; vertical-align: middle; width: 90px;">Jarak (KM)</th>
+                            <th style="text-align: center; vertical-align: middle;">Keterangan</th>
+                            <th style="text-align: center; vertical-align: middle;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,15 +46,21 @@
                                     <td><?= $pemasok->nama_usaha; ?></td>
                                     <td><?= $pemasok->alamat; ?></td>
                                     <td><?= $pemasok->jenis; ?></td>
-                                    <td class="jumlahStok" data-jumlah="<?= $pemasok->jumlah_stok; ?>"><?= $pemasok->jumlah_stok; ?> kg</td>
+                                    <td><?= $pemasok->jumlah_stok; ?> kg</td>
                                     <td><?= "Rp" . number_format($pemasok->total_harga, 0, ',', '.'); ?></td>
                                     <td><?= number_format($pemasok->distance, 2); ?> km</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary openMapBtn" data-koordinat="<?= $pemasok->lokasi ?>">
+                                        <textarea class="form-control keterangan" name="keterangan[<?= $pemasok->id; ?>]" placeholder="Masukkan keterangan"></textarea>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary openMapBtn"
+                                            data-koordinat="<?= $pemasok->lokasi ?>">
                                             <i class="bi bi-map"></i> Buka Maps
                                         </button>
 
-                                        <button type="button" class="btn btn-success ambilStokBtn" data-id="<?= $pemasok->id; ?>">
+                                        <button type="button" class="btn btn-success ambilStokBtn"
+                                            data-id="<?= $pemasok->id; ?>"
+                                            data-jumlah_stok="<?= $pemasok->jumlah_stok; ?>">
                                             <i class="bi bi-check-square"></i> Ambil Stok
                                         </button>
                                     </td>
@@ -61,27 +68,12 @@
                             <?php endforeach; ?>
                         <?php else : ?>
                             <tr>
-                                <td colspan="5" class="text-center">Tidak ada pemasok tersedia.</td>
+                                <td colspan="9" class="text-center">Tidak ada pemasok tersedia.</td>
                             </tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
             </div>
-
-            <form class="row g-3" id="ambilStokForm" method="post" action="<?= base_url('pengelola/add'); ?>">
-                <div class="col-12">
-                    <label for="tanggal" class="form-label">Tanggal</label>
-                    <input type="text" class="form-control" id="tanggal" placeholder="Tanggal" readonly>
-                </div>
-                <div class="col-12" style="display: none;">
-                    <label for="jumlah_stok" class="form-label">Jumlah Stok (kg)</label>
-                    <input type="hidden" class="form-control" id="jumlah_stok" name="jumlah_stok" placeholder="Jumlah Stok (kg)">
-                </div>
-                <div class="col-12">
-                    <label for="keterangan" class="form-label">Keterangan<span class="text-danger">*</span></label>
-                    <textarea class="form-control" name="keterangan" id="keterangan" placeholder="Masukkan keterangan" required></textarea>
-                </div>
-            </form>
         </div>
         <div class="card-footer">
             <div class="d-flex justify-content-between align-items-center">
@@ -90,6 +82,10 @@
         </div>
     </div>
 </main>
+
+<form id="ambilStokForm" method="POST" action="<?= site_url('pengelola/add'); ?>">
+    <!-- Input hidden akan ditambahkan secara dinamis -->
+</form>
 
 <!-- Modal untuk konfirmasi pengambilan stok -->
 <div class="modal fade" id="ambilStokModal" tabindex="-1" role="dialog" aria-labelledby="ambilStokModalLabel" aria-hidden="true">
@@ -158,41 +154,66 @@
         // Ketika tombol "Ambil Stok" ditekan
         $('.ambilStokBtn').click(function() {
             var idPemasok = $(this).data('id');
-            var jumlahStok = $(this).closest('tr').find('.jumlahStok').data('jumlah');
-            var keterangan = $('#keterangan').val(); // Ambil nilai keterangan
+            var jumlahStok = $(this).data('jumlah_stok');
+            var keterangan = $(this).closest('tr').find('textarea.keterangan').val();
 
-            // Periksa apakah keterangan kosong
-            if (keterangan.trim() === '') {
-                $('#keteranganModal').modal('show'); // Tampilkan modal peringatan
-            } else if (idPemasok && jumlahStok) {
-                // Simpan ID pemasok dan jumlah stok di modal konfirmasi
-                $('#confirmAmbilStokBtn').data('id', idPemasok); // Simpan ID di button
-                $('#confirmAmbilStokBtn').data('jumlah', jumlahStok); // Simpan jumlah stok
+            // Debugging untuk memastikan data yang diambil
+            console.log('ID Pemasok:', idPemasok);
+            console.log('Jumlah Stok:', jumlahStok);
+            console.log('Keterangan:', keterangan);
 
-                // Tampilkan modal konfirmasi
-                $('#ambilStokModal').modal('show');
-            } else {
-                alert('Mohon lengkapi jumlah stok.');
+            // Validasi keterangan
+            if (!keterangan || keterangan.trim() === '') {
+                alert('Keterangan wajib diisi.');
+                return;
             }
+
+            // Simpan data ke button di modal konfirmasi
+            $('#confirmAmbilStokBtn').data('id', idPemasok);
+            $('#confirmAmbilStokBtn').data('jumlah_stok', jumlahStok); // Pastikan menggunakan jumlah_stok
+            $('#confirmAmbilStokBtn').data('keterangan', keterangan);
+
+            // Tampilkan modal konfirmasi
+            $('#ambilStokModal').modal('show');
         });
 
         // Ketika tombol "Ya, Ambil Stok" di modal ditekan
         $('#confirmAmbilStokBtn').click(function() {
             var idPemasok = $(this).data('id');
-            var jumlahStok = $(this).data('jumlah');
+            var jumlahStok = $(this).data('jumlah_stok');
+            var keterangan = $(this).data('keterangan');
 
-            // Set hidden input untuk ID pemasok
+            // Debugging
+            console.log('ID Pemasok:', idPemasok);
+            console.log('Jumlah Stok:', jumlahStok);
+            console.log('Keterangan:', keterangan);
+
+            if (!idPemasok || !jumlahStok || !keterangan) {
+                alert('Data tidak lengkap. Pastikan semua informasi tersedia.');
+                return;
+            }
+
+            // Tambahkan data ke form
             $('<input>').attr({
                 type: 'hidden',
-                name: 'id_pemasok',
+                name: 'id_pemasok[]',
                 value: idPemasok
             }).appendTo('#ambilStokForm');
 
-            // Set jumlah stok ke input hidden
-            $('#jumlah_stok').val(jumlahStok);
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'jumlah_stok[' + idPemasok + ']',
+                value: jumlahStok
+            }).appendTo('#ambilStokForm');
 
-            // Submit form setelah konfirmasi
-            $('#ambilStokForm').submit();
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'keterangan[' + idPemasok + ']',
+                value: keterangan
+            }).appendTo('#ambilStokForm');
+
+            // Submit form
+            $('#ambilStokForm')[0].submit();
         });
 
         // Tangani event submit untuk form ambil stok
@@ -205,13 +226,14 @@
                 type: $(this).attr('method'),
                 data: $(this).serialize(), // Mengirim data form
                 success: function(response) {
-                    // Sembunyikan modal konfirmasi sebelum menampilkan modal berhasil
-                    $('#ambilStokModal').modal('hide'); // Hilangkan modal konfirmasi
+                    console.log('Pengambilan stok berhasil'); // Debugging
+                    $('#ambilStokModal').modal('hide'); // Menyembunyikan modal
 
-                    // Jika berhasil, tampilkan modal berhasil
+                    // Tampilkan modal berhasil
                     $('#berhasilAmbilStokModal').modal('show');
                 },
                 error: function(error) {
+                    console.error('Pengambilan stok gagal:', error);
                     alert('Gagal mengambil stok. Silakan coba lagi.');
                 }
             });

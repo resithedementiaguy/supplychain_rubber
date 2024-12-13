@@ -241,6 +241,42 @@ class Pengelola extends CI_Controller
         return $distance;
     }
 
+    public function get_stok_by_id()
+    {
+        $id_pemasok = $this->input->post('id_pemasok');
+        $stok = $this->Mod_pemasok->get_stok_by_id($id_pemasok);
+        echo json_encode($stok);
+    }
+
+    public function add()
+    {
+        $id_pengelola = $this->session->userdata('mitra_id');
+        date_default_timezone_set('Asia/Jakarta');
+        $tgl = date('Y-m-d H:i:s', time());
+
+        // Mengambil data yang dikirim
+        $id_pemasok = $this->input->post('id_pemasok');
+        $jumlah_stok = $this->input->post('jumlah_stok');
+        $keterangan = $this->input->post('keterangan');
+
+        // Loop untuk memproses setiap pemasok
+        foreach ($id_pemasok as $index => $id) {
+            $data = array(
+                'id_pengelola' => $id_pengelola,
+                'id_pemasok' => $id,
+                'tanggal' => $tgl,
+                'jumlah_stok' => isset($jumlah_stok[$id]) ? $jumlah_stok[$id] : 0, 
+                'keterangan' => isset($keterangan[$id]) ? $keterangan[$id] : '' 
+            );
+
+            // Simpan data ke database
+            $this->Mod_pengelola->add_ambil($data);
+        }
+
+        // Redirect setelah berhasil
+        redirect('pengelola/add_view');
+    }
+
     public function detail($id)
     {
         $data['detail_produk'] = $this->Mod_pengelola->get_detail($id);
@@ -283,32 +319,6 @@ class Pengelola extends CI_Controller
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
         }
-    }
-
-    public function get_stok_by_id()
-    {
-        $id_pemasok = $this->input->post('id_pemasok');
-        $stok = $this->Mod_pemasok->get_stok_by_id($id_pemasok);
-        echo json_encode($stok);
-    }
-
-    public function add()
-    {
-        $id_pengelola = $this->session->userdata('mitra_id');
-
-        date_default_timezone_set('Asia/Jakarta');
-        $tgl = date('Y-m-d H:i:s', time());
-
-        $data = array(
-            'id_pengelola' => $id_pengelola,
-            'id_pemasok' => $this->input->post('id_pemasok'),
-            'tanggal' => $tgl,
-            'jumlah_stok' => $this->input->post('jumlah_stok'),
-            'keterangan' => $this->input->post('keterangan')
-        );
-
-        $this->Mod_pengelola->add_ambil($data);
-        redirect('pengelola/add_view');
     }
 
     public function delete($id)
