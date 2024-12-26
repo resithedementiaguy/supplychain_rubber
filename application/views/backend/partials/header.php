@@ -151,8 +151,15 @@
                 </li>
 
             <?php
-            // Jika level_name adalah "pengelola", hanya tampilkan item menu Pengelola
+            // Jika level_name adalah "admin", hanya tampilkan item menu admin
             elseif ($level_name == 'admin') : ?>
+                <li class="nav-heading">Kelola User</li>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo ($this->uri->segment(1) == 'user') ? '' : 'collapsed'; ?>" href="<?php echo site_url('admin/user'); ?>">
+                        <i class="bi bi-person"></i>
+                        <span>User</span>
+                    </a>
+                </li>
                 <li class="nav-heading">Kelola Data</li>
                 <li class="nav-item">
                     <a class="nav-link <?php echo ($this->uri->segment(1) == 'pengelola') ? '' : 'collapsed'; ?>" href="<?php echo site_url('admin/pengelola'); ?>">
@@ -164,24 +171,6 @@
                     <a class="nav-link <?php echo ($this->uri->segment(1) == 'pemasok') ? '' : 'collapsed'; ?>" href="<?php echo site_url('admin/pemasok'); ?>">
                         <i class="bi bi-person"></i>
                         <span>Mitra Pemasok</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php echo ($this->uri->segment(1) == 'stok') ? '' : 'collapsed'; ?>" href="<?php echo site_url('admin/stok'); ?>">
-                        <i class="bi bi-person"></i>
-                        <span>Stok</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php echo ($this->uri->segment(1) == 'ambil') ? '' : 'collapsed'; ?>" href="<?php echo site_url('admin/ambil'); ?>">
-                        <i class="bi bi-person"></i>
-                        <span>Ambil</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php echo ($this->uri->segment(1) == 'olah') ? '' : 'collapsed'; ?>" href="<?php echo site_url('admin/olah'); ?>">
-                        <i class="bi bi-person"></i>
-                        <span>Pengolahan</span>
                     </a>
                 </li>
             <?php endif; ?>

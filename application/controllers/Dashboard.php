@@ -76,6 +76,14 @@ class Dashboard extends CI_Controller
             $data['bulan'] = json_encode($bulan);
         }
 
+        // Jika pengguna admin
+        elseif ($level_name == 'admin') {
+            $data['total_stok_belum_diambil'] = $this->Mod_pemasok->get_total_stok('Belum diambil', $user_id);
+            $data['total_stok_sudah_diambil'] = $this->Mod_pemasok->get_total_stok('Sudah diambil', $user_id);
+            $data['total_ambil'] = $this->Mod_pengelola->get_total_ambil($user_id);
+            $data['total_diolah'] = $this->Mod_pengelola->get_total_diolah($user_id);
+        }
+
         $data['level_name'] = $level_name;  // Kirim level_name ke view
 
         // Load views

@@ -7,6 +7,10 @@
         <div class="pagetitle">
             <h1>Dashboard Pengelola</h1>
         </div>
+    <?php elseif ($level_name == 'admin'): ?>
+        <div class="pagetitle">
+            <h1>Dashboard Admin</h1>
+        </div>
     <?php endif; ?>
 
     <section class="section dashboard">
@@ -69,7 +73,72 @@
                                     <h5 class="card-title">Total Stok yang Sudah Diolah</h5>
                                     <div class="d-flex align-items-center">
                                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-arrow-up-circle"></i> <!-- Icon sesuai konteks -->
+                                            <i class="bi bi-arrow-up-circle"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6><?= number_format($total_diolah) ?> /kg</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <?php elseif ($level_name == 'admin'): ?>
+                        <div class="col-xxl-12 col-md-6">
+                            <div class="card info-card customers-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Total Stok Belum Diambil</h5>
+                                    <div class="d-flex align-items-center">
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-cart"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6><?= number_format($total_stok_belum_diambil) ?> /kg</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-12 col-md-6">
+                            <div class="card info-card customers-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Total Stok Sudah Diambil</h5>
+                                    <div class="d-flex align-items-center">
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-cart-check"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6><?= number_format($total_stok_sudah_diambil) ?> /kg</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-12 col-md-6">
+                            <div class="card info-card customers-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Total Stok Ban Bekas</h5>
+                                    <div class="d-flex align-items-center">
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-cart-check"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6><?= number_format($total_ambil) ?> /kg</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-12 col-md-6">
+                            <div class="card info-card customers-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Total Stok yang Sudah Diolah</h5>
+                                    <div class="d-flex align-items-center">
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-arrow-up-circle"></i>
                                         </div>
                                         <div class="ps-3">
                                             <h6><?= number_format($total_diolah) ?> /kg</h6>

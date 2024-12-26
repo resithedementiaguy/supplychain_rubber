@@ -148,7 +148,6 @@
     </div>
 </div>
 
-
 <script>
     $(document).ready(function() {
         // Ketika tombol "Ambil Stok" ditekan
