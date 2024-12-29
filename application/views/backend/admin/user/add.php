@@ -14,8 +14,14 @@
         <div class="card-header text-white bg-info">
             <p class="h5 pt-1">Form Tambah Pengguna</p>
         </div>
-        <div class="card-body">
-            <form class="row g-3" method="post" action="<?= base_url('user/add_user') ?>">
+        <form method="post" action="<?= base_url('user/add_user') ?>">
+            <div class="card-body">
+                <?php if ($this->session->flashdata('error')): ?>
+                    <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center py-3" role="alert">
+                        <?php echo $this->session->flashdata('error'); ?>
+                        <button type="button" class="btn-close m-0" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php endif; ?>
 
                 <!-- Email -->
                 <div class="col-12">
@@ -67,14 +73,32 @@
                     <input type="text" name="nama_usaha" class="form-control" id="nama_usaha" placeholder="Masukkan Nama Usaha">
                 </div>
 
-                <!-- Submit -->
-                <div class="col-12 text-end">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+
+            <!-- Submit -->
+            <div class="card-footer">
+                <div class="d-flex justify-content-between align-items-center">
                     <a href="<?= base_url('user'); ?>" class="btn btn-secondary">Kembali</a>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
+
+    <!-- JavaScript to show "Nama Usaha" field based on level selection -->
+    <script>
+        document.getElementById('level').addEventListener('change', function() {
+            var level = this.value;
+            var namaUsahaContainer = document.getElementById('nama_usaha_container');
+
+            if (level === 'pengelola' || level === 'pemasok') {
+                namaUsahaContainer.classList.remove('d-none');
+            } else {
+                namaUsahaContainer.classList.add('d-none');
+            }
+        });
+    </script>
+
 </main>
 
 <script>

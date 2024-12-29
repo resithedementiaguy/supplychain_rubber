@@ -110,7 +110,9 @@ class Mod_pengelola extends CI_Model
         $this->db->from('ambil');
         $this->db->join('pemasok', 'ambil.id_pemasok = pemasok.id', 'left');
         $this->db->where('ambil.id_pengelola', $id_pengelola);
-        $this->db->group_by('ambil.id_pemasok'); // Menampilkan hanya 1 data per id_pemasok
+        $this->db->where('ambil.tanggal = (SELECT MAX(sub_ambil.tanggal) 
+                                        FROM ambil AS sub_ambil 
+                                        WHERE sub_ambil.id_pemasok = ambil.id_pemasok)', null, false);
         $this->db->order_by('ambil.tanggal', 'DESC');
         return $this->db->get()->result();
     }

@@ -44,7 +44,7 @@
                                                 <td><?= $pengelola->no_hp ?></td>
                                                 <td><?= $pengelola->alamat ?></td>
                                                 <td>
-                                                    <a class="btn btn-success btn-sm border-0" href="<?php echo site_url('pengelola/detail/' . $pengelola->id); ?>">Detail</a>
+                                                    <a class="btn btn-success btn-sm border-0" href="<?php echo site_url('admin/pengelola/detail/' . $pengelola->id); ?>">Detail</a>
                                                     <button class="btn btn-danger btn-sm border-0" data-bs-toggle="modal" data-bs-target="#hapusModal-<?= $pengelola->id ?>" style="cursor: pointer;">Hapus</button>
 
                                                     <!-- Modal Hapus -->

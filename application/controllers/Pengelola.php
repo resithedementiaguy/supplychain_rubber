@@ -31,6 +31,59 @@ class Pengelola extends CI_Controller
         $this->load->view('backend/partials/footer');
     }
 
+    public function detail($id)
+    {
+        $data['detail_produk'] = $this->Mod_pengelola->get_detail($id);
+        $data['riwayat_pemasok'] = $this->Mod_pengelola->get_riwayat_pemasok($data['detail_produk']['id_pemasok']);
+
+        $this->load->view('backend/partials/header');
+        $this->load->view('backend/pengelola/detail', $data);
+        $this->load->view('backend/partials/footer');
+    }
+
+    public function insert_olah()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $tgl = date('Y-m-d H:i:s', time());
+
+        $id_ambil = $this->input->post('id_ambil');
+        $jumlah_stok = $this->input->post('jumlah_stok');
+        $jumlah_mentah = $this->input->post('jumlah_mentah');
+
+        if (empty($id_ambil) || empty($jumlah_stok) || empty($jumlah_mentah)) {
+            echo json_encode(['success' => false, 'message' => 'Data input tidak lengkap.']);
+            return;
+        }
+
+        $data = [
+            'id_ambil' => $id_ambil,
+            'tanggal' => $tgl,
+            'jumlah_stok' => $jumlah_stok,
+            'jumlah_mentah' => $jumlah_mentah
+        ];
+
+        try {
+            $this->db->insert('olah', $data);
+            log_message('debug', 'Query Insert: ' . $this->db->last_query());
+            if ($this->db->affected_rows() > 0) {
+                echo json_encode(['success' => true, 'message' => 'Data berhasil disimpan!']);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Tidak ada perubahan data yang disimpan.']);
+            }
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+        }
+    }
+
+    public function delete($id)
+    {
+        if ($this->Mod_pengelola->delete_mitra($id)) {
+            redirect('pemasok', 'refresh');
+        } else {
+            show_error('Gagal menghapus data pemasok.', 500, 'Kesalahan Penghapusan');
+        }
+    }
+
     public function update_location()
     {
         $lat = $this->input->post('lat');
@@ -265,8 +318,8 @@ class Pengelola extends CI_Controller
                 'id_pengelola' => $id_pengelola,
                 'id_pemasok' => $id,
                 'tanggal' => $tgl,
-                'jumlah_stok' => isset($jumlah_stok[$id]) ? $jumlah_stok[$id] : 0, 
-                'keterangan' => isset($keterangan[$id]) ? $keterangan[$id] : '' 
+                'jumlah_stok' => isset($jumlah_stok[$id]) ? $jumlah_stok[$id] : 0,
+                'keterangan' => isset($keterangan[$id]) ? $keterangan[$id] : ''
             );
 
             // Simpan data ke database
@@ -275,58 +328,5 @@ class Pengelola extends CI_Controller
 
         // Redirect setelah berhasil
         redirect('pengelola/add_view');
-    }
-
-    public function detail($id)
-    {
-        $data['detail_produk'] = $this->Mod_pengelola->get_detail($id);
-        $data['riwayat_pemasok'] = $this->Mod_pengelola->get_riwayat_pemasok($data['detail_produk']['id_pemasok']);
-
-        $this->load->view('backend/partials/header');
-        $this->load->view('backend/pengelola/detail', $data);
-        $this->load->view('backend/partials/footer');
-    }
-
-    public function insert_olah()
-    {
-        date_default_timezone_set('Asia/Jakarta');
-        $tgl = date('Y-m-d H:i:s', time());
-
-        $id_ambil = $this->input->post('id_ambil');
-        $jumlah_stok = $this->input->post('jumlah_stok');
-        $jumlah_mentah = $this->input->post('jumlah_mentah');
-
-        if (empty($id_ambil) || empty($jumlah_stok) || empty($jumlah_mentah)) {
-            echo json_encode(['success' => false, 'message' => 'Data input tidak lengkap.']);
-            return;
-        }
-
-        $data = [
-            'id_ambil' => $id_ambil,
-            'tanggal' => $tgl,
-            'jumlah_stok' => $jumlah_stok,
-            'jumlah_mentah' => $jumlah_mentah
-        ];
-
-        try {
-            $this->db->insert('olah', $data);
-            log_message('debug', 'Query Insert: ' . $this->db->last_query());
-            if ($this->db->affected_rows() > 0) {
-                echo json_encode(['success' => true, 'message' => 'Data berhasil disimpan!']);
-            } else {
-                echo json_encode(['success' => false, 'message' => 'Tidak ada perubahan data yang disimpan.']);
-            }
-        } catch (Exception $e) {
-            echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
-        }
-    }
-
-    public function delete($id)
-    {
-        if ($this->Mod_pengelola->delete_mitra($id)) {
-            redirect('pemasok', 'refresh');
-        } else {
-            show_error('Gagal menghapus data pemasok.', 500, 'Kesalahan Penghapusan');
-        }
     }
 }

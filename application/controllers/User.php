@@ -32,54 +32,95 @@ class User extends CI_Controller
     {
         $this->load->library('form_validation');
 
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[user.email]');
-        $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
-        $this->form_validation->set_rules('level', 'Level', 'required|in_list[admin,pengelola,pemasok]');
+        // Set pesan error kustom untuk email unik
+        $this->form_validation->set_message('is_unique', 'Email %s sudah digunakan. Silakan gunakan email lain.');
+
+        // Atur rules validasi
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[user.email]', [
+            'required' => 'Email wajib diisi',
+            'valid_email' => 'Format email tidak valid'
+        ]);
+        $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]', [
+            'required' => 'Password wajib diisi',
+            'min_length' => 'Password minimal 6 karakter'
+        ]);
+        $this->form_validation->set_rules('level', 'Level', 'required|in_list[admin,pengelola,pemasok]', [
+            'required' => 'Level wajib dipilih',
+            'in_list' => 'Level tidak valid'
+        ]);
 
         if ($this->form_validation->run() == FALSE) {
             $data['title'] = 'Tambah Pengguna';
+            // Tambahkan status error jika ada
+            if (form_error('email') && strpos(form_error('email'), 'sudah digunakan') !== false) {
+                $this->session->set_flashdata('error', 'Email sudah terdaftar. Silakan gunakan email lain.');
+                redirect('admin/user/add');
+            }
             $this->load->view('backend/partials/header', $data);
             $this->load->view('backend/admin/user/add', $data);
             $this->load->view('backend/partials/footer');
         } else {
-            $data = [
-                'email' => $this->input->post('email'),
-                'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-                'level' => $this->input->post('level')
-            ];
-
-            $user_id = $this->Mod_user->insert_user($data);
-
-            if ($this->input->post('level') === 'admin') {
-                $this->Mod_user->insert_admin_detail([
-                    'id_user' => $user_id,
-                    'nama' => $this->input->post('nama'),
-                    'no_hp' => $this->input->post('no_hp'),
-                    'alamat' => $this->input->post('alamat'),
-                    'lokasi' => $this->input->post('lokasi')
-                ]);
-            } elseif ($this->input->post('level') === 'pengelola') {
-                $this->Mod_user->insert_pengelola_detail([
-                    'id_user' => $user_id,
-                    'nama' => $this->input->post('nama'),
-                    'nama_usaha' => $this->input->post('nama_usaha'),
-                    'no_hp' => $this->input->post('no_hp'),
-                    'alamat' => $this->input->post('alamat'),
-                    'lokasi' => $this->input->post('lokasi')
-                ]);
-            } elseif ($this->input->post('level') === 'pemasok') {
-                $this->Mod_user->insert_pemasok_detail([
-                    'id_user' => $user_id,
-                    'nama' => $this->input->post('nama'),
-                    'nama_usaha' => $this->input->post('nama_usaha'),
-                    'no_hp' => $this->input->post('no_hp'),
-                    'alamat' => $this->input->post('alamat'),
-                    'lokasi' => $this->input->post('lokasi')
-                ]);
+            // Cek ulang email untuk keamanan tambahan
+            $existing_email = $this->db->get_where('user', ['email' => $this->input->post('email')])->row();
+            if ($existing_email) {
+                $this->session->set_flashdata('error', 'Email sudah terdaftar. Silakan gunakan email lain.');
+                redirect('admin/user/add');
+                return;
             }
 
-            $this->session->set_flashdata('success', 'Pengguna berhasil ditambahkan.');
-            redirect('admin/user');
+            try {
+                $this->db->trans_start(); // Mulai transaksi
+
+                $data = [
+                    'email' => $this->input->post('email'),
+                    'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+                    'level' => $this->input->post('level')
+                ];
+
+                $user_id = $this->Mod_user->insert_user($data);
+
+                // Array untuk data detail user
+                $detail_data = [
+                    'id_user' => $user_id,
+                    'nama' => $this->input->post('nama'),
+                    'no_hp' => $this->input->post('no_hp'),
+                    'alamat' => $this->input->post('alamat'),
+                    'lokasi' => $this->input->post('lokasi')
+                ];
+
+                // Tambahkan nama_usaha jika level bukan admin
+                if (in_array($this->input->post('level'), ['pengelola', 'pemasok'])) {
+                    $detail_data['nama_usaha'] = $this->input->post('nama_usaha');
+                }
+
+                // Insert detail berdasarkan level
+                switch ($this->input->post('level')) {
+                    case 'admin':
+                        $this->Mod_user->insert_admin_detail($detail_data);
+                        break;
+                    case 'pengelola':
+                        $this->Mod_user->insert_pengelola_detail($detail_data);
+                        break;
+                    case 'pemasok':
+                        $this->Mod_user->insert_pemasok_detail($detail_data);
+                        break;
+                }
+
+                $this->db->trans_complete(); // Selesai transaksi
+
+                if ($this->db->trans_status() === FALSE) {
+                    // Rollback jika ada error
+                    $this->session->set_flashdata('error', 'Terjadi kesalahan saat menambahkan pengguna.');
+                    redirect('admin/user/add');
+                } else {
+                    $this->session->set_flashdata('success', 'Pengguna berhasil ditambahkan.');
+                    redirect('admin/user');
+                }
+            } catch (Exception $e) {
+                $this->db->trans_rollback();
+                $this->session->set_flashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
+                redirect('admin/user/add');
+            }
         }
     }
 

@@ -7,7 +7,7 @@ class Hargaban extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('mod_hargaban');
+        $this->load->model('Mod_hargaban');
         $this->load->helper(['url', 'form']);
         $this->load->library('form_validation');
     }
@@ -15,9 +15,9 @@ class Hargaban extends CI_Controller
     // READ - Tampilkan data
     public function index()
     {
-        $data['harga_ban'] = $this->mod_hargaban->get_all();
+        $data['harga_ban'] = $this->Mod_hargaban->get_all();
         $this->load->view('backend/partials/header');
-        $this->load->view('backend/pengelola/hargaban/view', $data);
+        $this->load->view('backend/hargaban/view', $data);
         $this->load->view('backend/partials/footer');
     }
 
@@ -37,7 +37,7 @@ class Hargaban extends CI_Controller
                 'harga' => $this->input->post('harga'),
                 'ins_time' => date('Y-m-d H:i:s')
             ];
-            $this->mod_hargaban->insert($data);
+            $this->Mod_hargaban->insert($data);
             redirect('HargaBan');
         }
     }
@@ -45,7 +45,7 @@ class Hargaban extends CI_Controller
     // UPDATE - Form edit data
     public function edit($id)
     {
-        $data['harga_ban'] = $this->mod_hargaban->get_by_id($id);
+        $data['harga_ban'] = $this->Mod_hargaban->get_by_id($id);
 
         $this->form_validation->set_rules('jenis', 'Jenis', 'required');
         $this->form_validation->set_rules('harga', 'Harga', 'required|numeric');
@@ -57,7 +57,7 @@ class Hargaban extends CI_Controller
                 'jenis' => $this->input->post('jenis'),
                 'harga' => $this->input->post('harga')
             ];
-            $this->mod_hargaban->update($id, $data);
+            $this->Mod_hargaban->update($id, $data);
             redirect('HargaBan');
         }
     }
@@ -65,7 +65,7 @@ class Hargaban extends CI_Controller
     // DELETE - Hapus data
     public function delete($id)
     {
-        $this->mod_hargaban->delete($id);
+        $this->Mod_hargaban->delete($id);
         redirect('HargaBan');
     }
 }

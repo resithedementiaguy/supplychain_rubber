@@ -76,8 +76,7 @@
                 <?php
                 $common_fields = [
                     'no_hp' => ['label' => 'Nomor HP', 'type' => 'text'],
-                    'alamat' => ['label' => 'Alamat', 'type' => 'textarea'],
-                    'lokasi' => ['label' => 'Lokasi', 'type' => 'text']
+                    'alamat' => ['label' => 'Alamat', 'type' => 'textarea']
                 ];
 
                 foreach ($common_fields as $field => $config): ?>

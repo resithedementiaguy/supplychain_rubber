@@ -46,7 +46,8 @@ class Admin extends CI_Controller
 
     public function pengelola()
     {
-        $data['daftar_pengelola'] = $this->Mod_admin->get_pengelola();
+        $id_pengelola = $this->session->userdata('mitra_id');
+        $data['daftar_ambil'] = $this->Mod_pengelola->get_all_ambil($id_pengelola);
 
         $this->load->view('backend/partials/header');
         $this->load->view('backend/admin/pengelola/view', $data);
@@ -62,9 +63,10 @@ class Admin extends CI_Controller
         $this->load->view('backend/partials/footer');
     }
 
-    public function detail($id)
+    public function pengelola_detail($id)
     {
         $data['detail_produk'] = $this->Mod_pengelola->get_detail($id);
+        $data['riwayat_pemasok'] = $this->Mod_pengelola->get_riwayat_pemasok($data['detail_produk']['id_pemasok']);
 
         $this->load->view('backend/partials/header');
         $this->load->view('backend/pengelola/detail', $data);

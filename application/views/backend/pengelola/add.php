@@ -156,41 +156,31 @@
             var jumlahStok = $(this).data('jumlah_stok');
             var keterangan = $(this).closest('tr').find('textarea.keterangan').val();
 
-            // Debugging untuk memastikan data yang diambil
-            console.log('ID Pemasok:', idPemasok);
-            console.log('Jumlah Stok:', jumlahStok);
-            console.log('Keterangan:', keterangan);
-
-            // Validasi keterangan
             if (!keterangan || keterangan.trim() === '') {
-                alert('Keterangan wajib diisi.');
+                $('#keteranganModal').modal('show');
                 return;
             }
 
-            // Simpan data ke button di modal konfirmasi
             $('#confirmAmbilStokBtn').data('id', idPemasok);
-            $('#confirmAmbilStokBtn').data('jumlah_stok', jumlahStok); // Pastikan menggunakan jumlah_stok
+            $('#confirmAmbilStokBtn').data('jumlah_stok', jumlahStok);
             $('#confirmAmbilStokBtn').data('keterangan', keterangan);
 
-            // Tampilkan modal konfirmasi
             $('#ambilStokModal').modal('show');
         });
 
-        // Ketika tombol "Ya, Ambil Stok" di modal ditekan
+        // Ketika tombol konfirmasi ditekan
         $('#confirmAmbilStokBtn').click(function() {
             var idPemasok = $(this).data('id');
             var jumlahStok = $(this).data('jumlah_stok');
             var keterangan = $(this).data('keterangan');
 
-            // Debugging
-            console.log('ID Pemasok:', idPemasok);
-            console.log('Jumlah Stok:', jumlahStok);
-            console.log('Keterangan:', keterangan);
-
             if (!idPemasok || !jumlahStok || !keterangan) {
                 alert('Data tidak lengkap. Pastikan semua informasi tersedia.');
                 return;
             }
+
+            // Reset form sebelum menambahkan data baru
+            $('#ambilStokForm').empty();
 
             // Tambahkan data ke form
             $('<input>').attr({
@@ -211,36 +201,31 @@
                 value: keterangan
             }).appendTo('#ambilStokForm');
 
-            // Submit form
-            $('#ambilStokForm')[0].submit();
-        });
-
-        // Tangani event submit untuk form ambil stok
-        $('#ambilStokForm').on('submit', function(event) {
-            event.preventDefault(); // Mencegah pengiriman form default
-
             // Kirim data menggunakan AJAX
             $.ajax({
-                url: $(this).attr('action'),
-                type: $(this).attr('method'),
-                data: $(this).serialize(), // Mengirim data form
+                url: $('#ambilStokForm').attr('action'),
+                type: 'POST',
+                data: $('#ambilStokForm').serialize(),
+                dataType: 'json',
                 success: function(response) {
-                    console.log('Pengambilan stok berhasil'); // Debugging
-                    $('#ambilStokModal').modal('hide'); // Menyembunyikan modal
+                    console.log('Response:', response);
+                    $('#ambilStokModal').modal('hide');
 
-                    // Tampilkan modal berhasil
-                    $('#berhasilAmbilStokModal').modal('show');
+                    // Tunggu modal pertama selesai hidden baru tampilkan modal berhasil
+                    $('#ambilStokModal').on('hidden.bs.modal', function() {
+                        $('#berhasilAmbilStokModal').modal('show');
+                    });
                 },
-                error: function(error) {
-                    console.error('Pengambilan stok gagal:', error);
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
                     alert('Gagal mengambil stok. Silakan coba lagi.');
                 }
             });
         });
 
-        // Tangani event ketika modal berhasil ditutup
+        // Handle modal berhasil ditutup
         $('#berhasilAmbilStokModal').on('hidden.bs.modal', function() {
-            location.reload(); // Refresh halaman setelah modal ditutup
+            location.reload();
         });
     });
 

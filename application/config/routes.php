@@ -59,8 +59,9 @@ $route['admin/user/add'] = 'User/add_user';
 $route['admin/user/edit/(:num)'] = 'User/edit_user/$1'; 
 $route['admin/user/delete/(:num)'] = 'User/delete_user/$1';
 
-// Admin routes untuk pemasok
-$route['admin/pemasok'] = 'admin/pemasok';
-
 // Admin routes untuk pengelola
-$route['admin/pengelola'] = 'admin/pengelola';
+$route['admin/pengelola'] = 'Admin/pengelola';
+$route['admin/pengelola/detail/(:num)'] = 'Admin/pengelola_detail/$1';
+
+// Admin routes untuk pemasok
+$route['admin/pemasok'] = 'Admin/pemasok';

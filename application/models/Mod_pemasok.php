@@ -105,7 +105,15 @@ class Mod_pemasok extends CI_Model
 
     public function get_pemasok_belum_diambil()
     {
-        $this->db->select('pemasok.id, pemasok.nama_usaha, status_stok.jenis, status_stok.total_harga,  pemasok.no_hp, status_stok.jumlah_stok, status_stok.lokasi');
+        $this->db->select('
+        pemasok.id, 
+        pemasok.nama_usaha, 
+        MAX(status_stok.jenis) AS jenis, 
+        SUM(status_stok.total_harga) AS total_harga, 
+        pemasok.no_hp, 
+        SUM(status_stok.jumlah_stok) AS jumlah_stok, 
+        MAX(status_stok.lokasi) AS lokasi
+    ');
         $this->db->from('pemasok');
         $this->db->join('status_stok', 'pemasok.id = status_stok.id_pemasok');
         $this->db->where('status_stok.status', 'Belum diambil');
