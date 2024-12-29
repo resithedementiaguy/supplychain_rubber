@@ -52,3 +52,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+// Admin routes untuk user
+$route['admin/user'] = 'User/index';
+$route['admin/user/add'] = 'User/add_user';
+$route['admin/user/edit/(:num)'] = 'User/edit_user/$1'; 
+$route['admin/user/delete/(:num)'] = 'User/delete_user/$1';
+
+// Admin routes untuk pemasok
+$route['admin/pemasok'] = 'admin/pemasok';
+
+// Admin routes untuk pengelola
+$route['admin/pengelola'] = 'admin/pengelola';

@@ -155,7 +155,10 @@
             elseif ($level_name == 'admin') : ?>
                 <li class="nav-heading">Kelola User</li>
                 <li class="nav-item">
-                    <a class="nav-link <?php echo ($this->uri->segment(1) == 'user') ? '' : 'collapsed'; ?>" href="<?php echo site_url('admin/user'); ?>">
+                    <a class="nav-link <?php echo (
+                                            ($this->uri->segment(1) == 'admin' && $this->uri->segment(2) == 'user' &&
+                                                ($this->uri->segment(3) == '' || $this->uri->segment(3) == 'add' || $this->uri->segment(3) == 'add_user'))
+                                        ) ? 'active' : 'collapsed'; ?>" href="<?php echo site_url('admin/user'); ?>">
                         <i class="bi bi-person"></i>
                         <span>User</span>
                     </a>

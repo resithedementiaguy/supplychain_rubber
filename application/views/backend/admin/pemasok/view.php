@@ -15,10 +15,13 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
+                    <div class="card-header text-white bg-primary">
+                        <p class="h5 pt-1">Daftar Pemasok</p>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">Daftar Pemasok</h5>
-
-                        <!-- Table with stripped rows -->
+                        <div class="alert alert-primary">
+                            Silahkan untuk menambahkan dan mengecek stok ban bekas
+                        </div>
                         <div class="table-responsive">
                             <table class="table datatable">
                                 <thead>
@@ -58,7 +61,7 @@
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
-                                                                    <a href="<?= base_url('pemasok/delete/' . $pemasok->id) ?>" class="btn btn-danger">Iya, Hapus</a>
+                                                                    <a href="<?= base_url('admin/pemasok/delete/' . $pemasok->id) ?>" class="btn btn-danger">Iya, Hapus</a>
                                                                 </div>
                                                             </div>
                                                         </div>

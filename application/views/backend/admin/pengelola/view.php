@@ -14,10 +14,13 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
+                    <div class="card-header text-white bg-primary">
+                        <p class="h5 pt-1">Daftar History Pengelola</p>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">Daftar Mitra Pengelola</h5>
-
-                        <!-- Table with stripped rows -->
+                        <div class="alert alert-primary">
+                            Silahkan untuk menambahkan dan mengecek stok crumb rubber
+                        </div>
                         <div class="table-responsive">
                             <table class="table datatable">
                                 <thead>

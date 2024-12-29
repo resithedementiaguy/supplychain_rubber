@@ -29,7 +29,7 @@ class Hargaban extends CI_Controller
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('backend/partials/header');
-            $this->load->view('backend/pengelola/hargaban/add');
+            $this->load->view('backend/hargaban/add');
             $this->load->view('backend/partials/footer');
         } else {
             $data = [

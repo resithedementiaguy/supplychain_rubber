@@ -39,7 +39,7 @@
                                         foreach ($daftar_stok as $stok) : ?>
                                             <tr>
                                                 <td><?= $no++ ?></td>
-                                                <td><?= date('d F Y H:i', strtotime($stok->tanggal));?></td>
+                                                <td><?= date('d F Y H:i', strtotime($stok->tanggal)); ?></td>
                                                 <td><?= $stok->nama ?></td>
                                                 <td><?= $stok->nama_usaha ?></td>
                                                 <td><?= $stok->no_hp ?></td>
