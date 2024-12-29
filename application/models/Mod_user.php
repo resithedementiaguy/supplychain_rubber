@@ -24,22 +24,52 @@ class Mod_user extends CI_Model
 
     public function insert_admin_detail($data)
     {
-        $this->db->insert('admin', $data);
+        return $this->db->insert('admin', $data);
+    }
+
+    public function insert_pengelola_detail($data)
+    {
+        return $this->db->insert('mitra_pengelola', $data);
     }
 
     public function insert_pemasok_detail($data)
     {
-        $this->db->insert('pemasok', $data);
-    }
-
-    public function insert_mitra_pengelola_detail($data)
-    {
-        $this->db->insert('mitra_pengelola', $data);
+        return $this->db->insert('pemasok', $data);
     }
 
     public function get_user_by_id($id)
     {
-        return $this->db->get_where('user', ['id' => $id])->row();
+        $query = $this->db->get_where('user', ['id' => $id]);
+        return $query->row();
+    }
+
+    public function get_user_details($id, $level)
+    {
+        switch ($level) {
+            case 'admin':
+                return $this->db->get_where('admin', ['id_user' => $id])->row();
+            case 'pengelola':
+                return $this->db->get_where('mitra_pengelola', ['id_user' => $id])->row();
+            case 'pemasok':
+                return $this->db->get_where('pemasok', ['id_user' => $id])->row();
+            default:
+                return null;
+        }
+    }
+
+    public function update_admin_detail($id_user, $data)
+    {
+        return $this->db->update('admin', $data, ['id_user' => $id_user]);
+    }
+
+    public function update_pengelola_detail($id_user, $data)
+    {
+        return $this->db->update('mitra_pengelola', $data, ['id_user' => $id_user]);
+    }
+
+    public function update_pemasok_detail($id_user, $data)
+    {
+        return $this->db->update('pemasok', $data, ['id_user' => $id_user]);
     }
 
     public function update_user($id, $data)

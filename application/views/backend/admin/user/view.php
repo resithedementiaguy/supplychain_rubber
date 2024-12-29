@@ -50,8 +50,8 @@
                                                     <?= $user->admin_no_hp ?? $user->no_hp ?? '-'; ?>
                                                 </td>
                                                 <td>
-                                                    <a href="<?= base_url('user/edit/' . $user->id); ?>" class="btn btn-warning btn-sm">Edit</a>
-                                                    <a href="<?= base_url('user/delete/' . $user->id); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?');">Hapus</a>
+                                                    <a href="<?= base_url('admin/user/edit/' . $user->id); ?>" class="btn btn-warning btn-sm">Edit</a>
+                                                    <a href="<?= base_url('admin/user/delete/' . $user->id); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?');">Hapus</a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

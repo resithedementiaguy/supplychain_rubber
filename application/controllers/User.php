@@ -91,16 +91,55 @@ class User extends CI_Controller
             show_404();
         }
 
+        switch ($data['user']->level) {
+            case 'admin':
+                $details = $this->db->get_where('admin', ['id_user' => $id])->row();
+                break;
+            case 'pengelola':
+                $details = $this->db->get_where('mitra_pengelola', ['id_user' => $id])->row();
+                break;
+            case 'pemasok':
+                $details = $this->db->get_where('pemasok', ['id_user' => $id])->row();
+                break;
+        }
+
+        if (isset($details)) {
+            foreach ($details as $key => $value) {
+                $data['user']->$key = $value;
+            }
+        }
+
         $this->load->library('form_validation');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
         $this->form_validation->set_rules('level', 'Level', 'required|in_list[admin,pengelola,pemasok]');
 
+        // Validasi berdasarkan level
+        if ($this->input->post('level') == 'admin') {
+            $this->form_validation->set_rules('nama', 'Nama', 'required');
+            $this->form_validation->set_rules('no_hp', 'Nomor HP', 'required');
+            $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+            $this->form_validation->set_rules('lokasi', 'Lokasi', 'required');
+        } elseif ($this->input->post('level') == 'pengelola') {
+            $this->form_validation->set_rules('nama_usaha', 'Nama Usaha', 'required');
+            $this->form_validation->set_rules('nama', 'Nama', 'required');
+            $this->form_validation->set_rules('no_hp', 'Nomor HP', 'required');
+            $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+            $this->form_validation->set_rules('lokasi', 'Lokasi', 'required');
+        } elseif ($this->input->post('level') == 'pemasok') {
+            $this->form_validation->set_rules('nama_usaha', 'Nama Usaha', 'required');
+            $this->form_validation->set_rules('nama', 'Nama', 'required');
+            $this->form_validation->set_rules('no_hp', 'Nomor HP', 'required');
+            $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+            $this->form_validation->set_rules('lokasi', 'Lokasi', 'required');
+        }
+
         if ($this->form_validation->run() == FALSE) {
             $data['title'] = 'Edit Pengguna';
             $this->load->view('backend/partials/header', $data);
-            $this->load->view('backend/user/edit_user', $data);
+            $this->load->view('backend/admin/user/edit', $data);
             $this->load->view('backend/partials/footer');
         } else {
+            // Update data pengguna
             $update_data = [
                 'email' => $this->input->post('email'),
                 'level' => $this->input->post('level')
@@ -110,9 +149,36 @@ class User extends CI_Controller
                 $update_data['password'] = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
             }
 
+            // Update data pengguna utama
             $this->Mod_user->update_user($id, $update_data);
 
-            $this->session->set_flashdata('success', 'Pengguna berhasil diperbarui.');
+            // Update detail pengguna berdasarkan level
+            if ($this->input->post('level') === 'admin') {
+                $this->Mod_user->update_admin_detail($id, [
+                    'nama' => $this->input->post('nama'),
+                    'no_hp' => $this->input->post('no_hp'),
+                    'alamat' => $this->input->post('alamat'),
+                    'lokasi' => $this->input->post('lokasi')
+                ]);
+            } elseif ($this->input->post('level') === 'pengelola') {
+                $this->Mod_user->update_pengelola_detail($id, [
+                    'nama' => $this->input->post('nama'),
+                    'nama_usaha' => $this->input->post('nama_usaha'),
+                    'no_hp' => $this->input->post('no_hp'),
+                    'alamat' => $this->input->post('alamat'),
+                    'lokasi' => $this->input->post('lokasi')
+                ]);
+            } elseif ($this->input->post('level') === 'pemasok') {
+                $this->Mod_user->update_pemasok_detail($id, [
+                    'nama' => $this->input->post('nama'),
+                    'nama_usaha' => $this->input->post('nama_usaha'),
+                    'no_hp' => $this->input->post('no_hp'),
+                    'alamat' => $this->input->post('alamat'),
+                    'lokasi' => $this->input->post('lokasi')
+                ]);
+            }
+
+            $this->session->set_flashdata('success', 'Data pengguna berhasil diperbarui');
             redirect('admin/user');
         }
     }
