@@ -37,7 +37,7 @@
             <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
                 <div class="container">
                     <div class="row justify-content-center">
-                        <div class="col-lg-4 col-md-12 d-flex flex-column align-items-center justify-content-center">
+                        <div class="col-lg-5 col-md-12 d-flex flex-column align-items-center justify-content-center">
                             <div class="card py-5">
                                 <div class="card-body pb-0 px-4">
                                     <div class="pb-2 text-center">

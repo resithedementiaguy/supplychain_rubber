@@ -56,75 +56,77 @@ class Auth extends CI_Controller
         }
     }
 
+    public function check_email()
+    {
+        $email = $this->input->post('email');
+        $this->db->where('email', $email);
+        $query = $this->db->get('user'); // Replace with the correct table name if needed
+
+        if ($query->num_rows() > 0) {
+            echo 'exists'; // If email is already registered, return 'exists'
+        } else {
+            echo 'available'; // If email is not registered, return 'available'
+        }
+    }
+
     public function register()
     {
         // Set validation rules
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
-        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]');
         $this->form_validation->set_rules('password', 'Password', 'required|trim');
         $this->form_validation->set_rules('location', 'Location', 'required|trim');
 
+        // Check if form validation fails
         if ($this->form_validation->run() == false) {
+            // Load the view with validation errors (if form is invalid)
             $this->load->view('auth/register');
         } else {
+            // Email is validated as unique by form_validation->run(), no need for manual check
+            $email = $this->input->post('email');
+
+            // Password and level for the user
             $password = $this->input->post('password');
-            $level = $this->input->post('level'); // Retrieve the level value from the form
+            $level = 'pemasok';
 
             // Data for the user table
             $data_user = [
-                'email'     => $this->input->post('email'),
-                'password'  => sha1('jksdhf832746aiH{}{()&(*&(*' . MD5($password) . 'HdfevgyDDw{}{}{;;*766&*&*'),
-                'nama'      => $this->input->post('nama'),
+                'email'     => $email,
+                'password'  => password_hash($password, PASSWORD_DEFAULT),
                 'level'     => $level
             ];
 
-            // Insert into user table and get the last inserted ID
+            // Insert user data into the user table and get the last inserted ID
             $this->Mod_auth->register($data_user);
-            $user_id = $this->db->insert_id(); // Get the ID of the last inserted user
+            $user_id = $this->db->insert_id(); // Get the last inserted user ID
 
+            // Set timezone and get current date/time
             date_default_timezone_set('Asia/Jakarta');
-            // Ambil tanggal dan waktu saat ini
             $current_datetime = date('Y-m-d H:i:s');
 
-            // Get the location from the form (now a single string)
+            // Get location from the form
             $location = $this->input->post('location');
 
-            // Check the level and insert accordingly
-            if ($level == 'pemasok') {
-                $data_pemasok = [
-                    'id_user'       => $user_id, // Assign user_id to id_user
-                    'nama'          => $this->input->post('nama'),
-                    'nama_usaha'    => $this->input->post('nama_usaha'),
-                    'no_hp'         => $this->input->post('no_hp'),
-                    'alamat'        => $this->input->post('alamat'),
-                    'lokasi'        => $location,  // Store combined location
-                    'ins_time'      => $current_datetime
-                ];
+            // Insert data into the pemasok table for 'pemasok' user only
+            $data_pemasok = [
+                'id_user'       => $user_id,
+                'nama'          => $this->input->post('nama'),
+                'nama_usaha'    => $this->input->post('nama_usaha'),
+                'no_hp'         => $this->input->post('no_hp'),
+                'alamat'        => $this->input->post('alamat'),
+                'lokasi'        => $location,  // Store combined location
+                'ins_time'      => $current_datetime
+            ];
 
-                // Insert into pemasok table
-                $this->Mod_auth->pemasok($data_pemasok);
-            } elseif ($level == 'pengelola') {
-                $data_pengelola = [
-                    'id_user'       => $user_id, // Assign user_id to id_user
-                    'nama'          => $this->input->post('nama'),
-                    'nama_usaha'    => $this->input->post('nama_usaha'),
-                    'no_hp'         => $this->input->post('no_hp'),
-                    'alamat'        => $this->input->post('alamat'),
-                    'lokasi'        => $location,  // Store combined location
-                    'ins_time'      => $current_datetime
-                ];
-
-                // Insert into mitra_pengelola table
-                $this->Mod_auth->pengelola($data_pengelola);
-            }
+            // Insert into pemasok table
+            $this->Mod_auth->pemasok($data_pemasok);
 
             // Set a success message and redirect
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-Well done! Your account has been created. Please Login</div>');
-            redirect('auth');
+            Well done! Your account has been created. Please Login</div>');
+            redirect('auth'); // Redirect to the login page
         }
     }
-
 
     public function logout()
     {

@@ -40,20 +40,18 @@
                         <div class="col-lg-5 col-md-12 d-flex flex-column align-items-center justify-content-center">
                             <div class="card pt-4 pb-4">
                                 <div class="card-body">
+                                    <!-- Menampilkan alert error jika ada pesan flash -->
+                                    <?php if ($this->session->flashdata('error')): ?>
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <?= $this->session->flashdata('error') ?>
+                                        </div>
+                                    <?php endif; ?>
                                     <div class="pb-2 text-center">
                                         <h5 class="card-title pb-0 fs-4">Buat Akun Baru</h5>
                                         <p class="text-muted small">Masukkan informasi data Anda untuk membuat akun</p>
                                     </div>
 
                                     <form class="row g-3 needs-validation" action="<?= base_url('auth/register') ?>" method="POST" id="registrationForm">
-                                        <div class="col-12">
-                                            <label for="kategori" class="form-label">Kategori Akun</label>
-                                            <select class="form-select" name="level" id="level" required>
-                                                <option value="" selected hidden>- Pilih Kategori Akun -</option>
-                                                <option value="pemasok">Pemasok</option>
-                                                <option value="pengelola">Pengelola Mitra</option>
-                                            </select>
-                                        </div>
                                         <div class="col-md-6">
                                             <label for="yourName" class="form-label">Nama Pemilik</label>
                                             <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama Pemilik" required>
@@ -81,8 +79,9 @@
                                         <div class="col-12">
                                             <label for="email" class="form-label">Email</label>
                                             <input type="email" name="email" class="form-control" id="email" placeholder="Masukkan Email" required>
-                                            <div class="invalid-feedback">Please enter a valid Email address!</div>
+                                            <div id="emailError" class="invalid-feedback" style="display: none;">Email already exists</div>
                                         </div>
+
                                         <div class="col-12">
                                             <label for="password" class="form-label">Password</label>
                                             <input type="password" name="password" class="form-control" id="yourPassword" placeholder="Buat Password" required>
@@ -90,7 +89,7 @@
                                         </div>
 
                                         <div class="col-12 mt-4">
-                                            <button class="btn btn-primary w-100" type="submit">Buat Akun</button>
+                                            <button class="btn btn-primary w-100" type="submit" id="submitButton">Register</button>
                                         </div>
                                         <div class="col-12 mt-4 d-flex justify-content-center text-center">
                                             <p class="small mb-0">Sudah punya akun? <a href="<?= base_url('auth') ?>">Login sekarang!</a></p>
@@ -138,7 +137,6 @@
             console.error("Geolocation is not supported by this browser.");
         }
     </script>
-
 </body>
 
 </html>
