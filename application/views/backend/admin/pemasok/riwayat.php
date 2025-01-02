@@ -1,11 +1,11 @@
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Mitra Pengelola</h1>
+        <h1 class="pb-2">Daftar History Pemasok</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item">Mitra Pengelola</li>
-                <li class="breadcrumb-item active">Data</li>
+                <li class="breadcrumb-item"><a href="<?= base_url('dashboard'); ?>">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="<?= base_url('admin/pemasok'); ?>">Pemasok</a></li>
+                <li class="breadcrumb-item active">History Pemasok</li>
             </ol>
         </nav>
     </div>
@@ -15,11 +15,11 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header text-white bg-primary">
-                        <p class="h5 pt-1">Daftar History Pengelola</p>
+                        <p class="h5 pt-1">Daftar History Pemasok</p>
                     </div>
                     <div class="card-body">
                         <div class="alert alert-primary">
-                            Silahkan untuk menambahkan dan mengecek stok crumb rubber
+                            Berikut adalah daftar history pemasok yang terdaftar di sistem.
                         </div>
                         <div class="table-responsive">
                             <table class="table table-bordered">

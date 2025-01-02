@@ -4,7 +4,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?= base_url('dashboard'); ?>">Dashboard</a></li>
-                <li class="breadcrumb-item">Mitra Pengelola</li>
+                <li class="breadcrumb-item active">Mitra Pengelola</li>
             </ol>
         </nav>
     </div>
@@ -20,30 +20,33 @@
                         <div class="alert alert-primary">
                             Berikut adalah daftar pengelola yang terdaftar di sistem.
                         </div>
+                        <form action="<?= base_url('pengelola') ?>" method="POST">
+                            <input type="hidden" value="<?php echo $this->session->userdata('mitra_id'); ?>" name="session_mitra_id" id="session_mitra_id">
+                        </form>
+
+                        <!-- Table with stripped rows -->
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table table-striped datatable">
                                 <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>Nama Mitra</th>
+                                        <th>Nama Usaha</th>
                                         <th>Nomor HP</th>
-                                        <th>Alamat</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if (!empty($daftar_pengelola)) : ?>
+                                    <?php if (!empty($daftar_ambil)) : ?>
                                         <?php $no = 1;
-                                        foreach ($daftar_pengelola as $pengelola) : ?>
+                                        foreach ($daftar_ambil as $ambil) : ?>
                                             <tr>
                                                 <td><?= $no++ ?></td>
-                                                <td><?= $pengelola->nama ?></td>
-                                                <td><?= $pengelola->nama_usaha ?></td>
-                                                <td><?= $pengelola->no_hp ?></td>
-                                                <td><?= $pengelola->alamat ?></td>
+                                                <td><?= $ambil->nama ?></td>
+                                                <td><?= $ambil->nama_usaha ?></td>
+                                                <td><?= $ambil->no_hp ?></td>
                                                 <td>
-                                                    <a class="btn btn-success btn-sm border-0" href="<?php echo site_url('admin/pengelola/riwayat/' . $pengelola->id); ?>">Detail</a>
+                                                    <a class="btn btn-success btn-sm border-0" href="<?php echo site_url('admin/pengelola/detail/' . $ambil->id); ?>"><i class="bi bi-eye"></i> Detail</a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

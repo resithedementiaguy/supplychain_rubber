@@ -21,7 +21,6 @@ class Admin extends CI_Controller
 
     public function pemasok()
     {
-
         $data['daftar_pemasok'] = $this->Mod_admin->get_pemasok();
 
         $this->load->view('backend/partials/header');
@@ -65,8 +64,7 @@ class Admin extends CI_Controller
 
     public function pengelola()
     {
-        $id_pengelola = $this->session->userdata('mitra_id');
-        $data['daftar_ambil'] = $this->Mod_pengelola->get_all_ambil($id_pengelola);
+        $data['daftar_pengelola'] = $this->Mod_pengelola->get_mitra();
 
         $this->load->view('backend/partials/header');
         $this->load->view('backend/admin/pengelola/view', $data);
@@ -82,13 +80,23 @@ class Admin extends CI_Controller
         $this->load->view('backend/partials/footer');
     }
 
-    public function pengelola_detail($id)
+    public function riwayat_pengelola($id)
+    {
+        $data['daftar_ambil'] = $this->Mod_pengelola->get_all_ambil($id);
+
+        // Load view
+        $this->load->view('backend/partials/header');
+        $this->load->view('backend/admin/pengelola/riwayat', $data);
+        $this->load->view('backend/partials/footer');
+    }
+
+    public function detail_pengelola($id)
     {
         $data['detail_produk'] = $this->Mod_pengelola->get_detail($id);
         $data['riwayat_pemasok'] = $this->Mod_pengelola->get_riwayat_pemasok($data['detail_produk']['id_pemasok']);
 
         $this->load->view('backend/partials/header');
-        $this->load->view('backend/pengelola/detail', $data);
+        $this->load->view('backend/admin/pengelola/detail', $data);
         $this->load->view('backend/partials/footer');
     }
 
