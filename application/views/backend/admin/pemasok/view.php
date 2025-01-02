@@ -3,9 +3,8 @@
         <h1>Pemasok</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="<?= base_url('dashboard'); ?>">Dashboard</a></li>
                 <li class="breadcrumb-item">Pemasok</li>
-                <li class="breadcrumb-item active">Data</li>
             </ol>
         </nav>
     </div>
@@ -20,7 +19,7 @@
                     </div>
                     <div class="card-body">
                         <div class="alert alert-primary">
-                            Silahkan untuk menambahkan dan mengecek stok ban bekas
+                            Berikut adalah daftar pemasok yang terdaftar di sistem.
                         </div>
                         <div class="table-responsive">
                             <table class="table datatable">
@@ -45,27 +44,10 @@
                                                 <td><?= $pemasok->no_hp ?></td>
                                                 <td><?= $pemasok->alamat ?></td>
                                                 <td>
-                                                    <!-- <button class="btn btn-success btn-sm border-0" type="button" style="cursor: pointer;" onclick="window.location.href='edit-link.php';">Edit</button> -->
-                                                    <button class="btn btn-danger btn-sm border-0" data-bs-toggle="modal" data-bs-target="#hapusModal-<?= $pemasok->id ?>" style="cursor: pointer;">Hapus</button>
-
-                                                    <!-- Modal Hapus -->
-                                                    <div class="modal fade" id="hapusModal-<?= $pemasok->id ?>" tabindex="-1" aria-labelledby="hapusModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="hapusModalLabel">Konfirmasi Hapus</h5>
-                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    Apakah Anda yakin ingin menghapus pemasok dari pemasok <strong><?= $pemasok->nama ?></strong>?
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
-                                                                    <a href="<?= base_url('admin/pemasok/delete/' . $pemasok->id) ?>" class="btn btn-danger">Iya, Hapus</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <button class="btn btn-success btn-sm border-0" type="button" style="cursor: pointer;"
+                                                        onclick="window.location.href='<?= base_url('admin/pemasok/riwayat/' . $pemasok->id); ?>';">
+                                                        Lihat Riwayat
+                                                    </button>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

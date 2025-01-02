@@ -137,4 +137,18 @@ class Mod_pemasok extends CI_Model
     {
         return $this->db->delete('status_stok', array('id' => $id));
     }
+
+    public function getPemasokById($id_pemasok)
+    {
+        $this->db->where('id', $id_pemasok);
+        return $this->db->get('pemasok')->row_array();
+    }
+
+    // Mendapatkan riwayat stok berdasarkan ID pemasok
+    public function getRiwayatStok($id_pemasok)
+    {
+        $this->db->where('id_pemasok', $id_pemasok);
+        $this->db->order_by('tanggal', 'DESC'); // Urutkan berdasarkan tanggal terbaru
+        return $this->db->get('status_stok')->result_array();
+    }
 }

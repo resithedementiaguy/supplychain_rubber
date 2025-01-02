@@ -171,7 +171,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php echo ($this->uri->segment(1) == 'pemasok') ? '' : 'collapsed'; ?>" href="<?php echo site_url('admin/pemasok'); ?>">
+                    <a class="nav-link <?php echo ($this->uri->segment(1) == 'admin' && $this->uri->segment(2) == 'pemasok') ? '' : 'collapsed'; ?>" href="<?php echo site_url('admin/pemasok'); ?>">
                         <i class="bi bi-person"></i>
                         <span>Mitra Pemasok</span>
                     </a>

@@ -29,6 +29,25 @@ class Admin extends CI_Controller
         $this->load->view('backend/partials/footer');
     }
 
+    public function riwayat_pemasok($id_pemasok)
+    {
+        // Ambil data pemasok
+        $data['pemasok'] = $this->Mod_pemasok->getPemasokById($id_pemasok);
+
+        // Cek jika pemasok tidak ditemukan
+        if (empty($data['pemasok'])) {
+            show_404(); // Tampilkan halaman 404 jika ID pemasok tidak valid
+        }
+
+        // Ambil riwayat stok
+        $data['riwayat_stok'] = $this->Mod_pemasok->getRiwayatStok($id_pemasok);
+
+        // Load view untuk menampilkan data
+        $this->load->view('backend/partials/header');
+        $this->load->view('backend/admin/pemasok/riwayat', $data);
+        $this->load->view('backend/partials/footer');
+    }
+
     public function delete_stok($id)
     {
         $this->Mod_pemasok->delete_stok($id);
@@ -78,23 +97,6 @@ class Admin extends CI_Controller
         $id_pemasok = $this->input->post('id_pemasok');
         $stok = $this->Mod_pemasok->get_stok_by_id($id_pemasok);
         echo json_encode($stok);
-    }
-
-    public function add()
-    {
-        date_default_timezone_set('Asia/Jakarta');
-        $tgl = date('Y-m-d H:i:s', time());
-
-        $data = array(
-            'id_pengelola' => $this->input->post('id_pengelola'),
-            'id_pemasok' => $this->input->post('id_pemasok'),
-            'tanggal' => $tgl,
-            'jumlah_stok' => $this->input->post('jumlah_stok'),
-            'keterangan' => $this->input->post('keterangan')
-        );
-
-        $this->Mod_pengelola->add_ambil($data);
-        redirect('pengelola/add_view');
     }
 
     public function delete_pengelola($id)

@@ -65,3 +65,4 @@ $route['admin/pengelola/detail/(:num)'] = 'Admin/pengelola_detail/$1';
 
 // Admin routes untuk pemasok
 $route['admin/pemasok'] = 'Admin/pemasok';
+$route['admin/pemasok/riwayat/(:num)'] = 'Admin/riwayat_pemasok/$1'; 
