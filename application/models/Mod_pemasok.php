@@ -95,12 +95,22 @@ class Mod_pemasok extends CI_Model
 
     public function get_all_stok($id_pemasok)
     {
-        $this->db->select('status_stok.jumlah_stok, pemasok.id as id_pemasok, pemasok.nama, pemasok.nama_usaha, pemasok.no_hp, status_stok.jenis, status_stok.harga, status_stok.total_harga, status_stok.status, status_stok.tanggal, status_stok.id');
+        $this->db->select('status_stok.jumlah_stok, pemasok.id as id_pemasok, pemasok.nama, pemasok.nama_usaha, pemasok.no_hp, status_stok.jenis as jenis_kendaraan, status_stok.harga, status_stok.total_harga, status_stok.status, status_stok.tanggal, status_stok.id');
         $this->db->from('status_stok');
         $this->db->join('pemasok', 'status_stok.id_pemasok = pemasok.id', 'left');
         $this->db->where('status_stok.id_pemasok', $id_pemasok);
         $this->db->order_by('status_stok.tanggal', 'DESC');
         return $this->db->get()->result();
+    }
+
+    public function get_harga_ban($jenis_kendaran)
+    {
+        $this->db->select('harga');
+        $this->db->from('harga_ban_bekas');
+        $this->db->where('jenis', $jenis_kendaran);
+        $query = $this->db->get();
+
+        return $query->row();
     }
 
     public function get_pemasok_belum_diambil()

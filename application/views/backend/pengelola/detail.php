@@ -51,7 +51,7 @@
                                 <th>Tanggal Diambil</th>
                                 <th>Jumlah Stok</th>
                                 <th>Tanggal Diolah</th>
-                                <th scope="row">Jumlah Mentah</th>
+                                <th scope="row">Jumlah Crumb Rubber</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -115,9 +115,9 @@
 <div class="modal fade" id="modalDiolah" tabindex="-1" aria-labelledby="modalDiolahLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-success text-white d-flex align-items-center">
                 <h5 class="modal-title" id="modalDiolahLabel">Proses Pengolahan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close text-white bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="formDiolah" method="POST">
@@ -130,15 +130,33 @@
                         <input type="text" class="form-control" id="jumlahStok" name="jumlah_stok" readonly>
                     </div>
                     <div class="mb-3">
-                        <label for="beratMentah" class="form-label">Berat Mentah</label>
+                        <label for="beratMentah" class="form-label">Total Berat Crumb Rubber</label>
                         <input type="hidden" name="id_ambil" id="id_ambil">
-                        <input type="number" class="form-control" name="jumlah_mentah" id="beratMentah" placeholder="Masukkan berat mentah (kg)" required>
+                        <input type="number" class="form-control" name="jumlah_mentah" id="beratMentah" placeholder="Masukkan total berat crumb rubber (kg)" required>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer d-flex justify-content-between">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                <button type="submit" class="btn btn-primary" form="formDiolah">Simpan</button>
+                <button type="submit" class="btn btn-success" form="formDiolah">Simpan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Success -->
+<div class="modal fade" id="modalSuccess" tabindex="-1" aria-labelledby="modalSuccessLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="modalSuccessLabel">Berhasil</h5>
+                <button type="button" class="btn-close text-white bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Data berhasil disimpan!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="location.reload();">Oke</button>
             </div>
         </div>
     </div>
@@ -165,15 +183,13 @@
                 type: 'POST',
                 data: formData,
                 success: function(response) {
-                    console.log(response);
                     try {
                         const jsonResponse = JSON.parse(response);
                         if (jsonResponse.success) {
-                            alert('Data berhasil disimpan!');
-                            $('#modalDiolah').modal('hide');
-                            location.reload(); // Tambahkan ini untuk refresh halaman
+                            $('#modalDiolah').modal('hide'); // Tutup modal sebelumnya
+                            $('#modalSuccess').modal('show'); // Tampilkan modal sukses
                         } else {
-                            alert('Gagal menyimpan data: ' + jsonResponse.message);
+                            alert('Gagal menyimpan data: ' + jsonResponse.message); // Ini opsional
                         }
                     } catch (e) {
                         alert('Gagal memproses respons: ' + e.message);

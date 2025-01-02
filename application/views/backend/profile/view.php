@@ -11,20 +11,6 @@
 
     <section class="section profile">
         <div class="row">
-            <!-- <div class="col-xl-4">
-                <div class="card">
-                    <div
-                        class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                        <img
-                            src="assets/img/profile-img.jpg"
-                            alt="Profile"
-                            class="rounded-circle" />
-                            <h2><?php echo $this->session->userdata('nama'); ?></h2>
-                            <h3><?php echo $this->session->userdata('level_name'); ?></h3>
-                    </div>
-                </div>
-            </div> -->
-
             <div class="col">
                 <div class="card">
                     <div class="card-body pt-3">
@@ -59,81 +45,136 @@
                         </ul>
                         <div class="tab-content pt-2">
                             <div class="tab-pane fade show active profile-overview" id="profile-overview">
-
-                                <!-- Jika data pemasok ada -->
-                                <?php if ($user['pemasok_nama']): ?>
-                                    <h5 class="card-title">Detail Profil Pemasok</h5>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Nama Pemasok</div>
-                                        <div class="col-lg-9 col-md-8"><?php echo $user['pemasok_nama']; ?></div>
+                                <div class="row d-flex align-items-center">
+                                    <div class="col-lg-3 col-md-4">
+                                        <div
+                                            class="profile-card pt-4 d-flex flex-column align-items-center">
+                                            <img
+                                                src="assets/img/profile-img.jpg"
+                                                alt="Profile"
+                                                class="rounded-circle" />
+                                            <h2><?php echo $this->session->userdata('nama'); ?></h2>
+                                            <h3><?php echo $this->session->userdata('level_name'); ?></h3>
+                                            <button class="btn btn-sm btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#editProfileImageModal">
+                                                <i class="bi bi-pencil-square"></i> Edit Gambar
+                                            </button>
+                                        </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Nama Usaha</div>
-                                        <div class="col-lg-9 col-md-8"><?php echo $user['pemasok_usaha']; ?></div>
+                                    <!-- Modal for editing profile image -->
+                                    <div class="modal fade" id="editProfileImageModal" tabindex="-1" aria-labelledby="editProfileImageModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editProfileImageModalLabel">Edit Gambar Profil</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post" action="<?php echo base_url('profile/update_image'); ?>" enctype="multipart/form-data">
+                                                        <div class="mb-3">
+                                                            <label for="profileImage" class="form-label">Pilih Gambar Baru</label>
+                                                            <input class="form-control" type="file" id="profileImage" name="profile_image">
+                                                            <div id="imagePreview" class="mt-3"></div>
+                                                        </div>
+                                                        <div class="text-end">
+                                                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <script>
+                                        document.getElementById('profileImage').onchange = function(evt) {
+                                            const [file] = this.files;
+                                            if (file) {
+                                                const preview = document.createElement('img');
+                                                preview.src = URL.createObjectURL(file);
+                                                preview.classList.add('img-thumbnail', 'mt-3');
+                                                preview.style.maxWidth = '200px';
+                                                const imagePreview = document.getElementById('imagePreview');
+                                                imagePreview.innerHTML = '';
+                                                imagePreview.appendChild(preview);
+                                            }
+                                        };
+                                    </script>
+                                    <div class="col-lg-9 col-md-8">
+                                        <!-- Jika data pemasok ada -->
+                                        <?php if ($user['pemasok_nama']): ?>
+                                            <h5 class="card-title">Detail Profil Pemasok</h5>
 
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Kategori</div>
-                                        <div class="col-lg-9 col-md-8"><?php echo ucfirst($user['level']); ?></div>
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-4 label">Nama Pemasok</div>
+                                                <div class="col-lg-9 col-md-8"><?php echo $user['pemasok_nama']; ?></div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-4 label">Nama Usaha</div>
+                                                <div class="col-lg-9 col-md-8"><?php echo $user['pemasok_usaha']; ?></div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-4 label">Kategori</div>
+                                                <div class="col-lg-9 col-md-8"><?php echo ucfirst($user['level']); ?></div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-4 label">Email</div>
+                                                <div class="col-lg-9 col-md-8"><?php echo $user['email']; ?></div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-4 label">Nomor HP</div>
+                                                <div class="col-lg-9 col-md-8"><?php echo $user['pemasok_no_hp']; ?></div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-4 label">Alamat</div>
+                                                <div class="col-lg-9 col-md-8"><?php echo $user['pemasok_alamat']; ?></div>
+                                            </div>
+                                        <?php endif; ?>
+
+                                        <!-- Jika data mitra pengelola ada -->
+                                        <?php if ($user['mitra_nama']): ?>
+                                            <h5 class="card-title">Detail Profil Mitra Pengelola</h5>
+
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-4 label">Nama Mitra</div>
+                                                <div class="col-lg-9 col-md-8"><?php echo $user['mitra_nama']; ?></div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-4 label">Nama Usaha</div>
+                                                <div class="col-lg-9 col-md-8"><?php echo $user['mitra_usaha']; ?></div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-4 label">Kategori</div>
+                                                <div class="col-lg-9 col-md-8"><?php echo ucfirst($user['level']); ?></div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-4 label">Email</div>
+                                                <div class="col-lg-9 col-md-8"><?php echo $user['email']; ?></div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-4 label">Nomor HP</div>
+                                                <div class="col-lg-9 col-md-8"><?php echo $user['mitra_no_hp']; ?></div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-4 label">Alamat</div>
+                                                <div class="col-lg-9 col-md-8"><?php echo $user['mitra_alamat']; ?></div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-4 label">Deskripsi Usaha</div>
+                                                <div class="col-lg-9 col-md-8"><?php echo $user['mitra_deskripsi']; ?></div>
+                                            </div>
+                                        <?php endif; ?>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Email</div>
-                                        <div class="col-lg-9 col-md-8"><?php echo $user['email']; ?></div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Nomor HP</div>
-                                        <div class="col-lg-9 col-md-8"><?php echo $user['pemasok_no_hp']; ?></div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Alamat</div>
-                                        <div class="col-lg-9 col-md-8"><?php echo $user['pemasok_alamat']; ?></div>
-                                    </div>
-                                <?php endif; ?>
-
-                                <!-- Jika data mitra pengelola ada -->
-                                <?php if ($user['mitra_nama']): ?>
-                                    <h5 class="card-title">Detail Profil Mitra Pengelola</h5>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Nama Mitra</div>
-                                        <div class="col-lg-9 col-md-8"><?php echo $user['mitra_nama']; ?></div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Nama Usaha</div>
-                                        <div class="col-lg-9 col-md-8"><?php echo $user['mitra_usaha']; ?></div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Kategori</div>
-                                        <div class="col-lg-9 col-md-8"><?php echo ucfirst($user['level']); ?></div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Email</div>
-                                        <div class="col-lg-9 col-md-8"><?php echo $user['email']; ?></div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Nomor HP</div>
-                                        <div class="col-lg-9 col-md-8"><?php echo $user['mitra_no_hp']; ?></div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Alamat</div>
-                                        <div class="col-lg-9 col-md-8"><?php echo $user['mitra_alamat']; ?></div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Deskripsi Usaha</div>
-                                        <div class="col-lg-9 col-md-8"><?php echo $user['mitra_deskripsi']; ?></div>
-                                    </div>
-                                <?php endif; ?>
+                                </div>
                             </div>
 
                             <div

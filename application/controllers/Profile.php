@@ -22,20 +22,38 @@ class Profile extends CI_Controller
     public function update_pemasok()
     {
         $data = array(
-            'pemasok_nama' => $this->input->post('pemasok_nama'),
-            'pemasok_usaha' => $this->input->post('pemasok_usaha'),
-            'pemasok_alamat' => $this->input->post('pemasok_alamat'),
-            'pemasok_no_hp' => $this->input->post('pemasok_no_hp'),
+            'nama' => $this->input->post('pemasok_nama'),
+            'nama_usaha' => $this->input->post('pemasok_usaha'),
+            'alamat' => $this->input->post('pemasok_alamat'),
+            'no_hp' => $this->input->post('pemasok_no_hp'),
+        );
+
+        // Get the user_id from session
+        $user_id = $this->session->userdata('user_id');
+
+        // Update pemasok data if user has a corresponding pemasok record
+        $this->Mod_profile->update_pemasok($user_id, $data);
+
+        // Redirect to profile after update
+        redirect('profile');
+    }
+
+    public function update_user_email()
+    {
+        $data = array(
             'email' => $this->input->post('email'),
         );
 
-        // Update data pemasok berdasarkan user_id
+        // Get the user_id from session
         $user_id = $this->session->userdata('user_id');
-        $this->Mod_profile->update_pemasok($user_id, $data);
 
-        // Redirect setelah update
+        // Update user email
+        $this->Mod_profile->update_user_email($user_id, $data);
+
+        // Redirect to profile after update
         redirect('profile');
     }
+
 
     public function update_mitra_pengelola()
     {
@@ -47,11 +65,13 @@ class Profile extends CI_Controller
             'deskripsi_usaha' => $this->input->post('mitra_deskripsi')
         );
 
-        // Update data mitra pengelola berdasarkan user_id
+        // Get the user_id from session
         $user_id = $this->session->userdata('user_id');
+
+        // Update mitra pengelola data if user has a corresponding mitra_pengelola record
         $this->Mod_profile->update_mitra_pengelola($user_id, $data);
 
-        // Redirect setelah update
+        // Redirect to profile after update
         redirect('profile');
     }
 }

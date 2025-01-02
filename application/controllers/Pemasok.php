@@ -26,6 +26,12 @@ class Pemasok extends CI_Controller
 
         $data['daftar_stok'] = $this->Mod_pemasok->get_all_stok($id_pemasok);
 
+        // Ambil harga untuk setiap jenis kendaraan
+        $data['harga_ban'] = [
+            'Mobil' => $this->Mod_pemasok->get_harga_ban('Mobil')->harga ?? 0,
+            'Motor' => $this->Mod_pemasok->get_harga_ban('Motor')->harga ?? 0,
+        ];
+
         $data['pemasok_baru'] = empty($data['daftar_stok']);
 
         $this->load->view('backend/partials/header');
@@ -115,12 +121,16 @@ class Pemasok extends CI_Controller
         }
     }
 
-    public function get_harga($jenis)
+    public function get_harga($jenis_kendaraan)
     {
-        // Ambil harga dari model
-        $harga = $this->Mod_pemasok->get_harga_by_jenis($jenis);
+        $this->load->model('Mod_pemasok');
+        $harga = $this->Mod_pemasok->get_harga_ban($jenis_kendaraan);
 
-        echo json_encode(['harga' => $harga ? $harga : 0]);
+        if ($harga) {
+            echo json_encode(['harga' => $harga->harga]);
+        } else {
+            echo json_encode(['harga' => null]);
+        }
     }
 
     public function delete_stok($id)

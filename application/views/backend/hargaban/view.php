@@ -160,7 +160,7 @@
                                 required>
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer d-flex justify-content-between">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                         <button type="submit" class="btn btn-info">Simpan</button>
                     </div>
@@ -168,8 +168,6 @@
             </div>
         </div>
     </div>
-
-
 </main>
 
 <?php
