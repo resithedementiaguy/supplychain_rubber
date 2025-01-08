@@ -307,12 +307,13 @@ class Pengelola extends CI_Controller
         date_default_timezone_set('Asia/Jakarta');
         $tgl = date('Y-m-d H:i:s', time());
 
-        // Mengambil data yang dikirim
         $id_pemasok = $this->input->post('id_pemasok');
         $jumlah_stok = $this->input->post('jumlah_stok');
         $keterangan = $this->input->post('keterangan');
 
-        // Loop untuk memproses setiap pemasok
+        // Logging input data
+        log_message('debug', 'Input Data: ' . json_encode($_POST));
+
         foreach ($id_pemasok as $index => $id) {
             $data = array(
                 'id_pengelola' => $id_pengelola,
@@ -322,11 +323,20 @@ class Pengelola extends CI_Controller
                 'keterangan' => isset($keterangan[$id]) ? $keterangan[$id] : ''
             );
 
-            // Simpan data ke database
+            // Logging each insert
+            log_message('debug', 'Insert Data: ' . json_encode($data));
+
             $this->Mod_pengelola->add_ambil($data);
         }
 
-        // Redirect setelah berhasil
-        redirect('pengelola/add_view');
+        // Logging success response
+        log_message('debug', 'Response: Stok berhasil diambil.');
+
+        $response = [
+            'status' => 'success',
+            'message' => 'Stok berhasil diambil.'
+        ];
+
+        echo json_encode($response);
     }
 }

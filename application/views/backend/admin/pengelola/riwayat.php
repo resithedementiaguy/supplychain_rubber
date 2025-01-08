@@ -1,10 +1,11 @@
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1 class="pb-2">Mitra Pengelola</h1>
+        <h1 class="pb-2">Riwayat Mitra Pengelola</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?= base_url('dashboard'); ?>">Dashboard</a></li>
-                <li class="breadcrumb-item active">Mitra Pengelola</li>
+                <li class="breadcrumb-item"><a href="<?= base_url('admin/pengelola/riwayat'); ?>">Mitra Pengelola</a></li>
+                <li class="breadcrumb-item active">Riwayat</li>
             </ol>
         </nav>
     </div>
@@ -14,11 +15,11 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header text-white bg-primary">
-                        <p class="h5 pt-1">Daftar History Pengelola</p>
+                        <p class="h5 pt-1">Daftar Riwayat Pengelola</p>
                     </div>
                     <div class="card-body">
                         <div class="alert alert-primary">
-                            Berikut adalah daftar pengelola yang terdaftar di sistem.
+                            Berikut adalah daftar riwayat pengelola yang terdaftar di sistem.
                         </div>
                         <form action="<?= base_url('pengelola') ?>" method="POST">
                             <input type="hidden" value="<?php echo $this->session->userdata('mitra_id'); ?>" name="session_mitra_id" id="session_mitra_id">

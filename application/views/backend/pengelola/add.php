@@ -52,7 +52,7 @@
                                     <td>
                                         <textarea class="form-control keterangan" name="keterangan[<?= $pemasok->id; ?>]" placeholder="Masukkan keterangan"></textarea>
                                     </td>
-                                    <td>
+                                    <td style="white-space: nowrap;">
                                         <button type="button" class="btn btn-primary openMapBtn"
                                             data-koordinat="<?= $pemasok->lokasi ?>">
                                             <i class="bi bi-map"></i> Buka Maps
@@ -201,23 +201,27 @@
                 value: keterangan
             }).appendTo('#ambilStokForm');
 
-            // Kirim data menggunakan AJAX
             $.ajax({
                 url: $('#ambilStokForm').attr('action'),
                 type: 'POST',
                 data: $('#ambilStokForm').serialize(),
                 dataType: 'json',
                 success: function(response) {
-                    console.log('Response:', response);
-                    $('#ambilStokModal').modal('hide');
+                    if (response.status === 'success') {
+                        console.log('Response:', response);
+                        $('#ambilStokModal').modal('hide');
 
-                    // Tunggu modal pertama selesai hidden baru tampilkan modal berhasil
-                    $('#ambilStokModal').on('hidden.bs.modal', function() {
-                        $('#berhasilAmbilStokModal').modal('show');
-                    });
+                        // Tunggu modal pertama selesai hidden baru tampilkan modal berhasil
+                        $('#ambilStokModal').on('hidden.bs.modal', function() {
+                            $('#berhasilAmbilStokModal').modal('show');
+                        });
+                    } else {
+                        console.error('Error Response:', response);
+                        alert('Gagal mengambil stok. Pesan: ' + response.message);
+                    }
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error:', error);
+                    console.error('Error:', xhr.responseText);
                     alert('Gagal mengambil stok. Silakan coba lagi.');
                 }
             });

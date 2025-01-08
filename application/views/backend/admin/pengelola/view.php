@@ -4,7 +4,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?= base_url('dashboard'); ?>">Dashboard</a></li>
-                <li class="breadcrumb-item">Mitra Pengelola</li>
+                <li class="breadcrumb-item active">Mitra Pengelola</li>
             </ol>
         </nav>
     </div>
@@ -14,7 +14,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header text-white bg-primary">
-                        <p class="h5 pt-1">Daftar History Pengelola</p>
+                        <p class="h5 pt-1">Daftar Mitra Pengelola</p>
                     </div>
                     <div class="card-body">
                         <div class="alert alert-primary">

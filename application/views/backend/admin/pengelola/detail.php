@@ -4,8 +4,8 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?= base_url('dashboard'); ?>">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="<?= base_url('pengelola'); ?>">Mitra Pengelola</a></li>
-                <li class="breadcrumb-item">Detail</li>
+                <li class="breadcrumb-item"><a href="<?= base_url('admin/pengelola/riwayat'); ?>">Mitra Pengelola</a></li>
+                <li class="breadcrumb-item"><a href="<?= base_url('admin/pengelola/riwayat/1'); ?>">Riwayat</a></li>
                 <li class="breadcrumb-item active"><?php echo $detail_produk['nama_usaha_pemasok']; ?></li>
             </ol>
         </nav>
@@ -52,7 +52,6 @@
                                 <th>Jumlah Stok</th>
                                 <th>Tanggal Diolah</th>
                                 <th scope="row">Jumlah Crumb Rubber</th>
-                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,20 +77,6 @@
                                                 -
                                             <?php endif; ?>
                                         </td>
-                                        <td>
-                                            <?php if (empty($riwayat->tanggal_diolah)) : // Cek jika tanggal diolah kosong 
-                                            ?>
-                                                <button class="btn btn-success btn-sm border-0 olahButton"
-                                                    data-id_ambil="<?= $riwayat->id_ambil ?>"
-                                                    data-jumlah_stok="<?= $riwayat->jumlah_stok ?>"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#modalDiolah">
-                                                    Olah
-                                                </button>
-                                            <?php else : ?>
-                                                -
-                                            <?php endif; ?>
-                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else : ?>
@@ -103,10 +88,6 @@
                     </table>
                 </div>
             </div>
-        </div>
-
-        <div class="d-flex justify-content-between align-items-center">
-            <a class="btn btn-secondary" href="<?= base_url('pengelola'); ?>">Kembali</a>
         </div>
     </section>
 </main>

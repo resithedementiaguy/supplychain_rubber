@@ -159,13 +159,14 @@
                                             ($this->uri->segment(1) == 'admin' && $this->uri->segment(2) == 'user' &&
                                                 ($this->uri->segment(3) == '' || $this->uri->segment(3) == 'add' || $this->uri->segment(3) == 'add_user'))
                                         ) ? 'active' : 'collapsed'; ?>" href="<?php echo site_url('admin/user'); ?>">
-                        <i class="bi bi-person"></i>
+                        <i class="bi bi-people"></i>
                         <span>User</span>
                     </a>
                 </li>
                 <li class="nav-heading">Kelola Data</li>
                 <li class="nav-item">
-                    <a class="nav-link <?php echo ($this->uri->segment(1) == 'pengelola') ? '' : 'collapsed'; ?>" href="<?php echo site_url('admin/pengelola'); ?>">
+                    <a class="nav-link <?php echo ($this->uri->segment(1) == 'admin' && $this->uri->segment(2) == 'pengelola') ? '' : 'collapsed'; ?>"
+                        href="<?php echo site_url('admin/pengelola'); ?>">
                         <i class="bi bi-person"></i>
                         <span>Mitra Pengelola</span>
                     </a>
