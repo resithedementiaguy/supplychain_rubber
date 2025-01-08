@@ -79,6 +79,9 @@
                                                         <i class="bi bi-eye"></i> Detail
                                                     </button>
 
+                                                    <button class="btn btn-warning border-0" onclick="window.location.href='<?= base_url('lokasi/edit/' . $stok->id) ?>'" style="cursor: pointer;">
+                                                        <i class="bi bi-eye"></i> Edit
+                                                    </button>
 
                                                     <?php if ($stok->status != 'Sudah diambil'): ?>
                                                         <button class="btn btn-danger border-0" data-bs-toggle="modal" data-bs-target="#hapusModal-<?= $stok->id ?>" style="cursor: pointer;">
