@@ -36,14 +36,42 @@
                             <label for="longitude">Longitude:</label>
                             <input type="text" id="longitude" name="longitude" class="form-control" value="<?= $lokasi['longitude'] ?>" readonly>
                         </div>
-
-                        <button type="submit" class="btn btn-primary mt-3">Simpan</button>
+                        <div class="pt-3">
+                            <a class="btn btn-secondary" href="<?= base_url('pemasok'); ?>">Kembali</a>
+                            <button type="submit" class="btn btn-info">Simpan Lokasi</button>
+                        </div>
                     </form>
                 </body>
             </div>
         </div>
     </section>
 </main>
+
+<div class="modal fade" id="successModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Sukses</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Lokasi berhasil diperbarui!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <a href="<?= base_url('pemasok'); ?>" class="btn btn-primary">Kembali ke Pemasok</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    <?php if ($this->session->flashdata('success')): ?>
+        $(document).ready(function() {
+            $('#successModal').modal('show');
+        });
+    <?php endif; ?>
+</script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB55Np3_WsZwUQ9NS7DP-HnneleZLYZDNw"></script>
 <script>

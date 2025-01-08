@@ -76,16 +76,15 @@
                                                 </td>
                                                 <td>
                                                     <button class="btn btn-success border-0" onclick="window.location.href='<?= base_url('pemasok/detail/' . $stok->id) ?>'" style="cursor: pointer;">
-                                                        <i class="bi bi-eye"></i> Detail
-                                                    </button>
-
-                                                    <button class="btn btn-warning border-0" onclick="window.location.href='<?= base_url('lokasi/edit/' . $stok->id) ?>'" style="cursor: pointer;">
-                                                        <i class="bi bi-eye"></i> Edit
+                                                        <i class="bi bi-eye"></i>
                                                     </button>
 
                                                     <?php if ($stok->status != 'Sudah diambil'): ?>
+                                                        <button class="btn btn-warning border-0" onclick="window.location.href='<?= base_url('lokasi/edit/' . $stok->id) ?>'" style="cursor: pointer;">
+                                                            <i class="bi bi-pencil"></i>
+                                                        </button>
                                                         <button class="btn btn-danger border-0" data-bs-toggle="modal" data-bs-target="#hapusModal-<?= $stok->id ?>" style="cursor: pointer;">
-                                                            <i class="bi bi-trash"></i> Hapus
+                                                            <i class="bi bi-trash"></i>
                                                         </button>
                                                         <!-- Modal Hapus -->
                                                         <div class="modal fade" id="hapusModal-<?= $stok->id ?>" tabindex="-1" aria-labelledby="hapusModalLabel" aria-hidden="true">
