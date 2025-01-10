@@ -307,25 +307,46 @@ class Pengelola extends CI_Controller
         date_default_timezone_set('Asia/Jakarta');
         $tgl = date('Y-m-d H:i:s', time());
 
-        $id_pemasok = $this->input->post('id_pemasok');
-        $jumlah_stok = $this->input->post('jumlah_stok');
-        $keterangan = $this->input->post('keterangan');
+        $id_pemasok = $this->input->post('id_pemasok'); // Array numerik
+        $id_stok = $this->input->post('id_stok'); // Array asosiatif
+        $jumlah_stok = $this->input->post('jumlah_stok'); // Array asosiatif
+        $keterangan = $this->input->post('keterangan'); // Array asosiatif
 
         // Logging input data
         log_message('debug', 'Input Data: ' . json_encode($_POST));
 
-        foreach ($id_pemasok as $index => $id) {
-            $data = array(
+        // Validasi input data
+        if (empty($id_pemasok) || empty($id_stok) || empty($jumlah_stok)) {
+            log_message('error', 'Data tidak lengkap.');
+            $response = [
+                'status' => 'error',
+                'message' => 'Data tidak lengkap. Pastikan semua input tersedia.'
+            ];
+            echo json_encode($response);
+            return;
+        }
+
+        // Iterasi setiap pemasok
+        foreach ($id_pemasok as $id) {
+            // Validasi per pemasok menggunakan kunci $id
+            if (!isset($id_stok[$id], $jumlah_stok[$id], $keterangan[$id])) {
+                log_message('error', 'Data untuk pemasok ID ' . $id . ' tidak lengkap.');
+                continue;
+            }
+
+            $data = [
                 'id_pengelola' => $id_pengelola,
                 'id_pemasok' => $id,
+                'id_stok' => $id_stok[$id],
                 'tanggal' => $tgl,
-                'jumlah_stok' => isset($jumlah_stok[$id]) ? $jumlah_stok[$id] : 0,
-                'keterangan' => isset($keterangan[$id]) ? $keterangan[$id] : ''
-            );
+                'jumlah_stok' => $jumlah_stok[$id],
+                'keterangan' => $keterangan[$id]
+            ];
 
             // Logging each insert
             log_message('debug', 'Insert Data: ' . json_encode($data));
 
+            // Insert ke database
             $this->Mod_pengelola->add_ambil($data);
         }
 

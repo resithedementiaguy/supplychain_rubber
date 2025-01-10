@@ -120,7 +120,8 @@ class Mod_pemasok extends CI_Model
         pemasok.nama_usaha, 
         MAX(status_stok.jenis) AS jenis, 
         SUM(status_stok.total_harga) AS total_harga, 
-        pemasok.no_hp, 
+        pemasok.no_hp,
+        MAX(status_stok.id) AS id_stok, 
         SUM(status_stok.jumlah_stok) AS jumlah_stok, 
         MAX(status_stok.lokasi) AS lokasi
     ');

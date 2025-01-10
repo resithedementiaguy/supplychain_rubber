@@ -60,6 +60,7 @@
 
                                         <button type="button" class="btn btn-success ambilStokBtn"
                                             data-id="<?= $pemasok->id; ?>"
+                                            data-id_stok="<?= $pemasok->id_stok; ?>"
                                             data-jumlah_stok="<?= $pemasok->jumlah_stok; ?>">
                                             <i class="bi bi-check-square"></i> Ambil Stok
                                         </button>
@@ -153,6 +154,7 @@
         // Ketika tombol "Ambil Stok" ditekan
         $('.ambilStokBtn').click(function() {
             var idPemasok = $(this).data('id');
+            var idStok = $(this).data('id_stok');
             var jumlahStok = $(this).data('jumlah_stok');
             var keterangan = $(this).closest('tr').find('textarea.keterangan').val();
 
@@ -162,6 +164,7 @@
             }
 
             $('#confirmAmbilStokBtn').data('id', idPemasok);
+            $('#confirmAmbilStokBtn').data('id_stok', idStok);
             $('#confirmAmbilStokBtn').data('jumlah_stok', jumlahStok);
             $('#confirmAmbilStokBtn').data('keterangan', keterangan);
 
@@ -171,10 +174,17 @@
         // Ketika tombol konfirmasi ditekan
         $('#confirmAmbilStokBtn').click(function() {
             var idPemasok = $(this).data('id');
+            var idStok = $(this).data('id_stok');
             var jumlahStok = $(this).data('jumlah_stok');
             var keterangan = $(this).data('keterangan');
 
-            if (!idPemasok || !jumlahStok || !keterangan) {
+            // Tambahkan log untuk memeriksa nilai variabel
+            console.log('idPemasok:', idPemasok);
+            console.log('idStok:', idStok);
+            console.log('jumlahStok:', jumlahStok);
+            console.log('keterangan:', keterangan);
+
+            if (!idPemasok || !idStok || !jumlahStok || !keterangan) {
                 alert('Data tidak lengkap. Pastikan semua informasi tersedia.');
                 return;
             }
@@ -187,6 +197,12 @@
                 type: 'hidden',
                 name: 'id_pemasok[]',
                 value: idPemasok
+            }).appendTo('#ambilStokForm');
+
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'id_stok[' + idPemasok + ']',
+                value: idStok
             }).appendTo('#ambilStokForm');
 
             $('<input>').attr({
