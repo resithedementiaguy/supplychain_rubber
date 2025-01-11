@@ -81,7 +81,7 @@
                                         <td>
                                             <?php if (empty($riwayat->tanggal_diolah)) : // Cek jika tanggal diolah kosong 
                                             ?>
-                                                <button class="btn btn-success btn-sm border-0 olahButton"
+                                                <button class="btn btn-warning btn-sm border-0 olahButton"
                                                     data-id_ambil="<?= $riwayat->id_ambil ?>"
                                                     data-jumlah_stok="<?= $riwayat->jumlah_stok ?>"
                                                     data-bs-toggle="modal"
@@ -89,7 +89,7 @@
                                                     Olah
                                                 </button>
                                             <?php else : ?>
-                                                -
+                                                <span class="badge rounded-pill bg-success p-1 px-2">Selesai</span>
                                             <?php endif; ?>
                                         </td>
                                     </tr>

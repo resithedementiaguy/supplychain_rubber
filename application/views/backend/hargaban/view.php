@@ -47,7 +47,7 @@
                                         <td><?= formatTanggal($item->ins_time); ?></td>
                                         <td>
                                             <button
-                                                class="btn btn-success border-0"
+                                                class="btn btn-sm btn-success border-0"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#editModal-<?= $item->id ?>"
                                                 style="cursor: pointer;">
@@ -55,7 +55,7 @@
                                             </button>
 
                                             <button
-                                                class="btn btn-danger border-0"
+                                                class="btn btn-sm btn-danger border-0"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#hapusModal-<?= $item->id ?>"
                                                 style="cursor: pointer;">
