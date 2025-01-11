@@ -167,11 +167,6 @@
                                                 <div class="col-lg-3 col-md-4 label">Alamat</div>
                                                 <div class="col-lg-9 col-md-8"><?php echo $user['mitra_alamat']; ?></div>
                                             </div>
-
-                                            <div class="row">
-                                                <div class="col-lg-3 col-md-4 label">Deskripsi Usaha</div>
-                                                <div class="col-lg-9 col-md-8"><?php echo $user['mitra_deskripsi']; ?></div>
-                                            </div>
                                         <?php endif; ?>
                                     </div>
                                 </div>
@@ -258,13 +253,6 @@
                                             <label for="mitra_no_hp" class="col-md-4 col-lg-3 col-form-label">Nomor HP</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="mitra_no_hp" type="text" class="form-control" id="mitra_no_hp" value="<?php echo $user['mitra_no_hp']; ?>" />
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <label for="mitra_deskripsi" class="col-md-4 col-lg-3 col-form-label">Deskripsi Usaha</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <textarea name="mitra_deskripsi" class="form-control" id="mitra_deskripsi"><?php echo $user['mitra_deskripsi']; ?></textarea>
                                             </div>
                                         </div>
 
